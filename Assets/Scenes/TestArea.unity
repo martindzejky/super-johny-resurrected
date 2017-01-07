@@ -149,11 +149,10 @@ MonoBehaviour:
   levelName: TestArea
   container: {fileID: 594757614}
   prefabs:
+  - {fileID: 1541733499531832, guid: 1c6d71da0c8a645649a753fedc6b5cbe, type: 2}
   - {fileID: 1627867985233938, guid: aaadb22db40d04f42a181b7c1a4e13d3, type: 2}
-  - {fileID: 1447095659270800, guid: 5950f6ba5d5d74e05b2ee1a09c9d613d, type: 2}
   - {fileID: 1032169637787598, guid: cf59eaad2b0044b18b2512cafa2318b1, type: 2}
   - {fileID: 1838411016884770, guid: 15287243a4b1047008cd1764fbbdd55c, type: 2}
-  - {fileID: 1541733499531832, guid: 1c6d71da0c8a645649a753fedc6b5cbe, type: 2}
 --- !u!4 &1146462725
 Transform:
   m_ObjectHideFlags: 0
