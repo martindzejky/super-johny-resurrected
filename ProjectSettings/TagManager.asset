@@ -38,6 +38,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Solid
+    uniqueID: 4265879689
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 2290311839
+    locked: 0
+  - name: UI
+    uniqueID: 2328520221
     locked: 0
