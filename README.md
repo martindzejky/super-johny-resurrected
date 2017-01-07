@@ -1,2 +1,3 @@
-# super-johny-resurrected
+# Super Johny Resurrected
+
 Super Mario styled platformer.
