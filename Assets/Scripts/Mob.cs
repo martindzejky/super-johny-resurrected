@@ -1,21 +1,26 @@
 ﻿using UnityEngine;
 
 
-/**
- * Defines the behaviour of a mob, its movement and controls.
- */
+/// <summary>
+/// Defines mob behaviour, physics, and stats. Uses the physics
+/// object and enables other components to control the mob.
+/// </summary>
 public class Mob : MonoBehaviour {
 
     private PhysicsObject physicsObject;
     private float horizontalInput = 0f;
-    private bool jump = false;
+    private bool jumpInput = false;
 
-    public void SetHorizontalInput(float input) {
-        horizontalInput = input;
+    public void Move(float direction) {
+        horizontalInput = direction;
+    }
+
+    public void Stop() {
+        horizontalInput = 0f;
     }
 
     public void Jump() {
-        jump = true;
+        jumpInput = true;
     }
 
     public void Awake() {
@@ -23,14 +28,17 @@ public class Mob : MonoBehaviour {
     }
 
     public void Update() {
+        // adjust the mob's velocity according to the input
         physicsObject.velocity.x = horizontalInput * Globals.mobMoveSpeed;
 
-        if (jump) {
-            physicsObject.velocity.y = Globals.mobJumpStrength;
+        if (jumpInput) {
+            jumpInput = false;
+            physicsObject.velocity.y = CalculateVelocityForJumpHeight(Globals.mobJumpHeight);
         }
+    }
 
-        horizontalInput = 0;
-        jump = false;
+    private float CalculateVelocityForJumpHeight(float height) {
+        return Mathf.Sqrt(2f * height * Globals.gravity);
     }
 
 }

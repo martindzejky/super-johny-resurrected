@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
 
-/**
- * Reads the input and controls a mob.
- */
+/// <summary>
+/// Reads the input from the player and controls a mob.
+/// </summary>
 public class PlayerController : MonoBehaviour {
 
     private Mob mob;
@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void Update() {
-        mob.SetHorizontalInput(Input.GetAxisRaw("Horizontal"));
+        mob.Move(Input.GetAxisRaw("Horizontal"));
 
         if (Input.GetButtonDown("Jump")) {
             mob.Jump();
