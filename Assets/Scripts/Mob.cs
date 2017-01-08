@@ -48,7 +48,7 @@ public class Mob : MonoBehaviour {
             physicsObject.applyAirFriction = true;
         }
 
-        if (jumpInput && physicsObject.isGrounded) {
+        if (jumpInput && (physicsObject.isGrounded || physicsObject.timeInAir < .2f)) {
             physicsObject.velocity.y = CalculateVelocityForJumpHeight(Globals.mobJumpHeight);
         }
         jumpInput = false;

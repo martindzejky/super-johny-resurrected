@@ -13,15 +13,22 @@ public class PhysicsObject : MonoBehaviour {
     public Vector2 size = new Vector2(1f, 1f);
     public Vector2 velocity = new Vector2();
 
+    public float timeInAir { get; private set; }
+
     public bool isGrounded {
         get { return collisions.bottom; }
     }
 
     private CollisionInfo collisions = new CollisionInfo();
 
+    public void Awake() {
+        timeInAir = 0f;
+    }
+
     public void Update() {
         if (isDynamic) {
             velocity.y -= Globals.gravity * Time.deltaTime;
+            timeInAir += Time.deltaTime;
         }
 
         Move();
@@ -63,7 +70,7 @@ public class PhysicsObject : MonoBehaviour {
 
         // cast a box to see if there are any collisions
         var collision = Physics2D.BoxCast(transform.position, GetBoxcastSize(), 0, movingRight ? Vector2.right : Vector2.left,
-            Mathf.Abs(motion) + Globals.skinThickness, 1 << LayerMask.NameToLayer(Globals.solidLayerName));
+            Mathf.Abs(motion) + Globals.skinThickness, LayerMask.GetMask(Globals.solidLayerName));
 
         if (collision) {
             // restrict movement and move to contact with the collider
@@ -87,7 +94,7 @@ public class PhysicsObject : MonoBehaviour {
 
         // cast a box to see if there are any collisions
         var collision = Physics2D.BoxCast(transform.position, GetBoxcastSize(), 0, movingUp ? Vector2.up : Vector2.down,
-            Mathf.Abs(motion) + Globals.skinThickness, 1 << LayerMask.NameToLayer(Globals.solidLayerName));
+            Mathf.Abs(motion) + Globals.skinThickness, LayerMask.GetMask(Globals.solidLayerName));
 
         if (collision) {
             // restrict movement and move to contact with the collider
@@ -99,6 +106,7 @@ public class PhysicsObject : MonoBehaviour {
             }
             else {
                 collisions.bottom = true;
+                timeInAir = 0f;
             }
         }
 
