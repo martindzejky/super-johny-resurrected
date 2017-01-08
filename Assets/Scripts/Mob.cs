@@ -11,6 +11,7 @@ public class Mob : MonoBehaviour {
     public uint lives = 1;
     public GameObject deadBodyPrefab;
     public GameObject lostHeartPrefab;
+    public GameObject starPrefab;
     public Sprite normalSprite;
     public Sprite stunnedSprite;
 
@@ -157,6 +158,11 @@ public class Mob : MonoBehaviour {
                     stunned = true;
                     spriteRenderer.sprite = stunnedSprite;
                     Instantiate(lostHeartPrefab, new Vector3(transform.position.x, transform.position.y + myCollider.bounds.extents.y,
+                        transform.position.z), transform.rotation);
+                }
+
+                for (var i = 0; i < 6; i++) {
+                    Instantiate(starPrefab, new Vector3(transform.position.x, transform.position.y + myCollider.bounds.extents.y,
                         transform.position.z), transform.rotation);
                 }
             }

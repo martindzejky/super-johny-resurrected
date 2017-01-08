@@ -75,6 +75,7 @@ MonoBehaviour:
     type: 2}
   lostHeartPrefab: {fileID: 1707128229553598, guid: cc30821980a844dc7b80579c44c0a4ea,
     type: 2}
+  starPrefab: {fileID: 1742279159565778, guid: 1bd19ff532bea4c4dbb6b167263bf4e7, type: 2}
   normalSprite: {fileID: 21300000, guid: 1bc6fece7907c4f16bce0244ffff96b3, type: 3}
   stunnedSprite: {fileID: 21300000, guid: 3470d891f165d46cda7480bf191c5766, type: 3}
 --- !u!114 &114263888365873220
