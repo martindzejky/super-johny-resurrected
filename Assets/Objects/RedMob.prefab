@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 114299885264702126}
   - component: {fileID: 114035552181954872}
   - component: {fileID: 61603087346565204}
-  m_Layer: 0
-  m_Name: Enemy
+  m_Layer: 9
+  m_Name: RedMob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,6 +69,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 2
+  deadBodyPrefab: {fileID: 1662960779257996, guid: c6d20424323714328b2a07459373d697,
+    type: 2}
 --- !u!114 &114299885264702126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -116,7 +118,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6d85bacd91d97467a8016e1852749519, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 1bc6fece7907c4f16bce0244ffff96b3, type: 3}
+  m_Color: {r: 0.86274517, g: 0.22352943, b: 0.18039216, a: 1}
   m_FlipX: 0
   m_FlipY: 0

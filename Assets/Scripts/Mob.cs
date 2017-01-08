@@ -8,6 +8,7 @@
 public class Mob : MonoBehaviour {
 
     public uint team = 0;
+    public GameObject deadBodyPrefab;
 
     private PhysicsObject physicsObject;
     private Collider2D myCollider;
@@ -54,6 +55,10 @@ public class Mob : MonoBehaviour {
             physicsObject.velocity.x = Mathf.Clamp(physicsObject.velocity.x, -Globals.mobMaxMoveSpeed, Globals.mobMaxMoveSpeed);
             physicsObject.applyGroundFriction = false;
             physicsObject.applyAirFriction = false;
+
+            var newScale = transform.localScale;
+            newScale.x = horizontalInput;
+            transform.localScale = newScale;
         }
         else {
             physicsObject.applyGroundFriction = true;
@@ -98,6 +103,9 @@ public class Mob : MonoBehaviour {
                 // new Y velocity = maximum(standard jump velocity / 2, mob's current positive velocity * .7 + my velocity * .4)
                 otherPhysicsObject.velocity.y = Mathf.Max(CalculateVelocityForJumpHeight(Globals.mobJumpHeight / 2f),
                     -otherPhysicsObject.velocity.y * .7f + physicsObject.velocity.y * .4f);
+
+                var body = Instantiate(deadBodyPrefab, transform.position, transform.rotation);
+                body.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
                 Destroy(gameObject);
             }
         }

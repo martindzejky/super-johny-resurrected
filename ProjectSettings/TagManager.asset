@@ -14,7 +14,7 @@ TagManager:
   - 
   - 
   - Solid
-  - 
+  - Mob
   - 
   - 
   - 
@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Leftovers
+    uniqueID: 473718453
+    locked: 0
   - name: Solid
     uniqueID: 4265879689
     locked: 0
