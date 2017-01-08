@@ -2,31 +2,40 @@
 
 
 /// <summary>
-/// Handles the logic of dead bodies. Waits a little and then desaturates and burries the body.
-/// </summary>
-public class DeadBody : MonoBehaviour {
+/// Handles the logic of a leftover. This can be for example a dead body or a lost heart.
+/// Waits a little and then desaturates and burries the leftover. Or just destroys it on contact.
+/// /// </summary>
+public class Leftover : MonoBehaviour {
 
     public enum State {
-        Waiting,
+        Falling,
         Burrying,
         Burried
     }
 
+    public bool initVelocity = true;
+    public bool rotate = true;
+    public bool bury = false;
+
     private float rotation;
-    private State state = State.Waiting;
+    private State state = State.Falling;
     private PhysicsObject physicsObject;
     private SpriteRenderer sprite;
 
     public void Awake() {
         physicsObject = GetComponent<PhysicsObject>();
         sprite = GetComponent<SpriteRenderer>();
-        rotation = Random.Range(2f, 10f) * (Random.value < .5f ? 1 : -1);
+
+        rotation = rotate ? Random.Range(2f, 10f) * (Random.value < .5f ? 1 : -1) : 0f;
+        if (initVelocity) {
+            physicsObject.velocity = new Vector2(Random.Range(-6f, 6f), Random.Range(10f, 18f));
+        }
     }
 
     public void Update() {
         switch (state) {
-            case State.Waiting:
-                UpdateCounter();
+            case State.Falling:
+                RotateAndDetectCollision();
                 break;
 
             case State.Burrying:
@@ -38,11 +47,16 @@ public class DeadBody : MonoBehaviour {
         }
     }
 
-    private void UpdateCounter() {
+    private void RotateAndDetectCollision() {
         if (physicsObject && physicsObject.isGrounded) {
-            state = State.Burrying;
-            Destroy(physicsObject);
-            physicsObject = null;
+            if (bury) {
+                state = State.Burrying;
+                Destroy(physicsObject);
+                physicsObject = null;
+            }
+            else {
+                Destroy(gameObject);
+            }
         }
         else {
             transform.Rotate(Vector3.forward, rotation);

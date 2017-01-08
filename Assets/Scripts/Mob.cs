@@ -8,12 +8,19 @@
 public class Mob : MonoBehaviour {
 
     public uint team = 0;
+    public uint lives = 1;
     public GameObject deadBodyPrefab;
+    public GameObject lostHeartPrefab;
+    public Sprite normalSprite;
+    public Sprite stunnedSprite;
 
     private PhysicsObject physicsObject;
     private Collider2D myCollider;
+    private SpriteRenderer spriteRenderer;
     private float horizontalInput = 0f;
     private bool jumpInput = false;
+    private bool stunned = false;
+    private float stunTimer = 0f;
 
     public void Move(float direction) {
         horizontalInput = direction;
@@ -30,15 +37,35 @@ public class Mob : MonoBehaviour {
     public void Awake() {
         physicsObject = GetComponent<PhysicsObject>();
         myCollider = GetComponent<Collider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void Update() {
-        AdjustVelocityByInput();
-        CheckHeadStomping();
+        if (stunned) {
+            UpdateStunTimer();
+        }
+        else {
+            AdjustVelocityByInput();
+            CheckHeadStomping();
+        }
     }
 
     private float CalculateVelocityForJumpHeight(float height) {
         return Mathf.Sqrt(2f * height * Globals.gravity);
+    }
+
+    private void UpdateStunTimer() {
+        stunTimer += Time.deltaTime;
+        horizontalInput = 0f;
+        jumpInput = false;
+        physicsObject.applyGroundFriction = true;
+        physicsObject.applyAirFriction = true;
+
+        if (stunTimer > Globals.mobStunTime) {
+            stunned = false;
+            stunTimer = 0f;
+            spriteRenderer.sprite = normalSprite;
+        }
     }
 
     private void AdjustVelocityByInput() {
@@ -104,21 +131,34 @@ public class Mob : MonoBehaviour {
                 otherPhysicsObject.velocity.y = Mathf.Max(CalculateVelocityForJumpHeight(Globals.mobJumpHeight / 2f),
                     -otherPhysicsObject.velocity.y * .7f + physicsObject.velocity.y * .4f);
 
-                var body = Instantiate(deadBodyPrefab, transform.position, transform.rotation);
-                body.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
+                lives--;
 
-                var bodyVelocity = physicsObject.velocity;
-                if (bodyVelocity.y > Mathf.Epsilon) {
-                    bodyVelocity.x /= 1.5f;
-                    bodyVelocity.y *= -1;
+                if (physicsObject.velocity.y > Mathf.Epsilon) {
+                    physicsObject.velocity.x /= 1.5f;
+                    physicsObject.velocity.y *= -1;
                 }
                 else {
-                    bodyVelocity.x = Random.Range(-4f, 4f);
-                    bodyVelocity.y = CalculateVelocityForJumpHeight(1.5f) + Random.Range(-2f, 2f);
-                }
-                body.GetComponent<PhysicsObject>().velocity = bodyVelocity;
+                    var xRange = lives == 0 ? 4f : 2f;
+                    var yRange = 2f;
+                    var yHeight = lives == 0 ? 1.5f : .5f;
 
-                Destroy(gameObject);
+                    physicsObject.velocity.x = Random.Range(-xRange, xRange);
+                    physicsObject.velocity.y = CalculateVelocityForJumpHeight(yHeight) + Random.Range(-yRange, yRange);
+                }
+
+                if (lives == 0) {
+                    var body = Instantiate(deadBodyPrefab, transform.position, transform.rotation);
+                    body.GetComponent<SpriteRenderer>().color = spriteRenderer.color;
+                    body.GetComponent<PhysicsObject>().velocity = physicsObject.velocity;
+
+                    Destroy(gameObject);
+                }
+                else {
+                    stunned = true;
+                    spriteRenderer.sprite = stunnedSprite;
+                    Instantiate(lostHeartPrefab, new Vector3(transform.position.x, transform.position.y + myCollider.bounds.extents.y,
+                        transform.position.z), transform.rotation);
+                }
             }
         }
     }

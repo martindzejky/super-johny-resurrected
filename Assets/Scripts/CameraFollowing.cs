@@ -6,20 +6,18 @@
 /// </summary>
 public class CameraFollowing : MonoBehaviour {
 
-    public void Update() {
+    public void LateUpdate() {
         var target = FindObjectOfType<PlayerController>();
         if (!target) {
-            Debug.LogWarning("No player detected!");
             return;
         }
 
         var offset = new Vector2((Input.mousePosition.x - Screen.width / 2f) / Screen.width,
             (Input.mousePosition.y - Screen.height / 2f) / Screen.height);
-        float roundAdjust = Globals.pixelsPerUnit;
-        float maxOffset = 6f * roundAdjust;
+        float maxOffset = 6f;
 
-        transform.position = new Vector3(Mathf.Round(target.transform.position.x * roundAdjust + offset.x * maxOffset) / roundAdjust,
-            Mathf.Round(target.transform.position.y * roundAdjust + offset.y * maxOffset) / roundAdjust, -10f);
+        transform.position = new Vector3(target.transform.position.x + offset.x * maxOffset,
+            target.transform.position.y + offset.y * maxOffset, -10f);
     }
 
 }
