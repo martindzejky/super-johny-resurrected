@@ -9,10 +9,16 @@ public class Globals {
 
     #endregion
 
+    #region Layers
+
+    public static string mobLayerName = "Mob";
+    public static string solidLayerName = "Solid";
+
+    #endregion
+
     #region Physics
 
     public static float gravity = 70f;
-    public static string solidLayerName = "Solid";
     public static float skinThickness = .05f;
     public static float groundFriction = 1.3f;
     public static float airFriction = 1.02f;

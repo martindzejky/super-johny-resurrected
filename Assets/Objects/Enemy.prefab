@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212827336350122130}
   - component: {fileID: 114299885264702126}
   - component: {fileID: 114035552181954872}
+  - component: {fileID: 61603087346565204}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -42,6 +43,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61603087346565204
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1838411016884770}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
 --- !u!114 &114035552181954872
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fa7f96c2ff75418ebd0f554488921b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 2
 --- !u!114 &114299885264702126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -64,7 +80,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cd0f3f513c9f43ee8fd2e78e205d0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 10
+  isDynamic: 1
+  applyGroundFriction: 1
+  applyAirFriction: 1
+  size: {x: 1, y: 1}
   velocity: {x: 0, y: 0}
 --- !u!212 &212827336350122130
 SpriteRenderer:
