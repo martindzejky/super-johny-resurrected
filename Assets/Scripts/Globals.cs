@@ -3,6 +3,12 @@
 /// </summary>
 public class Globals {
 
+    #region Units
+
+        public static uint pixelsPerUnit = 32;
+
+    #endregion
+
     #region Physics
 
     public static float gravity = 70f;
@@ -11,7 +17,7 @@ public class Globals {
     public static float groundFriction = 1.3f;
     public static float airFriction = 1.02f;
 
-    #endregion Physics
+    #endregion
 
     #region Mob
 
@@ -19,6 +25,6 @@ public class Globals {
     public static float mobAccelerationTime = .2f;
     public static float mobJumpHeight = 5.5f;
 
-    #endregion Mob
+    #endregion
 
 }
