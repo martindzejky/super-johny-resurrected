@@ -85,7 +85,7 @@ public class PhysicsObject : MonoBehaviour {
             }
         }
 
-        transform.Translate(Vector2.right * motion);
+        transform.Translate(Vector2.right * motion, Space.World);
     }
 
     private void MoveVertically() {
@@ -110,7 +110,7 @@ public class PhysicsObject : MonoBehaviour {
             }
         }
 
-        transform.Translate(Vector2.up * motion);
+        transform.Translate(Vector2.up * motion, Space.World);
     }
 
 }
