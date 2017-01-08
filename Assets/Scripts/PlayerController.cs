@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour {
 
     public void Update() {
         mob.Move(Input.GetAxisRaw("Horizontal"));
-
         if (Input.GetButtonDown("Jump")) {
             mob.Jump();
         }

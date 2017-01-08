@@ -29,15 +29,29 @@ public class Mob : MonoBehaviour {
 
     public void Update() {
         // adjust the mob's velocity according to the input
-        physicsObject.velocity.x = horizontalInput * Globals.mobMoveSpeed;
+        if (!Mathf.Approximately(0f, horizontalInput)) {
+            var acceleration = horizontalInput * Globals.mobMaxMoveSpeed / Globals.mobAccelerationTime * Time.deltaTime;
 
-        if (jumpInput) {
-            jumpInput = false;
-
-            if (physicsObject.isGrounded) {
-                physicsObject.velocity.y = CalculateVelocityForJumpHeight(Globals.mobJumpHeight);
+            if (Mathf.Sign(physicsObject.velocity.x) == Mathf.Sign(horizontalInput)) {
+                physicsObject.velocity.x += acceleration;
             }
+            else {
+                physicsObject.velocity.x += acceleration * 2;
+            }
+
+            physicsObject.velocity.x = Mathf.Clamp(physicsObject.velocity.x, -Globals.mobMaxMoveSpeed, Globals.mobMaxMoveSpeed);
+            physicsObject.applyGroundFriction = false;
+            physicsObject.applyAirFriction = false;
         }
+        else {
+            physicsObject.applyGroundFriction = true;
+            physicsObject.applyAirFriction = true;
+        }
+
+        if (jumpInput && physicsObject.isGrounded) {
+            physicsObject.velocity.y = CalculateVelocityForJumpHeight(Globals.mobJumpHeight);
+        }
+        jumpInput = false;
     }
 
     private float CalculateVelocityForJumpHeight(float height) {

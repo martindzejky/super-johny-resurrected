@@ -8,6 +8,8 @@
 public class PhysicsObject : MonoBehaviour {
 
     public bool isDynamic = true;
+    public bool applyGroundFriction = true;
+    public bool applyAirFriction = true;
     public Vector2 size = new Vector2(1f, 1f);
     public Vector2 velocity = new Vector2();
 
@@ -25,9 +27,14 @@ public class PhysicsObject : MonoBehaviour {
         Move();
 
         // apply ground friction
-        // if (isGrounded) {
-        //     velocity.x = 0f;
-        // }
+        if (isGrounded) {
+            if (applyGroundFriction) {
+                velocity.x /= Globals.groundFriction;
+            }
+        }
+        else if (applyAirFriction) {
+            velocity.x /= Globals.airFriction;
+        }
     }
 
     private void ResetCollisions() {
