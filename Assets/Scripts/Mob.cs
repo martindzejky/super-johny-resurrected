@@ -33,7 +33,10 @@ public class Mob : MonoBehaviour {
 
         if (jumpInput) {
             jumpInput = false;
-            physicsObject.velocity.y = CalculateVelocityForJumpHeight(Globals.mobJumpHeight);
+
+            if (physicsObject.isGrounded) {
+                physicsObject.velocity.y = CalculateVelocityForJumpHeight(Globals.mobJumpHeight);
+            }
         }
     }
 
