@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
 
+/// <summary>
+/// Adjusts the camera size for pixel-perfect graphics.
+/// </summary>
 public class PixelCameraSize : MonoBehaviour {
 
     private int lastSize;

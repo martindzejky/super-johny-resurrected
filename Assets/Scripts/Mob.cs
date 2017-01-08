@@ -106,6 +106,18 @@ public class Mob : MonoBehaviour {
 
                 var body = Instantiate(deadBodyPrefab, transform.position, transform.rotation);
                 body.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
+
+                var bodyVelocity = physicsObject.velocity;
+                if (bodyVelocity.y > Mathf.Epsilon) {
+                    bodyVelocity.x /= 1.5f;
+                    bodyVelocity.y *= -1;
+                }
+                else {
+                    bodyVelocity.x = Random.Range(-4f, 4f);
+                    bodyVelocity.y = CalculateVelocityForJumpHeight(1.5f) + Random.Range(-2f, 2f);
+                }
+                body.GetComponent<PhysicsObject>().velocity = bodyVelocity;
+
                 Destroy(gameObject);
             }
         }

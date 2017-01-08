@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
 
-/**
- * Loads a TMX level and instantiates prefabs.
- */
+/// <summary>
+/// Loads an XML level file and instantiates the prefabs.
+/// </summary>
 public class LevelLoader : MonoBehaviour {
 
     public string levelName = "TestArea";

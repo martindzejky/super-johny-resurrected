@@ -3,9 +3,9 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 
 
-/**
- * Allows the player to quickly restart and quit the game.
- */
+/// <summary>
+/// Allows the player to quickly restart and quit the game.
+/// </summary>
 public class DebugController : MonoBehaviour {
 
     public void Update() {
