@@ -105,6 +105,7 @@ public class Mob : MonoBehaviour {
         boxcastSize.x -= Globals.skinThickness * 2f;
         boxcastSize.y -= Globals.skinThickness * 2f;
 
+        // TODO: Use only OverlapBox
         var colliders = Physics2D.OverlapBoxAll(boxcastPosition, boxcastSize, 0, LayerMask.GetMask(Globals.mobLayerName));
         foreach (var collider in colliders) {
             if (collider == myCollider) {

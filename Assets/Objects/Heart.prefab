@@ -20,6 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4470357716684598}
   - component: {fileID: 212006666740799626}
+  - component: {fileID: 114890968397360218}
+  - component: {fileID: 61279021953011464}
   m_Layer: 0
   m_Name: Heart
   m_TagString: Untagged
@@ -40,6 +42,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61279021953011464
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234646141660034}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.5}
+--- !u!114 &114890968397360218
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234646141660034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6cab8955e2ac4fea876ef380d38d914, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212006666740799626
 SpriteRenderer:
   m_ObjectHideFlags: 1
