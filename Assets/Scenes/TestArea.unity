@@ -150,7 +150,13 @@ MonoBehaviour:
   container: {fileID: 594757614}
   prefabs:
   - {fileID: 1541733499531832, guid: 1c6d71da0c8a645649a753fedc6b5cbe, type: 2}
-  - {fileID: 1627867985233938, guid: aaadb22db40d04f42a181b7c1a4e13d3, type: 2}
+  - {fileID: 1541733499531832, guid: 79106a2d4b1c5478f803c1122ec016b8, type: 2}
+  - {fileID: 1541733499531832, guid: eafb5c61f7b924abe8824e13f7155392, type: 2}
+  - {fileID: 1541733499531832, guid: 6553f7266930343a9997fae11b7f5415, type: 2}
+  - {fileID: 1541733499531832, guid: d1617c34c213848018abfb46bb52a4c0, type: 2}
+  - {fileID: 1541733499531832, guid: ad7fb9d2a4f5046ceb205cd9b45f3200, type: 2}
+  - {fileID: 1541733499531832, guid: f6d243465fd674d0f8ae8243a7bcf260, type: 2}
+  - {fileID: 1541733499531832, guid: dc624587ae2184e10a74bcdb1c8afc42, type: 2}
   - {fileID: 1032169637787598, guid: cf59eaad2b0044b18b2512cafa2318b1, type: 2}
   - {fileID: 1838411016884770, guid: 15287243a4b1047008cd1764fbbdd55c, type: 2}
   - {fileID: 1234646141660034, guid: 997042bd5459a42bbbfbcd3039c684b4, type: 2}

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212350808474572102}
   - component: {fileID: 61208100557179046}
   m_Layer: 8
-  m_Name: Wall
+  m_Name: WoodenPlatformWithPillar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -29087607
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7a69a45ca90514f7ba5e0898129517ef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 41a93a7613f954e27b55e4c780c30472, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
