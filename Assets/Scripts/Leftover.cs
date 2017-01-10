@@ -68,7 +68,7 @@ public class Leftover : MonoBehaviour {
         transform.Translate(Vector2.down * .15f * Time.deltaTime, Space.World);
         sprite.color = new Color(sprite.color.r - delta, sprite.color.g - delta, sprite.color.b - delta);
 
-        if (sprite.color.maxColorComponent < .7f) {
+        if (sprite.color.maxColorComponent < .5f) {
             state = State.Burried;
         }
     }

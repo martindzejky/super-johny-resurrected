@@ -28,9 +28,11 @@ public class LevelLoader : MonoBehaviour {
 
                 // instantiate and set up the tile
                 // mirror the tile position's Y coordinate
-                var tile = Instantiate(prefabs[tileIndex]);
-                tile.transform.SetParent(container);
-                tile.transform.position = new Vector3(x, -y, 0);
+                if (prefabs[tileIndex]) {
+                    var tile = Instantiate(prefabs[tileIndex]);
+                    tile.transform.SetParent(container);
+                    tile.transform.position = new Vector3(x, -y, 0);
+                }
             }
         }
     }
