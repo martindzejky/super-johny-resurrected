@@ -31,6 +31,7 @@ public class Globals {
     public static float mobAccelerationTime = .2f;
     public static float mobJumpHeight = 5.5f;
     public static float mobStunTime = 2f;
+    public static float mobRecoveryTime = 1f;
 
     #endregion
 

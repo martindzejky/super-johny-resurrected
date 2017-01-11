@@ -21,7 +21,9 @@ public class Mob : MonoBehaviour {
     private float horizontalInput = 0f;
     private bool jumpInput = false;
     private bool stunned = false;
+    private bool recovering = false;
     private float stunTimer = 0f;
+    private float stunRecoveryTimer = 0f;
 
     public void Move(float direction) {
         horizontalInput = direction;
@@ -42,7 +44,11 @@ public class Mob : MonoBehaviour {
     }
 
     public void Update() {
-        if (stunned) {
+        if (recovering) {
+            UpdateRecoveryTimer();
+            AdjustVelocityByInput();
+        }
+        else if (stunned) {
             UpdateStunTimer();
         }
         else {
@@ -55,6 +61,14 @@ public class Mob : MonoBehaviour {
         return Mathf.Sqrt(2f * height * Globals.gravity);
     }
 
+    private void UpdateRecoveryTimer() {
+        stunRecoveryTimer += Time.deltaTime;
+        if (stunRecoveryTimer > Globals.mobRecoveryTime) {
+            recovering = false;
+            stunRecoveryTimer = 0f;
+        }
+    }
+
     private void UpdateStunTimer() {
         stunTimer += Time.deltaTime;
         horizontalInput = 0f;
@@ -64,6 +78,7 @@ public class Mob : MonoBehaviour {
 
         if (stunTimer > Globals.mobStunTime) {
             stunned = false;
+            recovering = true;
             stunTimer = 0f;
             spriteRenderer.sprite = normalSprite;
         }
