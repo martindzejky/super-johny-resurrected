@@ -6,6 +6,8 @@
 /// </summary>
 public class PixelCameraSize : MonoBehaviour {
 
+    public float scale = 1f;
+
     private int lastSize;
     private const uint referenceHeight = 320;
 
@@ -24,7 +26,7 @@ public class PixelCameraSize : MonoBehaviour {
     private void UpdateCameraSize() {
         lastSize = Screen.height;
 
-        float refOrthoSize = (float) referenceHeight / Globals.pixelsPerUnit / 2f;
+        float refOrthoSize = (float) referenceHeight * scale / Globals.pixelsPerUnit / 2f;
         float orthoSize = (float) lastSize / Globals.pixelsPerUnit / 2f;
         float multiplier = Mathf.Max(1, Mathf.Round(orthoSize / refOrthoSize));
 
