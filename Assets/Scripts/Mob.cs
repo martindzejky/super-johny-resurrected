@@ -12,12 +12,11 @@ public class Mob : MonoBehaviour {
     public GameObject deadBodyPrefab;
     public GameObject lostHeartPrefab;
     public GameObject starPrefab;
-    public Sprite normalSprite;
-    public Sprite stunnedSprite;
 
     private PhysicsObject physicsObject;
     private Collider2D myCollider;
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
     private float horizontalInput = 0f;
     private bool jumpInput = false;
     private bool stunned = false;
@@ -41,6 +40,7 @@ public class Mob : MonoBehaviour {
         physicsObject = GetComponent<PhysicsObject>();
         myCollider = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     public void Update() {
@@ -80,7 +80,7 @@ public class Mob : MonoBehaviour {
             stunned = false;
             recovering = true;
             stunTimer = 0f;
-            spriteRenderer.sprite = normalSprite;
+            animator.SetBool("Stunned", false);
         }
     }
 
@@ -172,7 +172,7 @@ public class Mob : MonoBehaviour {
                 }
                 else {
                     stunned = true;
-                    spriteRenderer.sprite = stunnedSprite;
+                    animator.SetBool("Stunned", true);
                     Instantiate(lostHeartPrefab, new Vector3(transform.position.x, transform.position.y + myCollider.bounds.extents.y,
                         transform.position.z), transform.rotation);
                 }

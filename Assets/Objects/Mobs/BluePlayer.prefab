@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114088867718330384}
   - component: {fileID: 114263888365873220}
   - component: {fileID: 61559971942901634}
+  - component: {fileID: 95749557754737122}
   m_Layer: 9
   m_Name: BluePlayer
   m_TagString: Player
@@ -58,6 +59,23 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
+--- !u!95 &95749557754737122
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1032169637787598}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 31dc3ad016ff949a2a8f369b2f9b0f3c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114088867718330384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -76,8 +94,6 @@ MonoBehaviour:
   lostHeartPrefab: {fileID: 1707128229553598, guid: cc30821980a844dc7b80579c44c0a4ea,
     type: 2}
   starPrefab: {fileID: 1742279159565778, guid: 1bd19ff532bea4c4dbb6b167263bf4e7, type: 2}
-  normalSprite: {fileID: 21300000, guid: 1bc6fece7907c4f16bce0244ffff96b3, type: 3}
-  stunnedSprite: {fileID: 21300000, guid: 3470d891f165d46cda7480bf191c5766, type: 3}
 --- !u!114 &114263888365873220
 MonoBehaviour:
   m_ObjectHideFlags: 1
