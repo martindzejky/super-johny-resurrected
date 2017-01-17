@@ -13,6 +13,7 @@ public class Globals {
 
     public static string mobLayerName = "Mob";
     public static string solidLayerName = "Solid";
+    public static string navigationLayerName = "Navigation";
 
     #endregion
 
@@ -40,6 +41,12 @@ public class Globals {
     public static float aiRetargetTimer = 1f;
     public static float aiThinkTimer = .5f;
     public static float aiAttackRadius = 8f;
+
+    #endregion
+
+    #region Navigation
+
+    public static float maxNodeDistance = 6.5f;
 
     #endregion
 

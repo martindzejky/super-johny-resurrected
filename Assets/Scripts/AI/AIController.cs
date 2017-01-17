@@ -91,7 +91,15 @@ public class AIController : MonoBehaviour {
     private void AttackOrMoveTowardsEnemy() {
             var distanceToEnemy = Vector3.Distance(transform.position, closestEnemy.transform.position);
             if (distanceToEnemy < Globals.aiAttackRadius) {
-                state = AIState.AttackingEnemy;
+                var vector = closestEnemy.transform.position - transform.position;
+                var wall = Physics2D.Raycast(transform.position, vector.normalized, vector.magnitude, LayerMask.GetMask(Globals.solidLayerName));
+
+                if (wall) {
+                    state = AIState.MovingTowardsEnemy;
+                }
+                else {
+                    state = AIState.AttackingEnemy;
+                }
             }
             else {
                 state = AIState.MovingTowardsEnemy;
