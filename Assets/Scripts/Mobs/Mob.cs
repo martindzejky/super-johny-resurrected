@@ -41,6 +41,8 @@ public class Mob : MonoBehaviour {
         myCollider = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+
+        MobTeams.GetTeam(team).mobs.Add(this);
     }
 
     public void Update() {
@@ -55,6 +57,10 @@ public class Mob : MonoBehaviour {
             AdjustVelocityByInput();
             CheckHeadStomping();
         }
+    }
+
+    public void OnDestroy() {
+        MobTeams.GetTeam(team).mobs.Remove(this);
     }
 
     private float CalculateVelocityForJumpHeight(float height) {
