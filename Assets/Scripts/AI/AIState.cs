@@ -4,9 +4,10 @@
 enum AIState {
     LookingForTargets,
     LookingForGoals,
-    MovingTowardsTarget,
+    MovingTowardsEnemy,
     MovingTowardsGoal,
-    AttackingTarget,
+    AttackingEnemy,
     CapturingGoal,
+    Thinking,
     Wandering
 };

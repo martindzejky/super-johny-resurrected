@@ -19,4 +19,8 @@ public class MobTeams {
         }
     }
 
+    public static uint GetNumberOfTeams() {
+        return (uint) teams.Count;
+    }
+
 }

@@ -117,7 +117,9 @@ public class Mob : MonoBehaviour {
         if (jumpInput && physicsObject.velocity.y < Mathf.Epsilon && (physicsObject.isGrounded || physicsObject.timeInAir < .2f)) {
             physicsObject.velocity.y = CalculateVelocityForJumpHeight(Globals.mobJumpHeight);
         }
+
         jumpInput = false;
+        horizontalInput = 0;
     }
 
     private void CheckHeadStomping() {
