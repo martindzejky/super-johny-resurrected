@@ -7,10 +7,10 @@
 public class Flag : MonoBehaviour {
 
     public Transform movingFlag;
+    public uint capturedTeam = 0;
+    public float capturedAmount = 0f;
 
     private Collider2D myCollider;
-    private uint capturedTeam = 0;
-    private float capturedAmount = 0f;
 
     public void Awake() {
         myCollider = GetComponent<Collider2D>();
