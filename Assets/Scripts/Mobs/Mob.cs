@@ -43,6 +43,8 @@ public class Mob : MonoBehaviour {
         animator = GetComponent<Animator>();
 
         MobTeams.GetTeam(team).mobs.Add(this);
+
+        animator.ForceStateNormalizedTime(Random.value);
     }
 
     public void Update() {
