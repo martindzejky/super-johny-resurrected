@@ -20,7 +20,38 @@ public class PathFinder : MonoBehaviour {
         }
     }
 
+    public static List<Node> GetPath(Vector3 start, Vector3 end) {
+        Node closestStart = null;
+        Node closestEnd = null;
+        float closestStartDistance = float.PositiveInfinity;
+        float closestEndDistance = float.PositiveInfinity;
+
+        foreach (var node in FindObjectsOfType<Node>()) {
+            var distanceStart = (node.transform.position - start).sqrMagnitude;
+            var distanceEnd = (node.transform.position - end).sqrMagnitude;
+
+            if (distanceStart < closestStartDistance) {
+                closestStartDistance = distanceStart;
+                closestStart = node;
+            }
+            if (distanceEnd < closestEndDistance) {
+                closestEndDistance = distanceEnd;
+                closestEnd = node;
+            }
+        }
+
+        return GetPath(closestStart, closestEnd);
+    }
+
     public static List<Node> GetPath(Node start, Node end) {
+        if (!start || !end) {
+            return null;
+        }
+
+        if (start == end) {
+            return new List<Node>(new Node[] { start });
+        }
+
         var queue = new Queue<NodeInfo>();
         var visitedNodes = new Dictionary<Node, NodeInfo>();
         var result = new List<Node>();
