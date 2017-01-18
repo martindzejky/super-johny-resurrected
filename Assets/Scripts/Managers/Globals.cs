@@ -40,6 +40,7 @@ public class Globals {
 
     public static float aiRetargetTimer = 1f;
     public static float aiThinkTimer = .5f;
+    public static float aiPathingTimer = 3f;
     public static float aiAttackRadius = 8f;
 
     #endregion

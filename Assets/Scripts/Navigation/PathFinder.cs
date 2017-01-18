@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Uses nodes and Dijkstra algorithm to navigate the level.
 /// </summary>
-public class PathFinder : MonoBehaviour {
+public class PathFinder {
 
     /// <summary>
     /// Node pair - current node and the node we got here from.
@@ -20,13 +20,13 @@ public class PathFinder : MonoBehaviour {
         }
     }
 
-    public static List<Node> GetPath(Vector3 start, Vector3 end) {
+    public static Node[] GetPath(Vector3 start, Vector3 end) {
         Node closestStart = null;
         Node closestEnd = null;
         float closestStartDistance = float.PositiveInfinity;
         float closestEndDistance = float.PositiveInfinity;
 
-        foreach (var node in FindObjectsOfType<Node>()) {
+        foreach (var node in GameObject.FindObjectsOfType<Node>()) {
             var distanceStart = (node.transform.position - start).sqrMagnitude;
             var distanceEnd = (node.transform.position - end).sqrMagnitude;
 
@@ -43,18 +43,17 @@ public class PathFinder : MonoBehaviour {
         return GetPath(closestStart, closestEnd);
     }
 
-    public static List<Node> GetPath(Node start, Node end) {
+    public static Node[] GetPath(Node start, Node end) {
         if (!start || !end) {
-            return null;
+            return new Node[] {};
         }
 
         if (start == end) {
-            return new List<Node>(new Node[] { start });
+            return new Node[] { start };
         }
 
         var queue = new Queue<NodeInfo>();
         var visitedNodes = new Dictionary<Node, NodeInfo>();
-        var result = new List<Node>();
 
         queue.Enqueue(new NodeInfo(start, null));
 
@@ -65,13 +64,14 @@ public class PathFinder : MonoBehaviour {
 
             // if this is the end, reconstruct the path
             if (nodeInfo.node == end) {
+                var result = new List<Node>();
+
                 for (var pathNodeInfo = nodeInfo; pathNodeInfo.parentNode; pathNodeInfo = visitedNodes[pathNodeInfo.parentNode]) {
                     result.Add(pathNodeInfo.node);
                 }
                 result.Add(start);
-
                 result.Reverse();
-                break;
+                return result.ToArray();
             }
 
             // process connected nodes
@@ -84,7 +84,7 @@ public class PathFinder : MonoBehaviour {
             }
         }
 
-        return result;
+        return new Node[] {};
     }
 
 }

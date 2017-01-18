@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 
 /// <summary>
@@ -11,11 +12,15 @@ public class AIController : MonoBehaviour {
     private Mob closestEnemy = null;
     private float retargetTimer;
     private float thinkingTimer;
+    private float pathingTimer;
+    private Node[] currentPath = null;
+    private uint currentPathIndex = 0;
 
     public void Awake() {
         myMob = GetComponent<Mob>();
         retargetTimer = Random.Range(0f, Globals.aiRetargetTimer);
         thinkingTimer = Random.Range(0f, Globals.aiThinkTimer);
+        pathingTimer = Random.Range(0f, Globals.aiPathingTimer);
     }
 
     public void Update() {
@@ -46,6 +51,7 @@ public class AIController : MonoBehaviour {
     private void UpdateTimers() {
         retargetTimer -= Time.deltaTime;
         thinkingTimer -= Time.deltaTime;
+        pathingTimer -= Time.deltaTime;
     }
 
     private void UpdateClosestMob() {
@@ -84,11 +90,11 @@ public class AIController : MonoBehaviour {
 
         // check the enemies and attack / chase them if close enough
         if (closestEnemy) {
-            AttackOrMoveTowardsEnemy();
+            UpdateStateBasedOnEnemy();
         }
     }
 
-    private void AttackOrMoveTowardsEnemy() {
+    private void UpdateStateBasedOnEnemy() {
             var distanceToEnemy = Vector3.Distance(transform.position, closestEnemy.transform.position);
             if (distanceToEnemy < Globals.aiAttackRadius) {
                 var vector = closestEnemy.transform.position - transform.position;
@@ -109,9 +115,10 @@ public class AIController : MonoBehaviour {
     private void AttackEnemy() {
         if (!closestEnemy) {
             state = AIState.Thinking;
+            return;
         }
 
-        AttackOrMoveTowardsEnemy();
+        UpdateStateBasedOnEnemy();
 
         var horizontalDistanceToEnemy = closestEnemy.transform.position.x - transform.position.x;
         var directionToEnemy = Mathf.Sign(horizontalDistanceToEnemy);
@@ -129,9 +136,39 @@ public class AIController : MonoBehaviour {
     private void MoveTowardsEnemy() {
         if (!closestEnemy) {
             state = AIState.Thinking;
+            return;
         }
 
-        AttackOrMoveTowardsEnemy();
+        UpdateStateBasedOnEnemy();
+
+        // update path periodically
+        if (pathingTimer < 0f || currentPath == null || currentPath.Length == 0) {
+            pathingTimer = Globals.aiPathingTimer;
+            currentPath = PathFinder.GetPath(transform.position, closestEnemy.transform.position);
+            currentPathIndex = 0;
+        }
+
+        MoveTowardsPathNode();
+    }
+
+    private void MoveTowardsPathNode() {
+        if (currentPath.Length == 0) {
+            state = AIState.Thinking;
+            return;
+        }
+
+        var targetNode = currentPath[currentPathIndex];
+        var difference = targetNode.transform.position - transform.position;
+
+        // move to the next node if close enough
+        if (difference.magnitude < .5f && currentPathIndex < currentPath.Length - 1) {
+            currentPathIndex++;
+        }
+
+        myMob.Move(Mathf.Sign(difference.x));
+        if (difference.y > .4f) {
+            myMob.Jump();
+        }
     }
 
 }
