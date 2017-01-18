@@ -89,6 +89,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   team: 1
   lives: 3
+  setTeamColor: 0
   deadBodyPrefab: {fileID: 1662960779257996, guid: c6d20424323714328b2a07459373d697,
     type: 2}
   lostHeartPrefab: {fileID: 1707128229553598, guid: cc30821980a844dc7b80579c44c0a4ea,

@@ -161,7 +161,7 @@ public class AIController : MonoBehaviour {
         var difference = targetNode.transform.position - transform.position;
 
         // move to the next node if close enough
-        if (difference.magnitude < .5f && currentPathIndex < currentPath.Length - 1) {
+        if (difference.magnitude < Globals.minNodeContactDistance && currentPathIndex < currentPath.Length - 1) {
             currentPathIndex++;
         }
 

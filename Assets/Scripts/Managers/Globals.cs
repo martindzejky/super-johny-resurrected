@@ -48,6 +48,13 @@ public class Globals {
     #region Navigation
 
     public static float maxNodeDistance = 6.5f;
+    public static float minNodeContactDistance = 1f;
+
+    #endregion
+
+    #region Goals
+
+    public static float goalCaptureAmountPerMob = .03f;
 
     #endregion
 

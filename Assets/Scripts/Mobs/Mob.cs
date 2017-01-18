@@ -9,6 +9,7 @@ public class Mob : MonoBehaviour {
 
     public uint team = 0;
     public uint lives = 1;
+    public bool setTeamColor = true;
     public GameObject deadBodyPrefab;
     public GameObject lostHeartPrefab;
     public GameObject starPrefab;
@@ -42,7 +43,11 @@ public class Mob : MonoBehaviour {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
-        MobTeams.GetTeam(team).mobs.Add(this);
+        var mobTeam = MobTeams.GetTeam(team);
+        mobTeam.mobs.Add(this);
+        if (setTeamColor) {
+            mobTeam.teamColor = spriteRenderer.color;
+        }
 
         animator.ForceStateNormalizedTime(Random.value);
     }
