@@ -12,18 +12,18 @@ public class AIController : MonoBehaviour {
     private Mob closestEnemy = null;
     private Flag closestGoal = null;
     private float retargetTimer;
-    private float thinkingTimer;
     private float pathingTimer;
     private Node[] currentPath = null;
     private uint currentPathIndex = 0;
     private float goalCapturePoint;
+    private float jumpOffset;
 
     public void Awake() {
         myMob = GetComponent<Mob>();
         retargetTimer = Random.Range(0f, Globals.aiRetargetTimer);
-        thinkingTimer = Random.Range(0f, Globals.aiThinkTimer);
         pathingTimer = Random.Range(0f, Globals.aiPathingTimer);
         goalCapturePoint = Random.Range(-Globals.aiCaptureRadius, Globals.aiCaptureRadius);
+        jumpOffset = Random.Range(-Globals.aiJumpPrecision, Globals.aiJumpPrecision);
     }
 
     public void Update() {
@@ -58,18 +58,12 @@ public class AIController : MonoBehaviour {
             retargetTimer = Globals.aiRetargetTimer;
             UpdateClosestMob();
             UpdateClosestGoal();
-        }
-
-        // update state periodically
-        if (thinkingTimer < 0f) {
-            thinkingTimer = Globals.aiThinkTimer;
             UpdateStateBasedOnClosestTarget();
         }
     }
 
     private void UpdateTimers() {
         retargetTimer -= Time.deltaTime;
-        thinkingTimer -= Time.deltaTime;
         pathingTimer -= Time.deltaTime;
     }
 
@@ -124,8 +118,14 @@ public class AIController : MonoBehaviour {
         state = AIState.Wandering;
 
         if (closestEnemy && closestGoal) {
-            if (Vector3.Distance(transform.position, closestEnemy.transform.position) <
-                Vector3.Distance(transform.position, closestGoal.transform.position) * Globals.enemyGoalImportanceRatio) {
+            var enemyDistance = Vector3.Distance(transform.position, closestEnemy.transform.position);
+            var goalDistance = Vector3.Distance(transform.position, closestGoal.transform.position);
+
+            if (closestEnemy.IsStunned()) {
+                enemyDistance *= Globals.aiStunnedEnemyPenalty;
+            }
+
+            if (enemyDistance < goalDistance * Globals.enemyGoalImportanceRatio) {
                 UpdateStateBasedOnEnemy();
             }
             else {
@@ -188,11 +188,14 @@ public class AIController : MonoBehaviour {
         var directionToEnemy = Mathf.Sign(horizontalDistanceToEnemy);
         var heightDifference = closestEnemy.transform.position.y - transform.position.y;
 
+        // add a little offset to make jumping less precise
+        horizontalDistanceToEnemy += jumpOffset;
+
         if (Mathf.Abs(horizontalDistanceToEnemy) > .8f) {
             myMob.Move(directionToEnemy);
         }
 
-        if (heightDifference > -.5f) {
+        if (heightDifference > -.5f && Random.value < Globals.aiJumpChance) {
             myMob.Jump();
         }
     }
