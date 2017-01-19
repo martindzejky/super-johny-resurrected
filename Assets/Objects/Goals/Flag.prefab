@@ -98,6 +98,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movingFlag: {fileID: 4375561203542528}
+  mobsToSpawn:
+  - {fileID: 0}
+  - {fileID: 1838411016884770, guid: 01a1cc5aad01d4270a94ded61207b5c2, type: 2}
+  - {fileID: 1838411016884770, guid: 15287243a4b1047008cd1764fbbdd55c, type: 2}
+  capturedTeam: 0
+  capturedAmount: 0
 --- !u!212 &212281701410879442
 SpriteRenderer:
   m_ObjectHideFlags: 1

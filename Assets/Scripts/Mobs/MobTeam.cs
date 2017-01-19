@@ -9,6 +9,7 @@ public class MobTeam {
 
     public List<Mob> mobs { get; private set; }
     public Color teamColor = Color.gray;
+    public uint respawns = 100;
 
     public MobTeam(uint teamNumber) {
         this.mobs = new List<Mob>();
