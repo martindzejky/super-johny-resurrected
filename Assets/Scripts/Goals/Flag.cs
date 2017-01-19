@@ -23,6 +23,11 @@ public class Flag : MonoBehaviour {
         foreach (var mobObject in mobs) {
             var mob = mobObject.GetComponent<Mob>();
 
+            // stunned mobs can't capture
+            if (mob.IsStunned()) {
+                continue;
+            }
+
             if (capturedTeam == mob.team) {
                 capturedAmount = Mathf.Min(1f, capturedAmount + Globals.goalCaptureAmountPerMob * Time.deltaTime);
             }
