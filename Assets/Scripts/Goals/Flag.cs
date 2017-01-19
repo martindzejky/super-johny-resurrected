@@ -7,9 +7,6 @@
 public class Flag : MonoBehaviour {
 
     public Transform movingFlag;
-    public GameObject[] mobsToSpawn;
-    public GameObject playerToSpawn;
-    public uint playerTeam = 1;
     public uint capturedTeam = 0;
     public float capturedAmount = 0f;
 
@@ -66,6 +63,10 @@ public class Flag : MonoBehaviour {
     }
 
     private void RespawnMobs() {
+        var prefabRegistry = FindObjectOfType<PrefabRegistry>();
+        var mobsToSpawn = prefabRegistry.teamMobs;
+        var playerToSpawn = prefabRegistry.playerMob;
+
         if (capturedAmount < .9f) {
             respawnTimer = Globals.respawnTime;
         }
@@ -83,7 +84,7 @@ public class Flag : MonoBehaviour {
                     MobTeams.GetTeam(capturedTeam).respawns--;
 
                     var playerAlive = FindObjectOfType<PlayerController>();
-                    Instantiate(!playerAlive && capturedTeam == playerTeam ? playerToSpawn : mobsToSpawn[capturedTeam], spawn, Quaternion.identity);
+                    Instantiate(!playerAlive && capturedTeam == Globals.playerTeam ? playerToSpawn : mobsToSpawn[capturedTeam], spawn, Quaternion.identity);
                 }
             }
         }

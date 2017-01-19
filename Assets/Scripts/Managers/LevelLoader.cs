@@ -8,9 +8,11 @@ public class LevelLoader : MonoBehaviour {
 
     public string levelName = "TestArea";
     public Transform container;
-    public GameObject[] prefabs;
 
     public void Awake() {
+        var prefabRegistry = FindObjectOfType<PrefabRegistry>();
+        var prefabs = prefabRegistry.tiles;
+
         // load the level from the Resources directory
         var levelText = Resources.Load<TextAsset>("Levels/" + levelName);
         var levelRows = levelText.text.Split('\n');

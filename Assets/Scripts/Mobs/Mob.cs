@@ -10,9 +10,6 @@ public class Mob : MonoBehaviour {
     public uint team = 0;
     public uint lives = 1;
     public bool setTeamColor = true;
-    public GameObject deadBodyPrefab;
-    public GameObject lostHeartPrefab;
-    public GameObject starPrefab;
 
     private PhysicsObject physicsObject;
     private Collider2D myCollider;
@@ -190,8 +187,10 @@ public class Mob : MonoBehaviour {
                 // add score to the enemy
                 MobTeams.GetTeam(otherMob.team).score += 10;
 
+                var prefabRegistry = FindObjectOfType<PrefabRegistry>();
+
                 if (lives == 0) {
-                    var body = Instantiate(deadBodyPrefab, transform.position, transform.rotation);
+                    var body = Instantiate(prefabRegistry.deadBody, transform.position, transform.rotation);
                     body.GetComponent<SpriteRenderer>().color = spriteRenderer.color;
                     body.GetComponent<PhysicsObject>().velocity = physicsObject.velocity;
 
@@ -203,12 +202,12 @@ public class Mob : MonoBehaviour {
                 else {
                     stunned = true;
                     animator.SetBool("Stunned", true);
-                    Instantiate(lostHeartPrefab, new Vector3(transform.position.x, transform.position.y + myCollider.bounds.extents.y,
+                    Instantiate(prefabRegistry.lostHeart, new Vector3(transform.position.x, transform.position.y + myCollider.bounds.extents.y,
                         transform.position.z), transform.rotation);
                 }
 
                 for (var i = 0; i < 6; i++) {
-                    Instantiate(starPrefab, new Vector3(transform.position.x, transform.position.y + myCollider.bounds.extents.y,
+                    Instantiate(prefabRegistry.starParticle, new Vector3(transform.position.x, transform.position.y + myCollider.bounds.extents.y,
                         transform.position.z), transform.rotation);
                 }
             }
