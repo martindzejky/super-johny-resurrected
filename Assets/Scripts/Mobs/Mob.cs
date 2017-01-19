@@ -25,6 +25,10 @@ public class Mob : MonoBehaviour {
     private float stunTimer = 0f;
     private float stunRecoveryTimer = 0f;
 
+    public bool IsStunned() {
+        return stunned;
+    }
+
     public void Move(float direction) {
         horizontalInput = direction;
     }
@@ -149,6 +153,11 @@ public class Mob : MonoBehaviour {
 
             var otherTransform = collider.transform;
             var otherPhysicsObject = collider.GetComponent<PhysicsObject>();
+
+            // stunned mobs can't stomp
+            if (otherMob.IsStunned()) {
+                continue;
+            }
 
             if (team == otherMob.team && team != 0) {
                 continue;
