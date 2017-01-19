@@ -63,9 +63,6 @@ public class Flag : MonoBehaviour {
     }
 
     private void RespawnMobs() {
-        var prefabRegistry = FindObjectOfType<PrefabRegistry>();
-        var mobsToSpawn = prefabRegistry.teamMobs;
-        var playerToSpawn = prefabRegistry.playerMob;
 
         if (capturedAmount < .9f) {
             respawnTimer = Globals.respawnTime;
@@ -76,15 +73,17 @@ public class Flag : MonoBehaviour {
             if (respawnTimer < 0f) {
                 respawnTimer = Globals.respawnTime;
 
+                var prefabRegistry = FindObjectOfType<PrefabRegistry>();
                 var spawnX = Random.Range(myCollider.bounds.min.x, myCollider.bounds.max.x);
                 var spawnY = transform.position.y;
                 var spawn = new Vector2(spawnX, spawnY);
 
-                if (mobsToSpawn[capturedTeam] && MobTeams.GetTeam(capturedTeam).respawns > 0) {
+                if (prefabRegistry.teamMobs[capturedTeam] && MobTeams.GetTeam(capturedTeam).respawns > 0) {
                     MobTeams.GetTeam(capturedTeam).respawns--;
 
                     var playerAlive = FindObjectOfType<PlayerController>();
-                    Instantiate(!playerAlive && capturedTeam == Globals.playerTeam ? playerToSpawn : mobsToSpawn[capturedTeam], spawn, Quaternion.identity);
+                    Instantiate(!playerAlive && capturedTeam == Globals.playerTeam ?
+                        prefabRegistry.playerMob : prefabRegistry.teamMobs[capturedTeam], spawn, Quaternion.identity);
                 }
             }
         }
