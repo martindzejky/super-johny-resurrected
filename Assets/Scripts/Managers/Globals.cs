@@ -31,7 +31,7 @@ public class Globals {
     public static float mobMaxMoveSpeed = 12f;
     public static float mobAccelerationTime = .2f;
     public static float mobJumpHeight = 5.5f;
-    public static float mobStunTime = 2f;
+    public static float mobStunTime = 4f;
     public static float mobRecoveryTime = 1f;
 
     #endregion
@@ -44,6 +44,7 @@ public class Globals {
     public static float aiAttackRadius = 8f;
     public static float aiCaptureRadius = 5f;
     public static float enemyGoalImportanceRatio = 1.5f;
+    public static float aiStunnedEnemyPenalty = 4f;
 
     #endregion
 

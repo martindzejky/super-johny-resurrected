@@ -88,6 +88,10 @@ public class AIController : MonoBehaviour {
             if (team.mobs.Count > 0) {
                 foreach (var enemy in team.mobs) {
                     var distance = (transform.position - enemy.transform.position).sqrMagnitude;
+                    if (enemy.IsStunned()) {
+                        distance *= Globals.aiStunnedEnemyPenalty;
+                    }
+
                     if (distance < closestDistance) {
                         closestDistance = distance;
                         closestEnemy = enemy;
