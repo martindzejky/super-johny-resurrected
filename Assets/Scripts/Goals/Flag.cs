@@ -66,7 +66,7 @@ public class Flag : MonoBehaviour {
     }
 
     private void RespawnMobs() {
-        if (capturedAmount < 1f - float.Epsilon) {
+        if (capturedAmount < .9f) {
             respawnTimer = Globals.respawnTime;
         }
         else {
