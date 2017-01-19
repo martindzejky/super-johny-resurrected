@@ -187,12 +187,18 @@ public class Mob : MonoBehaviour {
                     physicsObject.velocity.y = CalculateVelocityForJumpHeight(yHeight) + Random.Range(-yRange, yRange);
                 }
 
+                // add score to the enemy
+                MobTeams.GetTeam(otherMob.team).score += 10;
+
                 if (lives == 0) {
                     var body = Instantiate(deadBodyPrefab, transform.position, transform.rotation);
                     body.GetComponent<SpriteRenderer>().color = spriteRenderer.color;
                     body.GetComponent<PhysicsObject>().velocity = physicsObject.velocity;
 
                     Destroy(gameObject);
+
+                    // add more score to the enemy for killing
+                    MobTeams.GetTeam(otherMob.team).score += 10;
                 }
                 else {
                     stunned = true;

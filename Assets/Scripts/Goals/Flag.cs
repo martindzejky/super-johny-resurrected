@@ -15,6 +15,7 @@ public class Flag : MonoBehaviour {
 
     private Collider2D myCollider;
     private float respawnTimer = Globals.respawnTime;
+    private bool scoredForCapturing = false;
 
     public void Awake() {
         myCollider = GetComponent<Collider2D>();
@@ -39,6 +40,11 @@ public class Flag : MonoBehaviour {
 
             if (capturedTeam == mob.team) {
                 capturedAmount = Mathf.Min(1f, capturedAmount + Globals.goalCaptureAmountPerMob * Time.deltaTime);
+
+                if (capturedAmount >= 1f - float.Epsilon && !scoredForCapturing) {
+                    scoredForCapturing = true;
+                    MobTeams.GetTeam(mob.team).score += 5;
+                }
             }
             else {
                 capturedAmount -= Globals.goalCaptureAmountPerMob * Time.deltaTime;
@@ -47,6 +53,7 @@ public class Flag : MonoBehaviour {
                     capturedTeam = mob.team;
                     capturedAmount = 0f;
                     movingFlag.GetComponent<SpriteRenderer>().color = MobTeams.GetTeam(mob.team).teamColor;
+                    scoredForCapturing = false;
                 }
             }
         }
