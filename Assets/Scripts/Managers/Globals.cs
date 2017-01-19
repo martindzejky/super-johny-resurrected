@@ -31,7 +31,7 @@ public class Globals {
     public static float mobMaxMoveSpeed = 12f;
     public static float mobAccelerationTime = .2f;
     public static float mobJumpHeight = 5.5f;
-    public static float mobStunTime = 4f;
+    public static float mobStunTime = 5f;
     public static float mobRecoveryTime = 1f;
 
     #endregion
@@ -40,7 +40,7 @@ public class Globals {
 
     public static float aiRetargetTimer = .5f;
     public static float aiPathingTimer = 2f;
-    public static float aiAttackRadius = 8f;
+    public static float aiAttackRadius = 6f;
     public static float aiCaptureRadius = 3.5f;
     public static float enemyGoalImportanceRatio = 1.5f;
     public static float aiStunnedEnemyPenalty = 10f;
@@ -52,14 +52,14 @@ public class Globals {
     #region Navigation
 
     public static float maxNodeDistance = 6.5f;
-    public static float minNodeContactDistance = 1f;
+    public static float minNodeContactDistance = .8f;
 
     #endregion
 
     #region Goals
 
     public static float goalCaptureAmountPerMob = .03f;
-    public static float respawnTime = 3f;
+    public static float respawnTime = 10f;
 
     #endregion
 

@@ -59,6 +59,9 @@ TagManager:
   - name: Effects
     uniqueID: 2641034579
     locked: 0
+  - name: Floating UI
+    uniqueID: 984754949
+    locked: 0
   - name: UI
     uniqueID: 2328520221
     locked: 0
