@@ -8,6 +8,8 @@ public class Flag : MonoBehaviour {
 
     public Transform movingFlag;
     public GameObject[] mobsToSpawn;
+    public GameObject playerToSpawn;
+    public uint playerTeam = 1;
     public uint capturedTeam = 0;
     public float capturedAmount = 0f;
 
@@ -70,8 +72,10 @@ public class Flag : MonoBehaviour {
                 var spawnY = transform.position.y;
 
                 if (mobsToSpawn[capturedTeam] && MobTeams.GetTeam(capturedTeam).respawns > 0) {
-                    Instantiate(mobsToSpawn[capturedTeam], new Vector2(spawnX, spawnY), Quaternion.identity);
                     MobTeams.GetTeam(capturedTeam).respawns--;
+
+                    var playerAlive = FindObjectOfType<PlayerController>();
+                    Instantiate(playerAlive ? mobsToSpawn[capturedTeam] : playerToSpawn, new Vector2(spawnX, spawnY), Quaternion.identity);
                 }
             }
         }

@@ -102,6 +102,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 1838411016884770, guid: 01a1cc5aad01d4270a94ded61207b5c2, type: 2}
   - {fileID: 1838411016884770, guid: 15287243a4b1047008cd1764fbbdd55c, type: 2}
+  playerToSpawn: {fileID: 1032169637787598, guid: cf59eaad2b0044b18b2512cafa2318b1,
+    type: 2}
+  playerTeam: 1
   capturedTeam: 0
   capturedAmount: 0
 --- !u!212 &212281701410879442

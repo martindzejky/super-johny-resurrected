@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
-  lives: 3
+  lives: 2
   setTeamColor: 0
   deadBodyPrefab: {fileID: 1662960779257996, guid: c6d20424323714328b2a07459373d697,
     type: 2}
