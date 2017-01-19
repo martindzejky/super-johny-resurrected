@@ -77,12 +77,13 @@ public class Flag : MonoBehaviour {
 
                 var spawnX = Random.Range(myCollider.bounds.min.x, myCollider.bounds.max.x);
                 var spawnY = transform.position.y;
+                var spawn = new Vector2(spawnX, spawnY);
 
                 if (mobsToSpawn[capturedTeam] && MobTeams.GetTeam(capturedTeam).respawns > 0) {
                     MobTeams.GetTeam(capturedTeam).respawns--;
 
                     var playerAlive = FindObjectOfType<PlayerController>();
-                    Instantiate(playerAlive ? mobsToSpawn[capturedTeam] : playerToSpawn, new Vector2(spawnX, spawnY), Quaternion.identity);
+                    Instantiate(!playerAlive && capturedTeam == playerTeam ? playerToSpawn : mobsToSpawn[capturedTeam], spawn, Quaternion.identity);
                 }
             }
         }
