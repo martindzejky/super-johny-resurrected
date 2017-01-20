@@ -8,10 +8,10 @@
 public class AIController : MonoBehaviour {
 
     // TODO: Refactor into separate AI behaviours
-    // 1. The controller should only update and keep the closest enemy and goal
-    // 2. The controller should store and update an active behaviour
-    // 3. The behaviour should store its state, timers, and a link to the mob and the controller
-    // 4. The behaviour should be able to tell the controller to switch to a different state
+    // ✔. The controller should only update and keep the closest enemy and goal
+    // ✔. The controller should store and update an active behaviour
+    // ✔. The behaviour should store its state, timers, and a link to the mob and the controller
+    // ✔. The behaviour should be able to tell the controller to switch to a different state
     // 5. The closest targets should update periodically and invalidate when dead / captured
     // 6. The path should update only when necessary
 
@@ -39,6 +39,14 @@ public class AIController : MonoBehaviour {
         activeBehaviour.End();
         activeBehaviour = newBehaviour;
         activeBehaviour.Start();
+    }
+
+    public Mob GetClosestEnemy() {
+        return closestEnemy;
+    }
+
+    public Flag GetClosestGoal() {
+        return closestGoal;
     }
 
     private void UpdateTimers() {
@@ -105,67 +113,6 @@ public class AIController : MonoBehaviour {
     }
 
     /*
-    private void UpdateStateBasedOnClosestTarget() {
-        state = AIState.Wandering;
-
-        if (closestEnemy && closestGoal) {
-            var enemyDistance = Vector3.Distance(transform.position, closestEnemy.transform.position);
-            var goalDistance = Vector3.Distance(transform.position, closestGoal.transform.position);
-
-            if (closestEnemy.IsStunned()) {
-                enemyDistance *= Globals.aiStunnedEnemyPenalty;
-            }
-
-            if (enemyDistance < goalDistance * Globals.enemyGoalImportanceRatio) {
-                UpdateStateBasedOnEnemy();
-            }
-            else {
-                UpdateStateBasedOnGoal();
-            }
-        }
-        else if (closestEnemy) {
-            UpdateStateBasedOnEnemy();
-        }
-        else if (closestGoal) {
-            UpdateStateBasedOnGoal();
-        }
-    }
-
-    private void UpdateStateBasedOnEnemy() {
-        var distanceToEnemy = Vector3.Distance(transform.position, closestEnemy.transform.position);
-        if (distanceToEnemy < Globals.aiAttackRadius) {
-            var vector = closestEnemy.transform.position - transform.position;
-            var wall = Physics2D.Raycast(transform.position, vector.normalized, vector.magnitude, LayerMask.GetMask(Globals.solidLayerName));
-
-            if (wall) {
-                state = AIState.MovingTowardsEnemy;
-            }
-            else {
-                state = AIState.AttackingEnemy;
-            }
-        }
-        else {
-            state = AIState.MovingTowardsEnemy;
-        }
-    }
-
-    private void UpdateStateBasedOnGoal() {
-        var distanceToGoal = Vector3.Distance(transform.position, closestGoal.transform.position);
-        if (distanceToGoal < Globals.aiCaptureRadius) {
-            var vector = closestGoal.transform.position - transform.position;
-            var wall = Physics2D.Raycast(transform.position, vector.normalized, vector.magnitude, LayerMask.GetMask(Globals.solidLayerName));
-
-            if (wall) {
-                state = AIState.MovingTowardsGoal;
-            }
-            else {
-                state = AIState.CapturingGoal;
-            }
-        }
-        else {
-            state = AIState.MovingTowardsGoal;
-        }
-    }
 
     private void AttackEnemy() {
         if (!closestEnemy) {
