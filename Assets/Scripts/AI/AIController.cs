@@ -1,11 +1,20 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 /// <summary>
 /// Controls mobs. Attacks enemy mobs, captures goals, and navigates the level.
 /// </summary>
 public class AIController : MonoBehaviour {
+
+    // TODO: Refactor into separate AI behaviours
+    // 1. The controller should only update and keep the closest enemy and goal
+    // 2. The controller should store and update an active behaviour
+    // 3. The behaviour should store its state, timers, and a link to the mob and the controller
+    // 4. The behaviour should be able to tell the controller to switch to a different state
+    // 5. The closest targets should update periodically and invalidate when dead / captured
+    // 6. The path should update only when necessary
+
+    // TODO: Add AI personas, the behaviours draw stats and imperfections from active persona
 
     private Mob myMob;
     private AIState state = AIState.Thinking;
