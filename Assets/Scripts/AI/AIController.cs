@@ -2,7 +2,8 @@
 
 
 /// <summary>
-/// Controls mobs. Attacks enemy mobs, captures goals, and navigates the level.
+/// Controls mobs. The controller only updates information about the nearby world,
+/// the actual behaviour is controlled by the active AI behaviour.
 /// </summary>
 public class AIController : MonoBehaviour {
 
@@ -17,63 +18,35 @@ public class AIController : MonoBehaviour {
     // TODO: Add AI personas, the behaviours draw stats and imperfections from active persona
 
     private Mob myMob;
-    private AIState state = AIState.Thinking;
     private Mob closestEnemy = null;
     private Flag closestGoal = null;
-    private float retargetTimer;
-    private float pathingTimer;
-    private Node[] currentPath = null;
-    private uint currentPathIndex = 0;
-    private float goalCapturePoint;
-    private float jumpOffset;
+    private float retargetTimer = 0f;
+    private AIBehaviour activeBehaviour;
 
     public void Awake() {
         myMob = GetComponent<Mob>();
-        retargetTimer = Random.Range(0f, Globals.aiRetargetTimer);
-        pathingTimer = Random.Range(0f, Globals.aiPathingTimer);
-        goalCapturePoint = Random.Range(-Globals.aiCaptureRadius, Globals.aiCaptureRadius);
-        jumpOffset = Random.Range(-Globals.aiJumpPrecision, Globals.aiJumpPrecision);
     }
 
     public void Update() {
         UpdateTimers();
-
-        switch (state) {
-            case AIState.Thinking:
-                UpdateClosestMob();
-                UpdateClosestGoal();
-                UpdateStateBasedOnClosestTarget();
-                break;
-
-            case AIState.AttackingEnemy:
-                AttackEnemy();
-                break;
-
-            case AIState.MovingTowardsEnemy:
-                MoveTowardsEnemy();
-                break;
-
-            case AIState.CapturingGoal:
-                CaptureGoal();
-                break;
-
-            case AIState.MovingTowardsGoal:
-                MoveTowardsGoal();
-                break;
-        }
-
-        // update closest enemy and goal periodically
-        if (retargetTimer < 0f) {
-            retargetTimer = Globals.aiRetargetTimer;
-            UpdateClosestMob();
-            UpdateClosestGoal();
-            UpdateStateBasedOnClosestTarget();
-        }
+        UpdateTargets();
+        UpdateBehaviour();
     }
 
     private void UpdateTimers() {
         retargetTimer -= Time.deltaTime;
-        pathingTimer -= Time.deltaTime;
+    }
+
+    private void UpdateTargets() {
+        if (retargetTimer < 0f) {
+            retargetTimer = Globals.aiRetargetTimer;
+            UpdateClosestMob();
+            UpdateClosestGoal();
+        }
+    }
+
+    private void UpdateBehaviour() {
+        activeBehaviour.Update();
     }
 
     private void UpdateClosestMob() {
@@ -123,6 +96,7 @@ public class AIController : MonoBehaviour {
         }
     }
 
+    /*
     private void UpdateStateBasedOnClosestTarget() {
         state = AIState.Wandering;
 
@@ -256,25 +230,6 @@ public class AIController : MonoBehaviour {
 
         MoveTowardsPathNode();
     }
-
-    private void MoveTowardsPathNode() {
-        if (currentPath.Length == 0) {
-            state = AIState.Thinking;
-            return;
-        }
-
-        var targetNode = currentPath[currentPathIndex];
-        var difference = targetNode.transform.position - transform.position;
-
-        // move to the next node if close enough
-        if (difference.magnitude < Globals.minNodeContactDistance && currentPathIndex < currentPath.Length - 1) {
-            currentPathIndex++;
-        }
-
-        myMob.Move(Mathf.Sign(difference.x));
-        if (difference.y > .4f) {
-            myMob.Jump();
-        }
-    }
+    */
 
 }
