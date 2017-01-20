@@ -13,5 +13,6 @@ public class PrefabRegistry : MonoBehaviour {
     public GameObject deadBody;
     public GameObject lostHeart;
     public GameObject starParticle;
+    public GameObject floatingText;
 
 }

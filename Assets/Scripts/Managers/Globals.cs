@@ -64,4 +64,10 @@ public class Globals {
 
     #endregion
 
+    #region UI
+
+    public static float floatingTextTime = 3f;
+
+    #endregion
+
 }

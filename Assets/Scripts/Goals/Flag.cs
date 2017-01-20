@@ -41,6 +41,10 @@ public class Flag : MonoBehaviour {
                 if (capturedAmount >= 1f - float.Epsilon && !scoredForCapturing) {
                     scoredForCapturing = true;
                     MobTeams.GetTeam(mob.team).score += 5;
+
+                    var prefabRegistry = FindObjectOfType<PrefabRegistry>();
+                    var scoreText = Instantiate(prefabRegistry.floatingText, transform.position, transform.rotation);
+                    scoreText.GetComponent<FloatingText>().SetText("+5");
                 }
             }
             else {

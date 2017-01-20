@@ -184,10 +184,12 @@ public class Mob : MonoBehaviour {
                     physicsObject.velocity.y = CalculateVelocityForJumpHeight(yHeight) + Random.Range(-yRange, yRange);
                 }
 
+                var prefabRegistry = FindObjectOfType<PrefabRegistry>();
+
                 // add score to the enemy
                 MobTeams.GetTeam(otherMob.team).score += 10;
-
-                var prefabRegistry = FindObjectOfType<PrefabRegistry>();
+                var scoreText = Instantiate(prefabRegistry.floatingText, transform.position, transform.rotation);
+                scoreText.GetComponent<FloatingText>().SetText("+10");
 
                 if (lives == 0) {
                     var body = Instantiate(prefabRegistry.deadBody, transform.position, transform.rotation);
@@ -198,6 +200,7 @@ public class Mob : MonoBehaviour {
 
                     // add more score to the enemy for killing
                     MobTeams.GetTeam(otherMob.team).score += 10;
+                    scoreText.GetComponent<FloatingText>().SetText("+20");
                 }
                 else {
                     stunned = true;
