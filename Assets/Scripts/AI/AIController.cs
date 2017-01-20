@@ -25,12 +25,20 @@ public class AIController : MonoBehaviour {
 
     public void Awake() {
         myMob = GetComponent<Mob>();
+        activeBehaviour = new AIThink(this, myMob);
+        activeBehaviour.Start();
     }
 
     public void Update() {
         UpdateTimers();
         UpdateTargets();
         UpdateBehaviour();
+    }
+
+    public void SwitchBehaviour(AIBehaviour newBehaviour) {
+        activeBehaviour.End();
+        activeBehaviour = newBehaviour;
+        activeBehaviour.Start();
     }
 
     private void UpdateTimers() {
