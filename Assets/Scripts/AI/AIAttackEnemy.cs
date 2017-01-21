@@ -10,6 +10,8 @@ public class AIAttackEnemy : AIBehaviour
     public AIAttackEnemy(AIController controller, Mob mob) : base(controller, mob) {}
 
     public override void Update() {
+        base.Update();
+
         if (controller.GetClosestEnemy()) {
             if (UpdateStateBasedOnEnemy()) {
                 AttackEnemy();
@@ -17,6 +19,12 @@ public class AIAttackEnemy : AIBehaviour
         }
         else {
             controller.ForceUpdateTargets();
+            controller.SwitchBehaviour(new AIThink(controller, mob));
+        }
+    }
+
+    protected override void UpdateBasedOnTarget(AITarget closestTarget) {
+        if (closestTarget != AITarget.Enemy) {
             controller.SwitchBehaviour(new AIThink(controller, mob));
         }
     }

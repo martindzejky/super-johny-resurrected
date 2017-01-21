@@ -1,8 +1,8 @@
 ﻿/// <summary>
 /// Denotes a type of AI target.
 /// </summary>
-enum AITarget {
+public enum AITarget {
     None,
-    Mob,
+    Enemy,
     Goal
 }

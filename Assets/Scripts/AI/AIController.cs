@@ -57,7 +57,7 @@ public class AIController : MonoBehaviour {
     }
 
     private void UpdateTargets() {
-        if (retargetTimer < 0f || (!closestEnemy && hadAliveEnemy) || closestGoal.IsCapturedByTeam(myMob.team)) {
+        if (retargetTimer < 0f || (!closestEnemy && hadAliveEnemy) || (closestGoal && closestGoal.IsCapturedByTeam(myMob.team))) {
             retargetTimer = Globals.aiRetargetTimer;
             UpdateClosestEnemy();
             UpdateClosestGoal();

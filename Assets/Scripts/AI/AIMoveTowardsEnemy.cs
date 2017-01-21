@@ -12,6 +12,8 @@ public class AIMoveTowardsEnemy : AIPathingBehaviour
     public AIMoveTowardsEnemy(AIController controller, Mob mob) : base(controller, mob) {}
 
     public override void Update() {
+        base.Update();
+
         updateTimer -= Time.deltaTime;
         if (controller.GetClosestEnemy()) {
             if (UpdateStateBasedOnEnemy()) {
@@ -20,6 +22,12 @@ public class AIMoveTowardsEnemy : AIPathingBehaviour
         }
         else {
             controller.ForceUpdateTargets();
+            controller.SwitchBehaviour(new AIThink(controller, mob));
+        }
+    }
+
+    protected override void UpdateBasedOnTarget(AITarget closestTarget) {
+        if (closestTarget != AITarget.Enemy) {
             controller.SwitchBehaviour(new AIThink(controller, mob));
         }
     }

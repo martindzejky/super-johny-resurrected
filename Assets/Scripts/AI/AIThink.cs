@@ -24,7 +24,7 @@ public class AIThink : AIBehaviour {
 
     private void UpdateStateBasedOnClosestTarget() {
         switch (GetClosestTarget()) {
-            case AITarget.Mob:
+            case AITarget.Enemy:
                 UpdateStateBasedOnEnemy();
                 break;
             case AITarget.Goal:

@@ -12,10 +12,14 @@ public class AICaptureGoal : AIBehaviour
     public AICaptureGoal(AIController controller, Mob mob) : base(controller, mob) {}
 
     public override void Start() {
+        base.Start();
+
         capturePoint = Random.Range(-Globals.aiCaptureRadius, Globals.aiCaptureRadius);
     }
 
     public override void Update() {
+        base.Update();
+
         if (controller.GetClosestGoal()) {
             if (UpdateStateBasedOnGoal()) {
                 CaptureGoal();
@@ -23,6 +27,12 @@ public class AICaptureGoal : AIBehaviour
         }
         else {
             controller.ForceUpdateTargets();
+            controller.SwitchBehaviour(new AIThink(controller, mob));
+        }
+    }
+
+    protected override void UpdateBasedOnTarget(AITarget closestTarget) {
+        if (closestTarget != AITarget.Goal) {
             controller.SwitchBehaviour(new AIThink(controller, mob));
         }
     }

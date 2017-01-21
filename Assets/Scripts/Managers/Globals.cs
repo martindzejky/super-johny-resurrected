@@ -40,8 +40,8 @@ public class Globals {
     #region AI
 
     public static float aiRetargetTimer = 2f;
-    public static float aiThinkTimer = 1f;
-    public static float aiClosestTargetTimer = 1f;
+    public static float aiThinkTimer = .5f;
+    public static float aiClosestTargetTimer = .5f;
     public static float aiWanderTimer = 3f;
     public static float aiWanderMovementTime = .3f;
     public static float aiPathingTimer = 1f;
@@ -55,7 +55,7 @@ public class Globals {
     #region Navigation
 
     public static float maxNodeDistance = 6.5f;
-    public static float minNodeContactDistance = .8f;
+    public static float minNodeContactDistance = 1.5f;
 
     #endregion
 

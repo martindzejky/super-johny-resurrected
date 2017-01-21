@@ -9,14 +9,24 @@ public class AIBehaviour {
     protected AIController controller;
     protected Mob mob;
 
+    private float targetTimer = Globals.aiClosestTargetTimer;
+
     public AIBehaviour(AIController controller, Mob mob) {
         this.controller = controller;
         this.mob = mob;
     }
 
     public virtual void Start() {}
-    public virtual void Update() {}
+    public virtual void Update() {
+        targetTimer -= Time.deltaTime;
+        if (targetTimer < 0f) {
+            targetTimer = Globals.aiClosestTargetTimer;
+            UpdateBasedOnTarget(GetClosestTarget());
+        }
+    }
     public virtual void End() {}
+
+    protected virtual void UpdateBasedOnTarget(AITarget closestTarget) {}
 
     protected AIBehaviour ShouldAttackOrMove(Vector3 target, float attackRadius,
         AIBehaviour attackBehaviour, AIBehaviour moveBehaviour) {
@@ -54,14 +64,14 @@ public class AIBehaviour {
             goalDistance *= Globals.enemyGoalImportanceRatio;
 
             if (enemyDistance < goalDistance) {
-                return AITarget.Mob;
+                return AITarget.Enemy;
             }
             else {
                 return AITarget.Goal;
             }
         }
         else if (closestEnemy) {
-            return AITarget.Mob;
+            return AITarget.Enemy;
         }
         else if (closestGoal) {
             return AITarget.Goal;

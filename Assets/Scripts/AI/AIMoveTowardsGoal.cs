@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-
-
-/// <summary>
+﻿/// <summary>
 /// Makes the mob use pathing and move towards the closest goal. The path is not
 /// updated because the goal is not moving.
 /// </summary>
@@ -11,6 +8,8 @@ public class AIMoveTowardsGoal : AIPathingBehaviour
     public AIMoveTowardsGoal(AIController controller, Mob mob) : base(controller, mob) {}
 
     public override void Update() {
+        base.Update();
+
         if (controller.GetClosestGoal()) {
             if (UpdateStateBasedOnGoal()) {
                 MoveTowardsGoal();
@@ -18,6 +17,12 @@ public class AIMoveTowardsGoal : AIPathingBehaviour
         }
         else {
             controller.ForceUpdateTargets();
+            controller.SwitchBehaviour(new AIThink(controller, mob));
+        }
+    }
+
+    protected override void UpdateBasedOnTarget(AITarget closestTarget) {
+        if (closestTarget != AITarget.Goal) {
             controller.SwitchBehaviour(new AIThink(controller, mob));
         }
     }
