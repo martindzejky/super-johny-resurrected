@@ -21,6 +21,7 @@ public class Mob : MonoBehaviour {
     private bool recovering = false;
     private float stunTimer = 0f;
     private float stunRecoveryTimer = 0f;
+    private float stunTime;
 
     public bool IsStunned() {
         return stunned;
@@ -50,7 +51,8 @@ public class Mob : MonoBehaviour {
             mobTeam.teamColor = spriteRenderer.color;
         }
 
-        animator.ForceStateNormalizedTime(Random.value);
+        animator.Play("Idle", -1, Random.value);
+        stunTime = Random.Range(Globals.mobStunTimeMin, Globals.mobStunTimeMax);
     }
 
     public void Update() {
@@ -90,7 +92,7 @@ public class Mob : MonoBehaviour {
         physicsObject.applyGroundFriction = true;
         physicsObject.applyAirFriction = true;
 
-        if (stunTimer > Globals.mobStunTime) {
+        if (stunTimer > stunTime) {
             stunned = false;
             recovering = true;
             stunTimer = 0f;
