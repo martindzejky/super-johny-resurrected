@@ -14,7 +14,8 @@ public class AICaptureGoal : AIBehaviour
     public override void Start() {
         base.Start();
 
-        capturePoint = Random.Range(-Globals.aiCaptureRadius, Globals.aiCaptureRadius);
+        var radius = controller.GetPersona().CaptureRadius();
+        capturePoint = Random.Range(-radius, radius);
     }
 
     public override void Update() {
@@ -39,7 +40,7 @@ public class AICaptureGoal : AIBehaviour
 
     private bool UpdateStateBasedOnGoal() {
         var newBehaviour = ShouldAttackOrMove(controller.GetClosestGoal().transform.position,
-            Globals.aiCaptureRadius, this, new AIMoveTowardsGoal(controller, mob));
+            controller.GetPersona().CaptureRadius(), this, new AIMoveTowardsGoal(controller, mob));
         if (newBehaviour == this) {
             return true;
         }

@@ -43,12 +43,8 @@ public class Globals {
     public static float aiThinkTimer = .5f;
     public static float aiClosestTargetTimer = .5f;
     public static float aiWanderTimer = 3f;
-    public static float aiWanderMovementTime = .3f;
+    public static float aiWanderMovementTime = .8f;
     public static float aiPathingTimer = 1f;
-    public static float aiAttackRadius = 6f;
-    public static float aiCaptureRadius = 3.5f;
-    public static float enemyGoalImportanceRatio = 1.5f;
-    public static float aiStunnedEnemyPenalty = 10f;
 
     #endregion
 

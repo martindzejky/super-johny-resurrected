@@ -31,7 +31,7 @@ public class AIAttackEnemy : AIBehaviour
 
     private bool UpdateStateBasedOnEnemy() {
         var newBehaviour = ShouldAttackOrMove(controller.GetClosestEnemy().transform.position,
-            Globals.aiAttackRadius, this, new AIMoveTowardsEnemy(controller, mob));
+            controller.GetPersona().AttackRadius(), this, new AIMoveTowardsEnemy(controller, mob));
         if (newBehaviour == this) {
             return true;
         }
@@ -43,10 +43,13 @@ public class AIAttackEnemy : AIBehaviour
 
     private void AttackEnemy() {
         var closestEnemy = controller.GetClosestEnemy();
+        var persona = controller.GetPersona();
 
         var horizontalDistanceToEnemy = closestEnemy.transform.position.x - mob.transform.position.x;
         var directionToEnemy = Mathf.Sign(horizontalDistanceToEnemy);
         var heightDifference = closestEnemy.transform.position.y - mob.transform.position.y;
+
+        horizontalDistanceToEnemy += persona.JumpPoint();
 
         if (heightDifference < 1f) {
             if (Mathf.Abs(horizontalDistanceToEnemy) > .8f) {
@@ -54,12 +57,16 @@ public class AIAttackEnemy : AIBehaviour
             }
         }
         else {
-            if (Mathf.Abs(horizontalDistanceToEnemy) < 1.5f) {
+            if (Mathf.Abs(horizontalDistanceToEnemy) < 3f) {
                 mob.Move(-directionToEnemy);
             }
         }
 
-        if (heightDifference > -.5f && heightDifference < .5f) {
+        if (persona.ShouldAccidentalJump()) {
+            mob.Jump();
+        }
+
+        if (heightDifference > -.5f && heightDifference < .5f && persona.ShouldJump()) {
             mob.Jump();
         }
     }

@@ -34,7 +34,7 @@ public class AIMoveTowardsEnemy : AIPathingBehaviour
 
     private bool UpdateStateBasedOnEnemy() {
         var newBehaviour = ShouldAttackOrMove(controller.GetClosestEnemy().transform.position,
-            Globals.aiAttackRadius, new AIAttackEnemy(controller, mob), this);
+            controller.GetPersona().AttackRadius(), new AIAttackEnemy(controller, mob), this);
         if (newBehaviour == this) {
             return true;
         }

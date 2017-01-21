@@ -16,11 +16,17 @@ public class AIController : MonoBehaviour {
     private float retargetTimer = -1f;
     private bool hadAliveEnemy = false;
     private AIBehaviour activeBehaviour = null;
+    private AIPersona persona = null;
 
     public void Awake() {
         myMob = GetComponent<Mob>();
         activeBehaviour = new AIThink(this, myMob);
         activeBehaviour.Start();
+
+        var personas = new AIPersona[] {
+            new AIPersona()
+        };
+        persona = personas[Random.Range(0, personas.Length)];
     }
 
     public void Update() {
@@ -45,6 +51,10 @@ public class AIController : MonoBehaviour {
 
     public Flag GetClosestGoal() {
         return closestGoal;
+    }
+
+    public AIPersona GetPersona() {
+        return persona;
     }
 
     public void ForceUpdateTargets() {
@@ -86,7 +96,7 @@ public class AIController : MonoBehaviour {
                 foreach (var enemy in team.mobs) {
                     var distance = (transform.position - enemy.transform.position).sqrMagnitude;
                     if (enemy.IsStunned()) {
-                        distance *= Globals.aiStunnedEnemyPenalty;
+                        distance *= persona.StunnedEnemyPenalty();
                     }
 
                     if (distance < closestDistance) {

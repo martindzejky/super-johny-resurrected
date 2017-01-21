@@ -29,7 +29,7 @@ public class AIMoveTowardsGoal : AIPathingBehaviour
 
     private bool UpdateStateBasedOnGoal() {
         var newBehaviour = ShouldAttackOrMove(controller.GetClosestGoal().transform.position,
-            Globals.aiCaptureRadius, new AICaptureGoal(controller, mob), this);
+            controller.GetPersona().CaptureRadius(), new AICaptureGoal(controller, mob), this);
         if (newBehaviour == this) {
             return true;
         }

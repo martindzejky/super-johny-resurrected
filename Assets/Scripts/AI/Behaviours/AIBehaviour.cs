@@ -52,16 +52,17 @@ public class AIBehaviour {
     protected AITarget GetClosestTarget() {
         var closestEnemy = controller.GetClosestEnemy();
         var closestGoal = controller.GetClosestGoal();
+        var persona = controller.GetPersona();
 
         if (closestEnemy && closestGoal) {
             var enemyDistance = Vector3.Distance(mob.transform.position, closestEnemy.transform.position);
             var goalDistance = Vector3.Distance(mob.transform.position, closestGoal.transform.position);
 
             if (closestEnemy.IsStunned()) {
-                enemyDistance *= Globals.aiStunnedEnemyPenalty;
+                enemyDistance *= persona.StunnedEnemyPenalty();
             }
 
-            goalDistance *= Globals.enemyGoalImportanceRatio;
+            goalDistance = goalDistance * persona.EnemyGoalImportanceRatio() + persona.GoalDistanceOffset();
 
             if (enemyDistance < goalDistance) {
                 return AITarget.Enemy;

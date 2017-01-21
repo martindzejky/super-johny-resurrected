@@ -38,12 +38,12 @@ public class AIThink : AIBehaviour {
 
     private void UpdateStateBasedOnEnemy() {
         controller.SwitchBehaviour(ShouldAttackOrMove(controller.GetClosestEnemy().transform.position,
-            Globals.aiAttackRadius, new AIAttackEnemy(controller, mob), new AIMoveTowardsEnemy(controller, mob)));
+            controller.GetPersona().AttackRadius(), new AIAttackEnemy(controller, mob), new AIMoveTowardsEnemy(controller, mob)));
     }
 
     private void UpdateStateBasedOnGoal() {
         controller.SwitchBehaviour(ShouldAttackOrMove(controller.GetClosestGoal().transform.position,
-            Globals.aiCaptureRadius, new AICaptureGoal(controller, mob), new AIMoveTowardsGoal(controller, mob)));
+            controller.GetPersona().CaptureRadius(), new AICaptureGoal(controller, mob), new AIMoveTowardsGoal(controller, mob)));
     }
 
 }
