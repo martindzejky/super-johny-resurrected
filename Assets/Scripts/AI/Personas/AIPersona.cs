@@ -16,11 +16,11 @@ public class AIPersona {
     }
 
     public virtual bool ShouldJump() {
-        return Random.value < 0.04f;
+        return Random.value < .04f;
     }
 
     public virtual bool ShouldAccidentalJump() {
-        return Random.value < 0.01f;
+        return Random.value < .01f;
     }
 
     public virtual float JumpPoint() {

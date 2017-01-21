@@ -24,7 +24,10 @@ public class AIController : MonoBehaviour {
         activeBehaviour.Start();
 
         var personas = new AIPersona[] {
-            new AIPersona()
+            new AIPersona(),
+            new AIPersona(),
+            new AIAttackerPersona(),
+            new AICapturerPersona()
         };
         persona = personas[Random.Range(0, personas.Length)];
     }
