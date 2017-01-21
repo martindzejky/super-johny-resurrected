@@ -24,6 +24,10 @@ public class Flag : MonoBehaviour {
         RespawnMobs();
     }
 
+    public bool IsCapturedByTeam(uint team) {
+        return capturedTeam == team && capturedAmount >= 1f - float.Epsilon;
+    }
+
     private void CheckCapturing() {
         var mobs = Physics2D.OverlapBoxAll(myCollider.bounds.center, myCollider.bounds.size, 0f, LayerMask.GetMask(Globals.mobLayerName));
 

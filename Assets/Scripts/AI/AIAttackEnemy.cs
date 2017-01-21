@@ -2,7 +2,7 @@
 
 
 /// <summary>
-/// Makes the mob attack the enemy.
+/// Makes the mob attack the enemy. Tries to stomp the enemy and avoid getting stomped.
 /// </summary>
 public class AIAttackEnemy : AIBehaviour
 {
@@ -21,23 +21,14 @@ public class AIAttackEnemy : AIBehaviour
         }
     }
 
-    // TODO: This is a copy of the AIThink's method, refactor
     private bool UpdateStateBasedOnEnemy() {
-        var vector = controller.GetClosestEnemy().transform.position - mob.transform.position;
-        var distanceToEnemy = vector.magnitude;
-
-        if (distanceToEnemy < Globals.aiAttackRadius) {
-            var wall = Physics2D.Raycast(mob.transform.position, vector.normalized, distanceToEnemy, LayerMask.GetMask(Globals.solidLayerName));
-            if (wall) {
-                controller.SwitchBehaviour(new AIMoveTowardsEnemy(controller, mob));
-                return false;
-            }
-            else {
-                return true;
-            }
+        var newBehaviour = ShouldAttackOrMove(controller.GetClosestEnemy().transform.position,
+            Globals.aiAttackRadius, this, new AIMoveTowardsEnemy(controller, mob));
+        if (newBehaviour == this) {
+            return true;
         }
         else {
-            controller.SwitchBehaviour(new AIMoveTowardsEnemy(controller, mob));
+            controller.SwitchBehaviour(newBehaviour);
             return false;
         }
     }
@@ -55,7 +46,7 @@ public class AIAttackEnemy : AIBehaviour
             }
         }
         else {
-            if (Mathf.Abs(horizontalDistanceToEnemy) < 2f) {
+            if (Mathf.Abs(horizontalDistanceToEnemy) < 1.5f) {
                 mob.Move(-directionToEnemy);
             }
         }

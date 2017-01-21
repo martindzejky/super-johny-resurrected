@@ -39,11 +39,12 @@ public class Globals {
 
     #region AI
 
-    public static float aiRetargetTimer = 1f;
-    public static float aiThinkTimer = .5f;
+    public static float aiRetargetTimer = 2f;
+    public static float aiThinkTimer = 1f;
+    public static float aiClosestTargetTimer = 1f;
     public static float aiWanderTimer = 3f;
     public static float aiWanderMovementTime = .3f;
-    public static float aiPathingTimer = 2f;
+    public static float aiPathingTimer = 1f;
     public static float aiAttackRadius = 6f;
     public static float aiCaptureRadius = 3.5f;
     public static float enemyGoalImportanceRatio = 1.5f;

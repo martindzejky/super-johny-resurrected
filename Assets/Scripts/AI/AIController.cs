@@ -4,24 +4,18 @@
 /// <summary>
 /// Controls mobs. The controller only updates information about the nearby world,
 /// the actual behaviour is controlled by the active AI behaviour.
+/// It also contains methods to poll its status and change the active behaviour.
 /// </summary>
 public class AIController : MonoBehaviour {
-
-    // TODO: Refactor into separate AI behaviours
-    // ✔. The controller should only update and keep the closest enemy and goal
-    // ✔. The controller should store and update an active behaviour
-    // ✔. The behaviour should store its state, timers, and a link to the mob and the controller
-    // ✔. The behaviour should be able to tell the controller to switch to a different state
-    // 5. The closest targets should update periodically and invalidate when dead / captured
-    // 6. The path should update only when necessary
 
     // TODO: Add AI personas, the behaviours draw stats and imperfections from active persona
 
     private Mob myMob;
     private Mob closestEnemy = null;
     private Flag closestGoal = null;
-    private float retargetTimer = 0f;
-    private AIBehaviour activeBehaviour;
+    private float retargetTimer = -1f;
+    private bool hadAliveEnemy = false;
+    private AIBehaviour activeBehaviour = null;
 
     public void Awake() {
         myMob = GetComponent<Mob>();
@@ -36,6 +30,10 @@ public class AIController : MonoBehaviour {
     }
 
     public void SwitchBehaviour(AIBehaviour newBehaviour) {
+        if (newBehaviour == activeBehaviour) {
+            return;
+        }
+
         activeBehaviour.End();
         activeBehaviour = newBehaviour;
         activeBehaviour.Start();
@@ -59,10 +57,12 @@ public class AIController : MonoBehaviour {
     }
 
     private void UpdateTargets() {
-        if (retargetTimer < 0f) {
+        if (retargetTimer < 0f || (!closestEnemy && hadAliveEnemy) || closestGoal.IsCapturedByTeam(myMob.team)) {
             retargetTimer = Globals.aiRetargetTimer;
-            UpdateClosestMob();
+            UpdateClosestEnemy();
             UpdateClosestGoal();
+
+            hadAliveEnemy = closestEnemy;
         }
     }
 
@@ -70,7 +70,7 @@ public class AIController : MonoBehaviour {
         activeBehaviour.Update();
     }
 
-    private void UpdateClosestMob() {
+    private void UpdateClosestEnemy() {
         closestEnemy = null;
 
         var numberOfTeams = MobTeams.GetNumberOfTeams();

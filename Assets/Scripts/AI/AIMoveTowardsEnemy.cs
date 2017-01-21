@@ -2,12 +2,11 @@
 
 
 /// <summary>
-/// Makes the mob use pathing and move towards the closest enemy
+/// Makes the mob use pathing and move towards the closest enemy. The path is periodically updated.
 /// </summary>
 public class AIMoveTowardsEnemy : AIPathingBehaviour
 {
 
-    // TODO: Find a better way to keep the path updated
     private float updateTimer = Globals.aiPathingTimer;
 
     public AIMoveTowardsEnemy(AIController controller, Mob mob) : base(controller, mob) {}
@@ -25,23 +24,15 @@ public class AIMoveTowardsEnemy : AIPathingBehaviour
         }
     }
 
-    // TODO: This is a copy of the AIThink's method, refactor
     private bool UpdateStateBasedOnEnemy() {
-        var vector = controller.GetClosestEnemy().transform.position - mob.transform.position;
-        var distanceToEnemy = vector.magnitude;
-
-        if (distanceToEnemy < Globals.aiAttackRadius) {
-            var wall = Physics2D.Raycast(mob.transform.position, vector.normalized, distanceToEnemy, LayerMask.GetMask(Globals.solidLayerName));
-            if (wall) {
-                return true;
-            }
-            else {
-                controller.SwitchBehaviour(new AIAttackEnemy(controller, mob));
-                return false;
-            }
+        var newBehaviour = ShouldAttackOrMove(controller.GetClosestEnemy().transform.position,
+            Globals.aiAttackRadius, new AIAttackEnemy(controller, mob), this);
+        if (newBehaviour == this) {
+            return true;
         }
         else {
-            return true;
+            controller.SwitchBehaviour(newBehaviour);
+            return false;
         }
     }
 

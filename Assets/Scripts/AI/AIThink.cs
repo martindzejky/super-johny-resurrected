@@ -34,7 +34,9 @@ public class AIThink : AIBehaviour {
                 enemyDistance *= Globals.aiStunnedEnemyPenalty;
             }
 
-            if (enemyDistance < goalDistance * Globals.enemyGoalImportanceRatio) {
+            goalDistance *= Globals.enemyGoalImportanceRatio;
+
+            if (enemyDistance < goalDistance) {
                 UpdateStateBasedOnEnemy();
             }
             else {
@@ -53,42 +55,13 @@ public class AIThink : AIBehaviour {
     }
 
     private void UpdateStateBasedOnEnemy() {
-        var vector = controller.GetClosestEnemy().transform.position - mob.transform.position;
-        var distanceToEnemy = vector.magnitude;
-
-        if (distanceToEnemy < Globals.aiAttackRadius) {
-            var wall = Physics2D.Raycast(mob.transform.position, vector.normalized, distanceToEnemy, LayerMask.GetMask(Globals.solidLayerName));
-
-            if (wall) {
-                controller.SwitchBehaviour(new AIMoveTowardsEnemy(controller, mob));
-            }
-            else {
-                controller.SwitchBehaviour(new AIAttackEnemy(controller, mob));
-            }
-        }
-        else {
-            controller.SwitchBehaviour(new AIMoveTowardsEnemy(controller, mob));
-        }
+        controller.SwitchBehaviour(ShouldAttackOrMove(controller.GetClosestEnemy().transform.position,
+            Globals.aiAttackRadius, new AIAttackEnemy(controller, mob), new AIMoveTowardsEnemy(controller, mob)));
     }
 
-    // TODO: Refactor these similar functions into one
     private void UpdateStateBasedOnGoal() {
-        var vector = controller.GetClosestGoal().transform.position - mob.transform.position;
-        var distanceToGoal = vector.magnitude;
-
-        if (distanceToGoal < Globals.aiCaptureRadius) {
-            var wall = Physics2D.Raycast(mob.transform.position, vector.normalized, distanceToGoal, LayerMask.GetMask(Globals.solidLayerName));
-
-            if (wall) {
-                controller.SwitchBehaviour(new AIMoveTowardsGoal(controller, mob));
-            }
-            else {
-                controller.SwitchBehaviour(new AICaptureGoal(controller, mob));
-            }
-        }
-        else {
-            controller.SwitchBehaviour(new AIMoveTowardsGoal(controller, mob));
-        }
+        controller.SwitchBehaviour(ShouldAttackOrMove(controller.GetClosestGoal().transform.position,
+            Globals.aiCaptureRadius, new AICaptureGoal(controller, mob), new AIMoveTowardsGoal(controller, mob)));
     }
 
 }

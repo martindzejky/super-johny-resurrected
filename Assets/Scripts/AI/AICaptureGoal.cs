@@ -2,7 +2,7 @@
 
 
 /// <summary>
-/// Makes the mob stand still and capture the goal.
+/// Makes the mob stand still and capture the goal. Chooses a random capture point.
 /// </summary>
 public class AICaptureGoal : AIBehaviour
 {
@@ -27,24 +27,14 @@ public class AICaptureGoal : AIBehaviour
         }
     }
 
-    // TODO: This is a copy of the AIThink's method, refactor
     private bool UpdateStateBasedOnGoal() {
-        var vector = controller.GetClosestGoal().transform.position - mob.transform.position;
-        var distanceToGoal = vector.magnitude;
-
-        if (distanceToGoal < Globals.aiCaptureRadius) {
-            var wall = Physics2D.Raycast(mob.transform.position, vector.normalized, distanceToGoal, LayerMask.GetMask(Globals.solidLayerName));
-
-            if (wall) {
-                controller.SwitchBehaviour(new AIMoveTowardsGoal(controller, mob));
-                return false;
-            }
-            else {
-                return true;
-            }
+        var newBehaviour = ShouldAttackOrMove(controller.GetClosestGoal().transform.position,
+            Globals.aiCaptureRadius, this, new AIMoveTowardsGoal(controller, mob));
+        if (newBehaviour == this) {
+            return true;
         }
         else {
-            controller.SwitchBehaviour(new AIMoveTowardsGoal(controller, mob));
+            controller.SwitchBehaviour(newBehaviour);
             return false;
         }
     }
