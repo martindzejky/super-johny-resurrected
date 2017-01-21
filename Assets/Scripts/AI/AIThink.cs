@@ -23,34 +23,16 @@ public class AIThink : AIBehaviour {
     }
 
     private void UpdateStateBasedOnClosestTarget() {
-        var closestEnemy = controller.GetClosestEnemy();
-        var closestGoal = controller.GetClosestGoal();
-
-        if (closestEnemy && closestGoal) {
-            var enemyDistance = Vector3.Distance(mob.transform.position, closestEnemy.transform.position);
-            var goalDistance = Vector3.Distance(mob.transform.position, closestGoal.transform.position);
-
-            if (closestEnemy.IsStunned()) {
-                enemyDistance *= Globals.aiStunnedEnemyPenalty;
-            }
-
-            goalDistance *= Globals.enemyGoalImportanceRatio;
-
-            if (enemyDistance < goalDistance) {
+        switch (GetClosestTarget()) {
+            case AITarget.Mob:
                 UpdateStateBasedOnEnemy();
-            }
-            else {
+                break;
+            case AITarget.Goal:
                 UpdateStateBasedOnGoal();
-            }
-        }
-        else if (closestEnemy) {
-            UpdateStateBasedOnEnemy();
-        }
-        else if (closestGoal) {
-            UpdateStateBasedOnGoal();
-        }
-        else {
-            controller.SwitchBehaviour(new AIWander(controller, mob));
+                break;
+            default:
+                controller.SwitchBehaviour(new AIWander(controller, mob));
+                break;
         }
     }
 

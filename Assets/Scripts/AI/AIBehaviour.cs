@@ -39,4 +39,36 @@ public class AIBehaviour {
         }
     }
 
+    protected AITarget GetClosestTarget() {
+        var closestEnemy = controller.GetClosestEnemy();
+        var closestGoal = controller.GetClosestGoal();
+
+        if (closestEnemy && closestGoal) {
+            var enemyDistance = Vector3.Distance(mob.transform.position, closestEnemy.transform.position);
+            var goalDistance = Vector3.Distance(mob.transform.position, closestGoal.transform.position);
+
+            if (closestEnemy.IsStunned()) {
+                enemyDistance *= Globals.aiStunnedEnemyPenalty;
+            }
+
+            goalDistance *= Globals.enemyGoalImportanceRatio;
+
+            if (enemyDistance < goalDistance) {
+                return AITarget.Mob;
+            }
+            else {
+                return AITarget.Goal;
+            }
+        }
+        else if (closestEnemy) {
+            return AITarget.Mob;
+        }
+        else if (closestGoal) {
+            return AITarget.Goal;
+        }
+        else {
+            return AITarget.None;
+        }
+    }
+
 }
