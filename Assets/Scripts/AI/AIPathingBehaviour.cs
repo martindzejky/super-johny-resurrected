@@ -11,7 +11,7 @@ public class AIPathingBehaviour : AIBehaviour {
 
     public AIPathingBehaviour(AIController controller, Mob mob) : base(controller, mob) {}
 
-    protected void SetPathTowards(Vector3 destination) {
+    protected void NavigateTowards(Vector3 destination) {
         currentPath = PathFinder.GetPath(controller.transform.position, destination);
         currentPathIndex = 0;
     }

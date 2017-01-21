@@ -31,7 +31,7 @@ public class AIWander : AIBehaviour
 
     private void Move() {
         var absWanderBuffer = Mathf.Abs(wanderBuffer);
-        if (absWanderBuffer > float.Epsilon) {
+        if (absWanderBuffer > .2f) {
             var dir = Mathf.Sign(wanderBuffer);
             mob.Move(dir);
             wanderBuffer -= Mathf.Min(dir * Time.deltaTime, absWanderBuffer);

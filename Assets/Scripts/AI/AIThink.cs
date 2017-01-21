@@ -60,34 +60,34 @@ public class AIThink : AIBehaviour {
             var wall = Physics2D.Raycast(mob.transform.position, vector.normalized, distanceToEnemy, LayerMask.GetMask(Globals.solidLayerName));
 
             if (wall) {
-                //state = AIState.MovingTowardsEnemy;
+                controller.SwitchBehaviour(new AIMoveTowardsEnemy(controller, mob));
             }
             else {
-                //state = AIState.AttackingEnemy;
+                controller.SwitchBehaviour(new AIAttackEnemy(controller, mob));
             }
         }
         else {
-            //state = AIState.MovingTowardsEnemy;
+            controller.SwitchBehaviour(new AIMoveTowardsEnemy(controller, mob));
         }
     }
 
     // TODO: Refactor these similar functions into one
     private void UpdateStateBasedOnGoal() {
-        var vector = mob.transform.position - controller.GetClosestGoal().transform.position;
+        var vector = controller.GetClosestGoal().transform.position - mob.transform.position;
         var distanceToGoal = vector.magnitude;
 
         if (distanceToGoal < Globals.aiCaptureRadius) {
             var wall = Physics2D.Raycast(mob.transform.position, vector.normalized, distanceToGoal, LayerMask.GetMask(Globals.solidLayerName));
 
             if (wall) {
-                //state = AIState.MovingTowardsGoal;
+                controller.SwitchBehaviour(new AIMoveTowardsGoal(controller, mob));
             }
             else {
-                //state = AIState.CapturingGoal;
+                controller.SwitchBehaviour(new AICaptureGoal(controller, mob));
             }
         }
         else {
-            //state = AIState.MovingTowardsGoal;
+            controller.SwitchBehaviour(new AIMoveTowardsGoal(controller, mob));
         }
     }
 

@@ -49,6 +49,11 @@ public class AIController : MonoBehaviour {
         return closestGoal;
     }
 
+    public void ForceUpdateTargets() {
+        retargetTimer = -1f;
+        UpdateTargets();
+    }
+
     private void UpdateTimers() {
         retargetTimer -= Time.deltaTime;
     }
@@ -111,80 +116,5 @@ public class AIController : MonoBehaviour {
             }
         }
     }
-
-    /*
-
-    private void AttackEnemy() {
-        if (!closestEnemy) {
-            state = AIState.Thinking;
-            return;
-        }
-
-        UpdateStateBasedOnEnemy();
-
-        var horizontalDistanceToEnemy = closestEnemy.transform.position.x - transform.position.x;
-        var directionToEnemy = Mathf.Sign(horizontalDistanceToEnemy);
-        var heightDifference = closestEnemy.transform.position.y - transform.position.y;
-
-        // add a little offset to make jumping less precise
-        horizontalDistanceToEnemy += jumpOffset;
-
-        if (Mathf.Abs(horizontalDistanceToEnemy) > .8f) {
-            myMob.Move(directionToEnemy);
-        }
-
-        if (heightDifference > -.5f && Random.value < Globals.aiJumpChance) {
-            myMob.Jump();
-        }
-    }
-
-    private void CaptureGoal() {
-        if (!closestGoal) {
-            state = AIState.Thinking;
-            return;
-        }
-
-        var difference = closestGoal.transform.position.x + goalCapturePoint - transform.position.x;
-        if (Mathf.Abs(difference) > 1f) {
-            myMob.Move(Mathf.Sign(difference));
-        }
-    }
-
-    private void MoveTowardsEnemy() {
-        if (!closestEnemy) {
-            state = AIState.Thinking;
-            return;
-        }
-
-        UpdateStateBasedOnEnemy();
-
-        // update path periodically
-        if (pathingTimer < 0f || currentPath == null || currentPath.Length == 0) {
-            pathingTimer = Globals.aiPathingTimer;
-            currentPath = PathFinder.GetPath(transform.position, closestEnemy.transform.position);
-            currentPathIndex = 0;
-        }
-
-        MoveTowardsPathNode();
-    }
-
-    private void MoveTowardsGoal() {
-        if (!closestGoal) {
-            state = AIState.Thinking;
-            return;
-        }
-
-        UpdateStateBasedOnGoal();
-
-        // update path periodically
-        if (pathingTimer < 0f || currentPath == null || currentPath.Length == 0) {
-            pathingTimer = Globals.aiPathingTimer;
-            currentPath = PathFinder.GetPath(transform.position, closestGoal.transform.position);
-            currentPathIndex = 0;
-        }
-
-        MoveTowardsPathNode();
-    }
-    */
 
 }
