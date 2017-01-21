@@ -20,9 +20,6 @@ public class AIController : MonoBehaviour {
 
     public void Awake() {
         myMob = GetComponent<Mob>();
-        activeBehaviour = new AIThink(this, myMob);
-        activeBehaviour.Start();
-
         var personas = new AIPersona[] {
             new AIPersona(),
             new AIPersona(),
@@ -30,6 +27,8 @@ public class AIController : MonoBehaviour {
             new AICapturerPersona()
         };
         persona = personas[Random.Range(0, personas.Length)];
+        activeBehaviour = new AIThink(this, myMob);
+        activeBehaviour.Start();
     }
 
     public void Update() {

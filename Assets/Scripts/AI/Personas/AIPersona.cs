@@ -9,10 +9,12 @@ public class AIPersona {
 
     private float jumpPoint;
     private float stunnedPenalty;
+    private float reactionTime;
 
     public AIPersona() {
         jumpPoint = Random.Range(-.5f, .5f);
         stunnedPenalty = Random.Range(10f, 16f);
+        reactionTime = Random.Range(.3f, .6f);
     }
 
     public virtual bool ShouldJump() {
@@ -45,6 +47,10 @@ public class AIPersona {
 
     public virtual float CaptureRadius() {
         return 3.5f;
+    }
+
+    public virtual float ReactionTime() {
+        return reactionTime;
     }
 
 }

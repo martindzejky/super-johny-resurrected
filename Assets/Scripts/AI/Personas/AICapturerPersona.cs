@@ -34,5 +34,9 @@ public class AICapturerPersona : AIPersona {
         return 2f;
     }
 
+    public override float ReactionTime() {
+        return base.ReactionTime() * 2f;
+    }
+
 }
 

@@ -12,7 +12,7 @@ public class AIThink : AIBehaviour {
     public AIThink(AIController controller, Mob mob) : base(controller, mob) {}
 
     public override void Start() {
-        thinkTimer = Random.Range(0f, Globals.aiThinkTimer);
+        thinkTimer = controller.GetPersona().ReactionTime();
     }
 
     public override void Update() {
