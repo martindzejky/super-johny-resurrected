@@ -39,6 +39,7 @@ public class Globals {
     public static float eyeFollowSpeed = 10f;
     public static float maxEyeXOffset = .3f;
     public static float maxEyeYOffset = .1f;
+    public static float happyTime = 1.5f;
 
     #endregion
 

@@ -18,6 +18,7 @@ public class CollectibleHeart : MonoBehaviour {
             var mob = collider.GetComponent<Mob>();
             if (mob) {
                 mob.lives++;
+                mob.MakeHappy();
                 Destroy(gameObject);
             }
         }

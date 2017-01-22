@@ -24,6 +24,7 @@ public class Mob : MonoBehaviour {
     private float stunRecoveryTimer = 0f;
     private float stunTime;
     private MobEmotion previousEmotion = MobEmotion.None;
+    private float happyTimer = 0f;
 
     public bool IsStunned() {
         return stunned;
@@ -69,10 +70,16 @@ public class Mob : MonoBehaviour {
             AdjustVelocityByInput();
             CheckHeadStomping();
         }
+
+        UpdateHappy();
     }
 
     public void OnDestroy() {
         MobTeams.GetTeam(team).mobs.Remove(this);
+    }
+
+    public void MakeHappy() {
+        happyTimer = Globals.happyTime;
     }
 
     private float CalculateVelocityForJumpHeight(float height) {
@@ -90,8 +97,10 @@ public class Mob : MonoBehaviour {
             recovering = false;
             stunRecoveryTimer = 0f;
 
-            emotion = previousEmotion;
-            previousEmotion = MobEmotion.None;
+            if (previousEmotion != MobEmotion.None) {
+                emotion = previousEmotion;
+                previousEmotion = MobEmotion.None;
+            }
         }
     }
 
@@ -106,6 +115,22 @@ public class Mob : MonoBehaviour {
             stunned = false;
             recovering = true;
             stunTimer = 0f;
+        }
+    }
+
+    private void UpdateHappy() {
+        if (happyTimer > 0f) {
+            if (previousEmotion == MobEmotion.None) {
+                previousEmotion = emotion;
+            }
+            emotion = MobEmotion.Happy;
+
+            happyTimer -= Time.deltaTime;
+
+            if (happyTimer <= 0f && previousEmotion != MobEmotion.None) {
+                emotion = previousEmotion;
+                previousEmotion = MobEmotion.None;
+            }
         }
     }
 
