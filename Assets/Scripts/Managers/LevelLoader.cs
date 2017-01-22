@@ -37,6 +37,11 @@ public class LevelLoader : MonoBehaviour {
                 }
             }
         }
+
+        // reset spawn tickets
+        for (uint team = 0; team < MobTeams.GetNumberOfTeams(); team++) {
+            MobTeams.GetTeam(team).respawns = Globals.respawnsPerTeam;
+        }
     }
 
 }
