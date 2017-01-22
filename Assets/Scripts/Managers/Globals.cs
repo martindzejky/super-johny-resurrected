@@ -23,6 +23,7 @@ public class Globals {
     public static float skinThickness = .05f;
     public static float groundFriction = 1.3f;
     public static float airFriction = 1.05f;
+    public static float destroyLevel = -1000f;
 
     #endregion
 

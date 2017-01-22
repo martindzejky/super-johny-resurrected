@@ -43,6 +43,8 @@ GameObject:
   - component: {fileID: 114035552181954872}
   - component: {fileID: 61603087346565204}
   - component: {fileID: 114585624474605998}
+  - component: {fileID: 114100227650668454}
+  - component: {fileID: 114632028807208238}
   m_Layer: 9
   m_Name: RedMob
   m_TagString: Untagged
@@ -123,6 +125,18 @@ MonoBehaviour:
   lives: 1
   setTeamColor: 1
   eyeTarget: {x: 0, y: 0, z: 0}
+  emotion: 1
+--- !u!114 &114100227650668454
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1838411016884770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f11a333d0ceb496e883549c0be03429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114299885264702126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -170,6 +184,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8722eea9e59d34567a9c60b92ffa4c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114632028807208238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1838411016884770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d359fbd1e683141978ea42dd7743d0fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212827336350122130
@@ -237,7 +262,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 351581241
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2da045a336f8147db86b49c3f11b0f66, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

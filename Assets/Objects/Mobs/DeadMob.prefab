@@ -38,6 +38,8 @@ GameObject:
   - component: {fileID: 212167720568210918}
   - component: {fileID: 114137745385823770}
   - component: {fileID: 114022470598580044}
+  - component: {fileID: 114177778190186812}
+  - component: {fileID: 114642560628696900}
   m_Layer: 0
   m_Name: DeadMob
   m_TagString: Untagged
@@ -102,6 +104,28 @@ MonoBehaviour:
   applyAirFriction: 1
   size: {x: 0.8, y: 0.8}
   velocity: {x: 0, y: 0}
+--- !u!114 &114177778190186812
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1662960779257996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f11a333d0ceb496e883549c0be03429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114642560628696900
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1662960779257996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d359fbd1e683141978ea42dd7743d0fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212167720568210918
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -167,7 +191,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 473718453
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 59e52f64e0fd14c768599a9d2121d38c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
