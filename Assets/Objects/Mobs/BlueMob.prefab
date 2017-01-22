@@ -123,6 +123,7 @@ MonoBehaviour:
   lives: 1
   setTeamColor: 1
   eyeTarget: {x: 0, y: 0, z: 0}
+  emotion: 1
 --- !u!114 &114299885264702126
 MonoBehaviour:
   m_ObjectHideFlags: 1

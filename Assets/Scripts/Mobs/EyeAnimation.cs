@@ -17,6 +17,7 @@ public class EyeAnimation : MonoBehaviour {
     public void Update() {
         animator.SetBool("Stunned", mob.IsStunned());
         animator.SetBool("Thinking", mob.emotion == MobEmotion.Thinking);
+        animator.SetBool("Shocked", mob.emotion == MobEmotion.Shocked);
     }
 
 }

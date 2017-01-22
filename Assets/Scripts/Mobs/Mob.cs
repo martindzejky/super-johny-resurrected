@@ -23,6 +23,7 @@ public class Mob : MonoBehaviour {
     private float stunTimer = 0f;
     private float stunRecoveryTimer = 0f;
     private float stunTime;
+    private MobEmotion previousEmotion = MobEmotion.None;
 
     public bool IsStunned() {
         return stunned;
@@ -79,10 +80,18 @@ public class Mob : MonoBehaviour {
     }
 
     private void UpdateRecoveryTimer() {
+        if (previousEmotion == MobEmotion.None) {
+            previousEmotion = emotion;
+        }
+        emotion = MobEmotion.Shocked;
+
         stunRecoveryTimer += Time.deltaTime;
         if (stunRecoveryTimer > Globals.mobRecoveryTime) {
             recovering = false;
             stunRecoveryTimer = 0f;
+
+            emotion = previousEmotion;
+            previousEmotion = MobEmotion.None;
         }
     }
 
