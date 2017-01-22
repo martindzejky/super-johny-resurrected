@@ -41,6 +41,8 @@ GameObject:
   - component: {fileID: 4466742171078520}
   - component: {fileID: 212921578616479760}
   - component: {fileID: 114471743370469510}
+  - component: {fileID: 95927181776506412}
+  - component: {fileID: 114374020344312680}
   m_Layer: 9
   m_Name: Eyes
   m_TagString: Untagged
@@ -89,6 +91,23 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
+--- !u!95 &95927181776506412
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1595501810109084}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e72080854c38548fcb6b3c801d671bff, type: 2}
+  m_CullingMode: 2
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114088867718330384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -113,6 +132,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6dee4c6068a94ff48a195520bf8dde8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114374020344312680
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1595501810109084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c419deccf3b4caa8983e9ec980cdb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114471743370469510

@@ -12,15 +12,26 @@ public class AIThink : AIBehaviour {
     public AIThink(AIController controller, Mob mob) : base(controller, mob) {}
 
     public override void Start() {
+        base.Start();
+
         thinkTimer = controller.GetPersona().ReactionTime();
         mob.eyeTarget = mob.transform.position + Vector3.up * 5f;
+        mob.emotion = MobEmotion.Thinking;
     }
 
     public override void Update() {
+        base.Update();
+
         thinkTimer -= Time.deltaTime;
         if (thinkTimer < 0f) {
             UpdateStateBasedOnClosestTarget();
         }
+    }
+
+    public override void End() {
+        base.End();
+
+        mob.emotion = MobEmotion.Normal;
     }
 
     private void UpdateStateBasedOnClosestTarget() {

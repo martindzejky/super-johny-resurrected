@@ -11,6 +11,7 @@ public class Mob : MonoBehaviour {
     public uint lives = 1;
     public bool setTeamColor = true;
     public Vector3 eyeTarget;
+    public MobEmotion emotion = MobEmotion.Normal;
 
     private PhysicsObject physicsObject;
     private Collider2D myCollider;
