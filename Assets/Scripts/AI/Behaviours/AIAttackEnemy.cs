@@ -57,6 +57,7 @@ public class AIAttackEnemy : AIBehaviour
             }
 
             mob.eyeTarget = closestEnemy.transform.position;
+            mob.emotion = MobEmotion.Normal;
         }
         else {
             if (Mathf.Abs(horizontalDistanceToEnemy) < 3f) {
@@ -64,6 +65,7 @@ public class AIAttackEnemy : AIBehaviour
             }
 
             mob.eyeTarget = mob.transform.position + Vector3.left * 4f * Mathf.Sign(directionToEnemy);
+            mob.emotion = MobEmotion.Scared;
         }
 
         if (persona.ShouldAccidentalJump()) {
