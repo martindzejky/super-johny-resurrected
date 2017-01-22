@@ -33,6 +33,8 @@ public class AIPathingBehaviour : AIBehaviour {
         if (difference.y > .4f) {
             mob.Jump();
         }
+
+        mob.eyeTarget = targetNode.transform.position;
     }
 
 }

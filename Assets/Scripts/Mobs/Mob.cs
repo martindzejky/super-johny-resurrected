@@ -10,11 +10,11 @@ public class Mob : MonoBehaviour {
     public uint team = 0;
     public uint lives = 1;
     public bool setTeamColor = true;
+    public Vector3 eyeTarget;
 
     private PhysicsObject physicsObject;
     private Collider2D myCollider;
     private SpriteRenderer spriteRenderer;
-    private Animator animator;
     private float horizontalInput = 0f;
     private bool jumpInput = false;
     private bool stunned = false;
@@ -43,7 +43,6 @@ public class Mob : MonoBehaviour {
         physicsObject = GetComponent<PhysicsObject>();
         myCollider = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
 
         var mobTeam = MobTeams.GetTeam(team);
         mobTeam.mobs.Add(this);
@@ -51,8 +50,9 @@ public class Mob : MonoBehaviour {
             mobTeam.teamColor = spriteRenderer.color;
         }
 
-        animator.Play("Idle", -1, Random.value);
         stunTime = Random.Range(Globals.mobStunTimeMin, Globals.mobStunTimeMax);
+
+        eyeTarget = transform.position;
     }
 
     public void Update() {
@@ -96,7 +96,6 @@ public class Mob : MonoBehaviour {
             stunned = false;
             recovering = true;
             stunTimer = 0f;
-            animator.SetBool("Stunned", false);
         }
     }
 
@@ -115,9 +114,9 @@ public class Mob : MonoBehaviour {
             physicsObject.applyGroundFriction = false;
             physicsObject.applyAirFriction = false;
 
-            var newScale = transform.localScale;
-            newScale.x = horizontalInput;
-            transform.localScale = newScale;
+            // var newScale = transform.localScale;
+            // newScale.x = horizontalInput;
+            // transform.localScale = newScale;
         }
         else {
             physicsObject.applyGroundFriction = true;
@@ -206,7 +205,6 @@ public class Mob : MonoBehaviour {
                 }
                 else {
                     stunned = true;
-                    animator.SetBool("Stunned", true);
                     Instantiate(prefabRegistry.lostHeart, new Vector3(transform.position.x, transform.position.y + myCollider.bounds.extents.y,
                         transform.position.z), transform.rotation);
                 }

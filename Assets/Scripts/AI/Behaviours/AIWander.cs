@@ -35,6 +35,8 @@ public class AIWander : AIBehaviour
             var dir = Mathf.Sign(wanderBuffer);
             mob.Move(dir);
             wanderBuffer -= Mathf.Min(dir * Time.deltaTime, absWanderBuffer);
+
+            mob.eyeTarget = mob.transform.position + Vector3.right * 5f * dir;
         }
     }
 

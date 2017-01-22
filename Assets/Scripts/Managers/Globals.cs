@@ -35,6 +35,9 @@ public class Globals {
     public static float mobStunTimeMin = 4f;
     public static float mobRecoveryTime = 1f;
     public static uint playerTeam = 1;
+    public static float eyeFollowSpeed = 10f;
+    public static float maxEyeXOffset = .3f;
+    public static float maxEyeYOffset = .1f;
 
     #endregion
 

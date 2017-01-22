@@ -55,11 +55,15 @@ public class AIAttackEnemy : AIBehaviour
             if (Mathf.Abs(horizontalDistanceToEnemy) > .8f) {
                 mob.Move(directionToEnemy);
             }
+
+            mob.eyeTarget = closestEnemy.transform.position;
         }
         else {
             if (Mathf.Abs(horizontalDistanceToEnemy) < 3f) {
                 mob.Move(-directionToEnemy);
             }
+
+            mob.eyeTarget = mob.transform.position + Vector3.left * 4f * Mathf.Sign(directionToEnemy);
         }
 
         if (persona.ShouldAccidentalJump()) {

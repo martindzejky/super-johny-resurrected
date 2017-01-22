@@ -30,6 +30,8 @@ public class AICaptureGoal : AIBehaviour
             controller.ForceUpdateTargets();
             controller.SwitchBehaviour(new AIThink(controller, mob));
         }
+
+        mob.eyeTarget = controller.GetClosestGoal().movingFlag.position;
     }
 
     protected override void UpdateBasedOnTarget(AITarget closestTarget) {

@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetButtonDown("Jump")) {
             mob.Jump();
         }
+
+        mob.eyeTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
 }

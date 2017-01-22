@@ -13,6 +13,7 @@ public class AIThink : AIBehaviour {
 
     public override void Start() {
         thinkTimer = controller.GetPersona().ReactionTime();
+        mob.eyeTarget = mob.transform.position + Vector3.up * 5f;
     }
 
     public override void Update() {
