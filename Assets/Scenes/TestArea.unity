@@ -427,7 +427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 305119432fb8249c885533d229495e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: 1
+  scale: 2
 --- !u!81 &2126896719
 AudioListener:
   m_ObjectHideFlags: 0
