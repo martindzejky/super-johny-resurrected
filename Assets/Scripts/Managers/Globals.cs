@@ -64,7 +64,7 @@ public class Globals {
 
     #region Goals
 
-    public static float goalCaptureAmountPerMob = .08f;
+    public static float goalCaptureAmountPerMob = .05f;
     public static float respawnTime = 5f;
     public static uint respawnsPerTeam = 100;
 
