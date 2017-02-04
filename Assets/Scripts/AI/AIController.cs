@@ -20,11 +20,13 @@ public class AIController : MonoBehaviour {
 
     public void Awake() {
         myMob = GetComponent<Mob>();
+        var defaultPersona = new AIPersona();
         var personas = new AIPersona[] {
-            new AIPersona(),
-            new AIPersona(),
+            defaultPersona,
+            defaultPersona,
             new AIAttackerPersona(),
-            new AICapturerPersona()
+            new AICapturerPersona(),
+            new AIFollowerPersona()
         };
         persona = personas[Random.Range(0, personas.Length)];
         activeBehaviour = new AIThink(this, myMob);
