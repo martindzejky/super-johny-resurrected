@@ -36,4 +36,8 @@ public class AIAttackerPersona : AIPersona {
         return goalOffset;
     }
 
+    public override float PlayerProximityImportance() {
+        return .05f;
+    }
+
 }

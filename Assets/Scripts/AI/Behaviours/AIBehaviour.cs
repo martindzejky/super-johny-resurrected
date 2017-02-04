@@ -58,6 +58,15 @@ public class AIBehaviour {
             var enemyDistance = Vector3.Distance(mob.transform.position, closestEnemy.transform.position);
             var goalDistance = Vector3.Distance(mob.transform.position, closestGoal.transform.position);
 
+            var player = GameObject.FindObjectOfType<PlayerController>();
+            if (player && player.GetComponent<Mob>().team == mob.team) {
+                var enemyPlayerDistance = Vector3.Distance(player.transform.position, closestEnemy.transform.position);
+                var goalPlayerDistance = Vector3.Distance(player.transform.position, closestGoal.transform.position);
+
+                enemyDistance *= controller.EnemyPlayerProximityMultiplier(enemyPlayerDistance, persona);
+                goalDistance *= controller.GoalPlayerProximityMultiplier(goalPlayerDistance, persona);
+            }
+
             if (closestEnemy.IsStunned()) {
                 enemyDistance *= persona.StunnedEnemyPenalty();
             }

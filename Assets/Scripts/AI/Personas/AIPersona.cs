@@ -53,4 +53,8 @@ public class AIPersona {
         return reactionTime;
     }
 
+    public virtual float PlayerProximityImportance() {
+        return .4f;
+    }
+
 }

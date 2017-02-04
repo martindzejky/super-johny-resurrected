@@ -38,5 +38,9 @@ public class AICapturerPersona : AIPersona {
         return base.ReactionTime() * 2f;
     }
 
+    public override float PlayerProximityImportance() {
+        return .8f;
+    }
+
 }
 
