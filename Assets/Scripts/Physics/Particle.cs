@@ -15,6 +15,8 @@ public class Particle : MonoBehaviour {
         spriteRenderer = GetComponent<SpriteRenderer>();
         velocity = new Vector2(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
 
+        transform.localScale = new Vector3(Random.Range(.6f, 1.2f), Random.Range(.6f, 1.2f), 1f);
+
         if (physicsObject) {
             physicsObject.velocity += velocity;
         }

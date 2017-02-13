@@ -244,7 +244,7 @@ public class Mob : MonoBehaviour {
                         transform.position.z), transform.rotation);
                 }
 
-                for (var i = 0; i < 6; i++) {
+                for (var i = 0; i < Globals.starParticleCount; i++) {
                     Instantiate(prefabRegistry.starParticle, new Vector3(transform.position.x, transform.position.y + myCollider.bounds.extents.y,
                         transform.position.z), transform.rotation);
                 }

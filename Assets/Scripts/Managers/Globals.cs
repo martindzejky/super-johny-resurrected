@@ -27,6 +27,12 @@ public class Globals {
 
     #endregion
 
+    #region Effects
+
+    public static uint starParticleCount = 12;
+
+    #endregion
+
     #region Mob
 
     public static float mobMaxMoveSpeed = 10f;
