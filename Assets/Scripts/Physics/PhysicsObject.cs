@@ -66,22 +66,28 @@ public class PhysicsObject : MonoBehaviour {
 
     private void MoveHorizontally() {
         var motion = velocity.x * Time.deltaTime;
-        var movingRight = motion >= 0f;
+        var movingRight = velocity.x >= 0f;
+        var movingUp = velocity.y >= 0f;
 
         // cast a box to see if there are any collisions
         var collision = Physics2D.BoxCast(transform.position, GetBoxcastSize(), 0, movingRight ? Vector2.right : Vector2.left,
             Mathf.Abs(motion) + Globals.skinThickness, LayerMask.GetMask(Globals.solidLayerName));
 
         if (collision) {
-            // restrict movement and move to contact with the collider
-            motion = (collision.distance - Globals.skinThickness) * Mathf.Sign(motion);
-            velocity.x = 0f;
+            var isOneWay = (bool) collision.collider.GetComponent<OneWayPlatform>();
 
-            if (movingRight) {
-                collisions.right = true;
-            }
-            else {
-                collisions.left = true;
+            // check if on a one-way platform
+            if (!isOneWay || !movingUp) {
+                // restrict movement and move to contact with the collider
+                motion = (collision.distance - Globals.skinThickness) * Mathf.Sign(motion);
+                velocity.x = 0f;
+
+                if (movingRight) {
+                    collisions.right = true;
+                }
+                else {
+                    collisions.left = true;
+                }
             }
         }
 
@@ -97,16 +103,21 @@ public class PhysicsObject : MonoBehaviour {
             Mathf.Abs(motion) + Globals.skinThickness, LayerMask.GetMask(Globals.solidLayerName));
 
         if (collision) {
-            // restrict movement and move to contact with the collider
-            motion = (collision.distance - Globals.skinThickness) * Mathf.Sign(motion);
-            velocity.y = 0f;
+            var isOneWay = (bool) collision.collider.GetComponent<OneWayPlatform>();
 
-            if (movingUp) {
-                collisions.top = true;
-            }
-            else {
-                collisions.bottom = true;
-                timeInAir = 0f;
+            // check if on a one-way platform
+            if (!isOneWay || !movingUp) {
+                // restrict movement and move to contact with the collider
+                motion = (collision.distance - Globals.skinThickness) * Mathf.Sign(motion);
+                velocity.y = 0f;
+
+                if (movingUp) {
+                    collisions.top = true;
+                }
+                else {
+                    collisions.bottom = true;
+                    timeInAir = 0f;
+                }
             }
         }
 

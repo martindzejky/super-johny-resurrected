@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4779390286340668}
   - component: {fileID: 212350808474572102}
   - component: {fileID: 61208100557179046}
+  - component: {fileID: 114509150435156362}
   m_Layer: 8
   m_Name: WoodenPlatformWithPillar
   m_TagString: Untagged
@@ -55,6 +56,17 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0.25}
   serializedVersion: 2
   m_Size: {x: 1, y: 0.5}
+--- !u!114 &114509150435156362
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1541733499531832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0472fe4de65c340c2a7d5c9f901d95e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212350808474572102
 SpriteRenderer:
   m_ObjectHideFlags: 1
