@@ -12,6 +12,7 @@ public class PhysicsObject : MonoBehaviour {
     public bool applyAirFriction = true;
     public Vector2 size = new Vector2(1f, 1f);
     public Vector2 velocity = new Vector2();
+    public bool flipBasedOnVelocity = true;
 
     public float timeInAir { get; private set; }
 
@@ -20,9 +21,11 @@ public class PhysicsObject : MonoBehaviour {
     }
 
     private CollisionInfo collisions = new CollisionInfo();
+    private SpriteRenderer spriteRenderer;
 
     public void Awake() {
         timeInAir = 0f;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void Update() {
@@ -41,6 +44,10 @@ public class PhysicsObject : MonoBehaviour {
         }
         else if (applyAirFriction) {
             velocity.x /= Globals.airFriction;
+        }
+
+        if (flipBasedOnVelocity) {
+            FlipSprite();
         }
     }
 
@@ -122,6 +129,10 @@ public class PhysicsObject : MonoBehaviour {
         }
 
         transform.Translate(Vector2.up * motion, Space.World);
+    }
+
+    private void FlipSprite() {
+        spriteRenderer.flipX = velocity.x > 0f;
     }
 
 }
