@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4779390286340668}
   - component: {fileID: 212350808474572102}
   m_Layer: 8
-  m_Name: WoodenWall
+  m_Name: TopGrass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,9 +69,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1922144603
+  m_SortingLayerID: 1518304633
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e95bcc43350d9467e9475fc8167401c1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8ad4948de4e054099a0273fe19267c93, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -41,6 +41,9 @@ TagManager:
   - name: Background
     uniqueID: 3088881215
     locked: 0
+  - name: SolidBackground
+    uniqueID: 1922144603
+    locked: 0
   - name: Leftovers
     uniqueID: 473718453
     locked: 0
@@ -61,6 +64,9 @@ TagManager:
     locked: 0
   - name: Effects
     uniqueID: 2641034579
+    locked: 0
+  - name: SolidForeground
+    uniqueID: 1518304633
     locked: 0
   - name: Floating UI
     uniqueID: 984754949
