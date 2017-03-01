@@ -56,6 +56,8 @@ public class Mob : MonoBehaviour {
         stunTime = Random.Range(Globals.mobStunTimeMin, Globals.mobStunTimeMax);
 
         eyeTarget = transform.position;
+
+        SetRandomBody();
     }
 
     public void Update() {
@@ -230,6 +232,7 @@ public class Mob : MonoBehaviour {
                 if (lives == 0) {
                     var body = Instantiate(prefabRegistry.deadBody, transform.position, transform.rotation);
                     body.GetComponent<SpriteRenderer>().color = spriteRenderer.color;
+                    body.GetComponent<SpriteRenderer>().sprite = spriteRenderer.sprite;
                     body.GetComponent<PhysicsObject>().velocity = physicsObject.velocity;
 
                     Destroy(gameObject);
@@ -250,6 +253,11 @@ public class Mob : MonoBehaviour {
                 }
             }
         }
+    }
+
+    private void SetRandomBody() {
+        var spriteRegistry = FindObjectOfType<SpriteRegistry>();
+        spriteRenderer.sprite = spriteRegistry.mobBodies[Random.Range(0, spriteRegistry.mobBodies.Length)];
     }
 
 }
