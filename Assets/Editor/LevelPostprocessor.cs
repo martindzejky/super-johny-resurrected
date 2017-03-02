@@ -21,6 +21,7 @@ public class LevelPostprocessor : AssetPostprocessor {
             // copy file
             var newPath = asset.Substring(0, asset.Length - oldExtension.Length) + newExtension;
             File.Copy(asset, newPath, true);
+            AssetDatabase.Refresh();
             Debug.Log("Updated XML level file: " + asset);
         }
     }

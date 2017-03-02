@@ -142,8 +142,8 @@ MonoBehaviour:
   - Node
   - TopGrass
   - Grass
-  - Stone
   - StoneWall
+  - Stone
   - WoodenPillar
   - WoodenPlatform
   - WoodenWall
@@ -157,8 +157,8 @@ MonoBehaviour:
   - {fileID: 1145022892062938, guid: 1024df6a80d5b40ee8f811652f7e334d, type: 2}
   - {fileID: 1541733499531832, guid: aaa85f928219142dc8d3a1f90f8ce701, type: 2}
   - {fileID: 1541733499531832, guid: 1c6d71da0c8a645649a753fedc6b5cbe, type: 2}
-  - {fileID: 1541733499531832, guid: 79106a2d4b1c5478f803c1122ec016b8, type: 2}
   - {fileID: 1541733499531832, guid: 85adc0ef0160544e795ee0cf731440e4, type: 2}
+  - {fileID: 1541733499531832, guid: 79106a2d4b1c5478f803c1122ec016b8, type: 2}
   - {fileID: 1541733499531832, guid: 6553f7266930343a9997fae11b7f5415, type: 2}
   - {fileID: 1541733499531832, guid: d1617c34c213848018abfb46bb52a4c0, type: 2}
   - {fileID: 1541733499531832, guid: dc624587ae2184e10a74bcdb1c8afc42, type: 2}
