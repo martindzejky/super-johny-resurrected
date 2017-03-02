@@ -186,13 +186,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mobBodies:
   - {fileID: 21300000, guid: a557a3cb255aa4a1ea74e6ba9619d133, type: 3}
+  - {fileID: 21300000, guid: a557a3cb255aa4a1ea74e6ba9619d133, type: 3}
   - {fileID: 21300000, guid: 000c624daeb444f8db3ba48d4c307d12, type: 3}
   - {fileID: 21300000, guid: 7732eb74ccb504a99925b407e86d4f3c, type: 3}
-  - {fileID: 21300000, guid: 0930d8738146d425e998ede77d9a1d62, type: 3}
-  - {fileID: 21300000, guid: 99f5e6bea8c794c13aec6b45a426e634, type: 3}
-  - {fileID: 21300000, guid: a557a3cb255aa4a1ea74e6ba9619d133, type: 3}
-  - {fileID: 21300000, guid: 99f5e6bea8c794c13aec6b45a426e634, type: 3}
-  - {fileID: 21300000, guid: a557a3cb255aa4a1ea74e6ba9619d133, type: 3}
 --- !u!1 &594757613
 GameObject:
   m_ObjectHideFlags: 0
