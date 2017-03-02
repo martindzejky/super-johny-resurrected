@@ -132,25 +132,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aefcddb0bec16456ba538cf45056ac1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileIds:
+  - Player
+  - Blue
+  - Red
+  - Heart
+  - Goal
+  - NavigationBlocker
+  - Node
+  - TopGrass
+  - Grass
+  - Stone
+  - StoneWall
+  - WoodenPillar
+  - WoodenPlatform
+  - WoodenWall
   tiles:
-  - {fileID: 1541733499531832, guid: 1c6d71da0c8a645649a753fedc6b5cbe, type: 2}
-  - {fileID: 1541733499531832, guid: 79106a2d4b1c5478f803c1122ec016b8, type: 2}
-  - {fileID: 1541733499531832, guid: eafb5c61f7b924abe8824e13f7155392, type: 2}
-  - {fileID: 1541733499531832, guid: 6553f7266930343a9997fae11b7f5415, type: 2}
-  - {fileID: 1541733499531832, guid: d1617c34c213848018abfb46bb52a4c0, type: 2}
-  - {fileID: 1541733499531832, guid: ad7fb9d2a4f5046ceb205cd9b45f3200, type: 2}
-  - {fileID: 1541733499531832, guid: f6d243465fd674d0f8ae8243a7bcf260, type: 2}
-  - {fileID: 1541733499531832, guid: dc624587ae2184e10a74bcdb1c8afc42, type: 2}
   - {fileID: 1032169637787598, guid: cf59eaad2b0044b18b2512cafa2318b1, type: 2}
+  - {fileID: 1838411016884770, guid: 01a1cc5aad01d4270a94ded61207b5c2, type: 2}
   - {fileID: 1838411016884770, guid: 15287243a4b1047008cd1764fbbdd55c, type: 2}
   - {fileID: 1234646141660034, guid: 997042bd5459a42bbbfbcd3039c684b4, type: 2}
-  - {fileID: 1838411016884770, guid: 01a1cc5aad01d4270a94ded61207b5c2, type: 2}
-  - {fileID: 1145022892062938, guid: 1024df6a80d5b40ee8f811652f7e334d, type: 2}
-  - {fileID: 1987912243540142, guid: cc9092a929d9d4bac88115c1e989bc68, type: 2}
   - {fileID: 1161881352778708, guid: 64d6775f02355491a85d33f132b0a825, type: 2}
+  - {fileID: 1987912243540142, guid: cc9092a929d9d4bac88115c1e989bc68, type: 2}
+  - {fileID: 1145022892062938, guid: 1024df6a80d5b40ee8f811652f7e334d, type: 2}
   - {fileID: 1541733499531832, guid: aaa85f928219142dc8d3a1f90f8ce701, type: 2}
-  - {fileID: 1541733499531832, guid: aaa85f928219142dc8d3a1f90f8ce701, type: 2}
+  - {fileID: 1541733499531832, guid: 1c6d71da0c8a645649a753fedc6b5cbe, type: 2}
+  - {fileID: 1541733499531832, guid: 79106a2d4b1c5478f803c1122ec016b8, type: 2}
   - {fileID: 1541733499531832, guid: 85adc0ef0160544e795ee0cf731440e4, type: 2}
+  - {fileID: 1541733499531832, guid: 6553f7266930343a9997fae11b7f5415, type: 2}
+  - {fileID: 1541733499531832, guid: d1617c34c213848018abfb46bb52a4c0, type: 2}
+  - {fileID: 1541733499531832, guid: dc624587ae2184e10a74bcdb1c8afc42, type: 2}
   teamMobs:
   - {fileID: 0}
   - {fileID: 1838411016884770, guid: 01a1cc5aad01d4270a94ded61207b5c2, type: 2}
@@ -237,7 +248,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c888a1556194d539314a9c2ce7db8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: TestArea
   container: {fileID: 594757614}
 --- !u!4 &1146462725
 Transform:

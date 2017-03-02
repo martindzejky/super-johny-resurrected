@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Xml;
+using System.Collections.Generic;
 
 
 /// <summary>
@@ -6,41 +8,77 @@
 /// </summary>
 public class LevelLoader : MonoBehaviour {
 
-    public string levelName = "TestArea";
     public Transform container;
 
+    private Dictionary<int, GameObject> tiles;
+
     public void Awake() {
+        LoadLevel("MultiLayerArea");
+    }
+
+    private void LoadLevel(string levelName) {
+        tiles = new Dictionary<int, GameObject>();
         var prefabRegistry = FindObjectOfType<PrefabRegistry>();
-        var prefabs = prefabRegistry.tiles;
 
-        // load the level from the Resources directory
+        Debug.Log("Parsing level " + levelName);
+
         var levelText = Resources.Load<TextAsset>("Levels/" + levelName);
-        var levelRows = levelText.text.Split('\n');
+        var level = new XmlDocument();
+        level.LoadXml(levelText.ToString());
 
-        for (var y = 0; y < levelRows.Length - 1; y++) {
-            var levelRow = levelRows[y].Split(',');
+        // parse tilesets
+        var tilesets = level.SelectNodes("//tileset");
+        foreach (XmlNode tileset in tilesets) {
+            var idOffsetString = tileset.Attributes["firstgid"].Value;
+            var idOffset = int.Parse(idOffsetString);
 
-            for (var x = 0; x < levelRow.Length; x++) {
-                // get tile index
-                var tileIndex = int.Parse(levelRow[x]);
+            foreach (XmlNode tile in tileset.ChildNodes) {
+                var idString = tile.Attributes["id"].Value;
+                var id = int.Parse(idString) + idOffset;
 
-                if (tileIndex < 0) {
-                    continue;
-                }
-
-                // instantiate and set up the tile
-                // mirror the tile position's Y coordinate
-                if (prefabs[tileIndex]) {
-                    var tile = Instantiate(prefabs[tileIndex]);
-                    tile.transform.SetParent(container);
-                    tile.transform.position = new Vector3(x, -y, 0);
+                // find the matching game object
+                var name = tile.FirstChild.Attributes["source"].Value;
+                for (var i = 0; i < prefabRegistry.tileIds.Length; i++) {
+                    if (name.Contains(prefabRegistry.tileIds[i])) {
+                        // store in the dictionary
+                        tiles[id] = prefabRegistry.tiles[i];
+                        break;
+                    }
                 }
             }
         }
 
-        // reset spawn tickets
-        for (uint team = 0; team < MobTeams.GetNumberOfTeams(); team++) {
-            MobTeams.GetTeam(team).respawns = Globals.respawnsPerTeam;
+        Debug.Log("Parsed " + tiles.Count + " tiles");
+
+        // parse layers and create tiles
+        var layers = level.SelectNodes("//layer");
+        foreach (XmlNode layer in layers) {
+            Debug.Log("Parsing layer " + layer.Attributes["name"].Value);
+
+            var data = layer.FirstChild.InnerText.Trim();
+            var rows = data.Split('\n');
+
+            for (var y = 0; y < rows.Length; y++) {
+                var cells = rows[y].Split(',');
+                for (var x = 0; x < cells.Length; x++) {
+                    if (cells[x] == "") {
+                        continue;
+                    }
+
+                    var tileId = int.Parse(cells[x]);
+
+                    if (tileId <= 0) {
+                        continue;
+                    }
+
+                    // instantiate the tile
+                    if (tiles.ContainsKey(tileId)) {
+                        var tile = Instantiate(tiles[tileId]);
+                        tile.transform.SetParent(container);
+                        tile.transform.position = new Vector3(x, -y, 0);
+                    }
+                }
+            }
         }
     }
 

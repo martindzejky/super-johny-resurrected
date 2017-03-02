@@ -6,7 +6,9 @@
 /// </summary>
 public class PrefabRegistry : MonoBehaviour {
 
+    public string[] tileIds;
     public GameObject[] tiles;
+
     public GameObject[] teamMobs;
     public GameObject playerMob;
 
