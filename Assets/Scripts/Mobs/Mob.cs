@@ -53,6 +53,14 @@ public class Mob : MonoBehaviour {
             mobTeam.teamColor = spriteRenderer.color;
         }
 
+        // randomize the color a little
+        var newColor = spriteRenderer.color;
+        var variance = .04f;
+        newColor.r += Random.Range(-variance, variance);
+        newColor.g += Random.Range(-variance, variance);
+        newColor.b += Random.Range(-variance, variance);
+        spriteRenderer.color = newColor;
+
         stunTime = Random.Range(Globals.mobStunTimeMin, Globals.mobStunTimeMax);
 
         eyeTarget = transform.position;
