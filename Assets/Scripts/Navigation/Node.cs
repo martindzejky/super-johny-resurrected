@@ -9,8 +9,11 @@ public class Node : MonoBehaviour {
 
     public List<Node> connectedNodes { get; private set; }
 
+    private SpriteRenderer spriteRenderer;
+
     public void Awake() {
         connectedNodes = new List<Node>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void Start() {
@@ -33,6 +36,14 @@ public class Node : MonoBehaviour {
 
             if (!obstacle || obstacle.collider.GetComponent<Node>() == otherNode) {
                 connectedNodes.Add(otherNode);
+            }
+        }
+    }
+
+    public void Update() {
+        if (spriteRenderer.enabled) {
+            foreach (var node in connectedNodes) {
+                Debug.DrawLine(transform.position, node.transform.position, Color.red);
             }
         }
     }
