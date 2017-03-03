@@ -7,8 +7,12 @@
 public class PixelPerfectPosition : MonoBehaviour {
 
     public void LateUpdate() {
-        transform.position = new Vector3(Mathf.Round(transform.position.x * Globals.pixelsPerUnit) / Globals.pixelsPerUnit,
-            Mathf.Round(transform.position.y * Globals.pixelsPerUnit) / Globals.pixelsPerUnit, transform.position.z);
+        transform.position = new Vector3(
+            Mathf.Round(transform.position.x * Globals.pixelsPerUnit / Globals.cameraAdjust)
+                / Globals.pixelsPerUnit * Globals.cameraAdjust,
+            Mathf.Round(transform.position.y * Globals.pixelsPerUnit / Globals.cameraAdjust)
+                / Globals.pixelsPerUnit * Globals.cameraAdjust,
+            transform.position.z);
     }
 
 }

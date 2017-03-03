@@ -6,6 +6,7 @@ public class Globals {
     #region Units
 
     public static uint pixelsPerUnit = 64;
+    public static float cameraAdjust = 2f;
 
     #endregion
 
