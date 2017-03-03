@@ -141,12 +141,20 @@ MonoBehaviour:
   - NavigationBlocker
   - Node
   - TopGrass
-  - Grass
+  - GrassBlock
   - StoneWall
-  - Stone
+  - StoneBlock
+  - WoodenPillarBase
   - WoodenPillar
   - WoodenPlatform
   - WoodenWall
+  - GrassLeft
+  - GrassRight
+  - StoneBottom
+  - StoneLeft
+  - StoneRight
+  - StoneTop
+  - WoodenBlock
   tiles:
   - {fileID: 1032169637787598, guid: cf59eaad2b0044b18b2512cafa2318b1, type: 2}
   - {fileID: 1838411016884770, guid: 01a1cc5aad01d4270a94ded61207b5c2, type: 2}
@@ -159,9 +167,17 @@ MonoBehaviour:
   - {fileID: 1541733499531832, guid: 1c6d71da0c8a645649a753fedc6b5cbe, type: 2}
   - {fileID: 1541733499531832, guid: 85adc0ef0160544e795ee0cf731440e4, type: 2}
   - {fileID: 1541733499531832, guid: 79106a2d4b1c5478f803c1122ec016b8, type: 2}
+  - {fileID: 1541733499531832, guid: 2dda34f63c9ed41a281a3d445ebc1a83, type: 2}
   - {fileID: 1541733499531832, guid: 6553f7266930343a9997fae11b7f5415, type: 2}
   - {fileID: 1541733499531832, guid: d1617c34c213848018abfb46bb52a4c0, type: 2}
   - {fileID: 1541733499531832, guid: dc624587ae2184e10a74bcdb1c8afc42, type: 2}
+  - {fileID: 1541733499531832, guid: 08d17514a731f4943a3eef9084086fc8, type: 2}
+  - {fileID: 1541733499531832, guid: b3fd739e009114d0daffab6e9d58ee7a, type: 2}
+  - {fileID: 1541733499531832, guid: f77ddde40027d40e2b0d06a61afd05b7, type: 2}
+  - {fileID: 1541733499531832, guid: e6d86ec62fae241bfbf910cc2a9e5b96, type: 2}
+  - {fileID: 1541733499531832, guid: 54bc52fdcbaba48b285253b398d5b57f, type: 2}
+  - {fileID: 1541733499531832, guid: 6168986c497e2491fa625729990a2b23, type: 2}
+  - {fileID: 1541733499531832, guid: 53baca733c54745d2b6f07f6aa4494bd, type: 2}
   teamMobs:
   - {fileID: 0}
   - {fileID: 1838411016884770, guid: 01a1cc5aad01d4270a94ded61207b5c2, type: 2}

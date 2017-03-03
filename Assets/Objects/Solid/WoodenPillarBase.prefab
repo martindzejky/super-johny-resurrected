@@ -20,9 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4779390286340668}
   - component: {fileID: 212350808474572102}
-  - component: {fileID: 61208100557179046}
   m_Layer: 8
-  m_Name: Stone
+  m_Name: WoodenPillarBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,20 +40,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &61208100557179046
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1541733499531832}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
 --- !u!212 &212350808474572102
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -84,9 +69,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -29087607
+  m_SortingLayerID: 1922144603
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8f065fe1c0b7440938fb766986edb07a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 58765f9affc6646e388386a9e720697f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
