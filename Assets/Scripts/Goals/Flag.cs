@@ -33,6 +33,14 @@ public class Flag : MonoBehaviour {
         return capturedTeam == team && capturedAmount >= 1f - float.Epsilon;
     }
 
+    public GameObject SpawnMob(GameObject prefab) {
+        var spawnX = Random.Range(myCollider.bounds.min.x, myCollider.bounds.max.x);
+        var spawnY = transform.position.y;
+        var spawn = new Vector2(spawnX, spawnY);
+
+        return Instantiate(prefab, spawn, Quaternion.identity);
+    }
+
     private void CheckCapturing() {
         if (locked) {
             return;
@@ -80,7 +88,6 @@ public class Flag : MonoBehaviour {
     }
 
     private void RespawnMobs() {
-
         if (capturedAmount < .9f) {
             respawnTimer = Globals.respawnTime;
         }
@@ -91,16 +98,9 @@ public class Flag : MonoBehaviour {
                 respawnTimer = Globals.respawnTime;
 
                 var prefabRegistry = FindObjectOfType<PrefabRegistry>();
-                var spawnX = Random.Range(myCollider.bounds.min.x, myCollider.bounds.max.x);
-                var spawnY = transform.position.y;
-                var spawn = new Vector2(spawnX, spawnY);
-
                 if (prefabRegistry.teamMobs[capturedTeam] && MobTeams.GetTeam(capturedTeam).respawns > 0) {
                     MobTeams.GetTeam(capturedTeam).respawns--;
-
-                    var playerAlive = FindObjectOfType<PlayerController>();
-                    Instantiate(!playerAlive && capturedTeam == Globals.playerTeam ?
-                        prefabRegistry.playerMob : prefabRegistry.teamMobs[capturedTeam], spawn, Quaternion.identity);
+                    SpawnMob(prefabRegistry.teamMobs[capturedTeam]);
                 }
             }
         }

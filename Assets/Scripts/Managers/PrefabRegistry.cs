@@ -10,7 +10,7 @@ public class PrefabRegistry : MonoBehaviour {
     public GameObject[] tiles;
 
     public GameObject[] teamMobs;
-    public GameObject playerMob;
+    public GameObject[] playerMobs;
 
     public GameObject deadBody;
     public GameObject lostHeart;

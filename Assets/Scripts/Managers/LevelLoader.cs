@@ -13,7 +13,9 @@ public class LevelLoader : MonoBehaviour {
     private Dictionary<int, GameObject> tiles;
 
     public void Awake() {
+        MobTeams.Reset();
         LoadLevel("MultiLayerArea");
+        CreatePlayer();
     }
 
     private void LoadLevel(string levelName) {
@@ -80,6 +82,11 @@ public class LevelLoader : MonoBehaviour {
                 }
             }
         }
+    }
+
+    private void CreatePlayer() {
+        var playersManager = FindObjectOfType<PlayersManager>();
+        playersManager.CreatePlayerForRandomTeam();
     }
 
 }

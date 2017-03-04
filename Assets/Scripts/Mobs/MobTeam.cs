@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -7,13 +8,24 @@ using UnityEngine;
 /// </summary>
 public class MobTeam {
 
-    public List<Mob> mobs { get; private set; }
     public Color teamColor = Color.white;
     public uint respawns = Globals.respawnsPerTeam;
     public uint score = 0;
 
+    public List<Mob> mobs { get; private set; }
+    public List<PlayerInfo> players { get; private set; }
+
     public MobTeam(uint teamNumber) {
         this.mobs = new List<Mob>();
+        this.players = new List<PlayerInfo>();
+    }
+
+    public bool HasPlayers() {
+        return players.Count > 0;
+    }
+
+    public bool HasAlivePlayers() {
+        return players.Any(player => player.IsAlive());
     }
 
 }

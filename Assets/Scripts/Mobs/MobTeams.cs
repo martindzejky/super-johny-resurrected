@@ -8,6 +8,10 @@ public class MobTeams {
 
     private static Dictionary<uint, MobTeam> teams = new Dictionary<uint, MobTeam>();
 
+    public static void Reset() {
+        teams.Clear();
+    }
+
     public static MobTeam GetTeam(uint teamNumber) {
         if (teams.ContainsKey(teamNumber)) {
             return teams[teamNumber];
