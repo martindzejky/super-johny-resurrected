@@ -62,8 +62,8 @@ public class Globals {
     public static float aiRetargetTimer = 2f;
     public static float aiThinkTimer = .5f;
     public static float aiClosestTargetTimer = .5f;
-    public static float aiWanderTimer = 3f;
-    public static float aiWanderMovementTime = .8f;
+    public static float aiWanderTimer = 8f;
+    public static float aiWanderLookTimer = 4f;
     public static float aiPathingTimer = 1f;
 
     #endregion

@@ -4,40 +4,75 @@
 /// <summary>
 /// Makes the mob wander around.
 /// </summary>
-public class AIWander : AIBehaviour
+public class AIWander : AIPathingBehaviour
 {
 
-    private float wanderTimer = 0f;
-    private float wanderBuffer = 0f;
+    private float wanderTimer = Globals.aiWanderTimer;
+    private float lookTimer = Globals.aiWanderLookTimer;
+    private Flag targetGoal = null;
+    private float radius;
+    private float capturePoint;
+    private Vector3 lookTarget;
 
     public AIWander(AIController controller, Mob mob) : base(controller, mob) {}
 
     public override void Start() {
-        wanderTimer = Random.Range(0f, Globals.aiWanderTimer);
+        base.Start();
+
+        radius = controller.GetPersona().CaptureRadius();
+        capturePoint = Random.Range(-radius, radius);
+        lookTarget = mob.transform.position;
+
+        FindNewGoal();
     }
 
     public override void Update() {
-        UpdateTimer();
-        Move();
+        base.Update();
+
+        UpdateTargetGoal();
+
+        var distance = (mob.transform.position - targetGoal.transform.position).magnitude;
+        if (distance > radius) {
+            MoveTowardsPathNode();
+        }
+        else {
+            StandNearGoal();
+        }
     }
 
-    private void UpdateTimer() {
+    private void UpdateTargetGoal() {
+        if (wanderTimer < 0f || currentPath == null || currentPath.Length == 0) {
+            wanderTimer = Globals.aiWanderTimer + Random.Range(-2f, 2f);
+            FindNewGoal();
+            NavigateTowards(targetGoal.transform.position);
+        }
+    }
+
+    private void FindNewGoal() {
+        var goals = GameObject.FindObjectsOfType<Flag>();
+        targetGoal = goals[Random.Range(0, goals.Length)];
+    }
+
+    private void StandNearGoal() {
         wanderTimer -= Time.deltaTime;
-        if (wanderTimer < 0f) {
-            wanderTimer = Globals.aiWanderTimer;
-            wanderBuffer += Random.Range(-Globals.aiWanderMovementTime, Globals.aiWanderMovementTime);
+
+        var difference = targetGoal.transform.position.x + capturePoint - mob.transform.position.x;
+        if (Mathf.Abs(difference) > .8f) {
+            mob.Move(Mathf.Sign(difference));
         }
+
+        LookAround();
     }
 
-    private void Move() {
-        var absWanderBuffer = Mathf.Abs(wanderBuffer);
-        if (absWanderBuffer > .2f) {
-            var dir = Mathf.Sign(wanderBuffer);
-            mob.Move(dir);
-            wanderBuffer -= Mathf.Min(dir * Time.deltaTime, absWanderBuffer);
+    private void LookAround() {
+        lookTimer -= Time.deltaTime;
 
-            mob.eyeTarget = mob.transform.position + Vector3.right * 5f * dir;
+        if (lookTimer < 0f) {
+            lookTimer = Globals.aiWanderLookTimer + Random.Range(-1f, 1f);
+            lookTarget = mob.transform.position + new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), 0f);
         }
+
+        mob.eyeTarget = lookTarget;
     }
 
 }
