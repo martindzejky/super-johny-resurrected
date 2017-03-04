@@ -8,8 +8,6 @@
 /// </summary>
 public class AIController : MonoBehaviour {
 
-    // TODO: Add AI personas, the behaviours draw stats and imperfections from active persona
-
     private Mob myMob;
     private Mob closestEnemy = null;
     private Flag closestGoal = null;
@@ -140,7 +138,7 @@ public class AIController : MonoBehaviour {
         var player = FindObjectOfType<PlayerController>();
 
         foreach (var flag in flags) {
-            if (flag.capturedTeam == myMob.team && flag.capturedAmount >= 1f - float.Epsilon) {
+            if (flag.locked || (flag.capturedTeam == myMob.team && flag.capturedAmount >= 1f - float.Epsilon)) {
                 continue;
             }
 

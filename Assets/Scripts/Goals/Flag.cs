@@ -9,6 +9,7 @@ public class Flag : MonoBehaviour {
     public Transform movingFlag;
     public uint capturedTeam = 0;
     public float capturedAmount = 0f;
+    public bool locked = false;
 
     private Collider2D myCollider;
     private float respawnTimer = Globals.respawnTime;
@@ -16,6 +17,10 @@ public class Flag : MonoBehaviour {
 
     public void Awake() {
         myCollider = GetComponent<Collider2D>();
+    }
+
+    public void Start() {
+        movingFlag.GetComponent<SpriteRenderer>().color = MobTeams.GetTeam(capturedTeam).teamColor;
     }
 
     public void Update() {
@@ -29,6 +34,10 @@ public class Flag : MonoBehaviour {
     }
 
     private void CheckCapturing() {
+        if (locked) {
+            return;
+        }
+
         var mobs = Physics2D.OverlapBoxAll(myCollider.bounds.center, myCollider.bounds.size, 0f, LayerMask.GetMask(Globals.mobLayerName));
 
         foreach (var mobObject in mobs) {

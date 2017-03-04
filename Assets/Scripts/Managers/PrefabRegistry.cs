@@ -16,5 +16,6 @@ public class PrefabRegistry : MonoBehaviour {
     public GameObject lostHeart;
     public GameObject starParticle;
     public GameObject floatingText;
+    public GameObject goal;
 
 }

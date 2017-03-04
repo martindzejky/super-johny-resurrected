@@ -8,7 +8,7 @@ using UnityEngine;
 public class MobTeam {
 
     public List<Mob> mobs { get; private set; }
-    public Color teamColor = Color.gray;
+    public Color teamColor = Color.white;
     public uint respawns = Globals.respawnsPerTeam;
     public uint score = 0;
 

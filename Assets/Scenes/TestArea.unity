@@ -133,11 +133,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileIds:
-  - Player
-  - Blue
-  - Red
+  - BluePlayer
+  - BlueMob
+  - RedMob
   - Heart
-  - Goal
+  - NeutralGoal
   - NavigationBlocker
   - NodeConnector
   - Node
@@ -156,6 +156,10 @@ MonoBehaviour:
   - StoneRight
   - StoneTop
   - WoodenBlock
+  - BlueGoalLocked
+  - BlueGoal
+  - RedGoalLocked
+  - RedGoal
   tiles:
   - {fileID: 1032169637787598, guid: cf59eaad2b0044b18b2512cafa2318b1, type: 2}
   - {fileID: 1838411016884770, guid: 01a1cc5aad01d4270a94ded61207b5c2, type: 2}
@@ -180,6 +184,10 @@ MonoBehaviour:
   - {fileID: 1541733499531832, guid: 54bc52fdcbaba48b285253b398d5b57f, type: 2}
   - {fileID: 1541733499531832, guid: 6168986c497e2491fa625729990a2b23, type: 2}
   - {fileID: 1541733499531832, guid: 53baca733c54745d2b6f07f6aa4494bd, type: 2}
+  - {fileID: 1161881352778708, guid: d3f7a52f2b3ca411ea5e93ac375a6245, type: 2}
+  - {fileID: 1161881352778708, guid: 92cf11f6223d64177a5bdd6364543632, type: 2}
+  - {fileID: 1161881352778708, guid: fc5dadd8298b646828cae3ecf5fd6934, type: 2}
+  - {fileID: 1161881352778708, guid: 31f97892f353e412ebb0ec1dbbdfebfe, type: 2}
   teamMobs:
   - {fileID: 0}
   - {fileID: 1838411016884770, guid: 01a1cc5aad01d4270a94ded61207b5c2, type: 2}
@@ -191,6 +199,7 @@ MonoBehaviour:
     type: 2}
   floatingText: {fileID: 1739509115459790, guid: 24f87d04a8d11419d98157be722b821f,
     type: 2}
+  goal: {fileID: 1161881352778708, guid: 64d6775f02355491a85d33f132b0a825, type: 2}
 --- !u!114 &72145753
 MonoBehaviour:
   m_ObjectHideFlags: 0
