@@ -29,6 +29,10 @@ public class AIWander : AIPathingBehaviour
     public override void Update() {
         base.Update();
 
+        if (controller.GetClosestEnemy() != null || controller.GetClosestGoal() != null) {
+            controller.SwitchBehaviour(new AIThink(controller, mob));
+        }
+
         UpdateTargetGoal();
 
         var distance = (mob.transform.position - targetGoal.transform.position).magnitude;
