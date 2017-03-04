@@ -3,6 +3,12 @@
 /// </summary>
 public class Globals {
 
+    #region Debug
+
+    public static bool debugging = false;
+
+    #endregion
+
     #region Units
 
     public static uint pixelsPerUnit = 64;

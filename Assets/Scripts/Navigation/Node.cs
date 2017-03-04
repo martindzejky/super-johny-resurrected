@@ -14,6 +14,7 @@ public class Node : MonoBehaviour {
     public void Awake() {
         connectedNodes = new List<Node>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.enabled = Globals.debugging;
     }
 
     public void Start() {
@@ -43,7 +44,7 @@ public class Node : MonoBehaviour {
     public void Update() {
         if (spriteRenderer.enabled) {
             foreach (var node in connectedNodes) {
-                Debug.DrawLine(transform.position, node.transform.position, Color.red);
+                Debug.DrawRay(transform.position, (node.transform.position - transform.position) / 2f, Color.red);
             }
         }
     }

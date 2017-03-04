@@ -22,8 +22,9 @@ GameObject:
   - component: {fileID: 212799330539578592}
   - component: {fileID: 61849047836944392}
   - component: {fileID: 114507707591892660}
+  - component: {fileID: 114501832162691124}
   m_Layer: 10
-  m_Name: NavigationBlocker
+  m_Name: NodeConnector
   m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,6 +57,17 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
+--- !u!114 &114501832162691124
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1987912243540142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebed650daaed249a5a2595fc3e750cb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114507707591892660
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -98,7 +110,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1966447075
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1864f9d7cdf714e3c96ede888cce7f46, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 32865d8d73e084ed48704c219d7681ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

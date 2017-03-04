@@ -139,6 +139,7 @@ MonoBehaviour:
   - Heart
   - Goal
   - NavigationBlocker
+  - NodeConnector
   - Node
   - TopGrass
   - GrassBlock
@@ -162,6 +163,7 @@ MonoBehaviour:
   - {fileID: 1234646141660034, guid: 997042bd5459a42bbbfbcd3039c684b4, type: 2}
   - {fileID: 1161881352778708, guid: 64d6775f02355491a85d33f132b0a825, type: 2}
   - {fileID: 1987912243540142, guid: cc9092a929d9d4bac88115c1e989bc68, type: 2}
+  - {fileID: 1987912243540142, guid: 75ddd47aa3ed6486cbfadc3ab68e6c70, type: 2}
   - {fileID: 1145022892062938, guid: 1024df6a80d5b40ee8f811652f7e334d, type: 2}
   - {fileID: 1541733499531832, guid: aaa85f928219142dc8d3a1f90f8ce701, type: 2}
   - {fileID: 1541733499531832, guid: 1c6d71da0c8a645649a753fedc6b5cbe, type: 2}
