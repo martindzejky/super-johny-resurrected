@@ -1,74 +1,5 @@
 ********************************************************************************
-*                         Monday, 08 May 2017 10:53:18                         *
-********************************************************************************
-CSharpCompilerWrapper.exe version: 2.0.3.30
-Platform: Mac
-Target assembly: Assembly-CSharp.dll
-Project directory: /Users/chuckeles/Repositories/SuperJohny
-Target profile directory: /Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity
-Unity 'Data' or 'Frameworks' directory: /Applications/Unity/Unity.app/Contents
-Compiler: Microsoft C# 6.0
-
-- Compilation -----------------------------------------------
-
-Process: /Library/Frameworks/Mono.framework/Commands/mono
-Arguments: "/Users/chuckeles/Repositories/SuperJohny/CSharp60Support/Roslyn/csc.exe" -nostdlib+ -noconfig -nologo -r:"/Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity/mscorlib.dll" -r:"/Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity/System.dll" -r:"/Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity/System.Core.dll" -r:"/Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity/System.Xml.dll" @Temp/UnityTempFile-c7a76ffea756a4aab8bfe25983bf8f80 -debug-
-Exit code: 0
-Elapsed time: 2.83 sec
-
-- Compiler output (0 lines):
-
-- Compiler errors (0 lines):
-
-PDB to MDB conversion skipped
-********************************************************************************
-*                         Monday, 08 May 2017 10:53:21                         *
-********************************************************************************
-CSharpCompilerWrapper.exe version: 2.0.3.30
-Platform: Mac
-Target assembly: Assembly-CSharp-Editor.dll
-Project directory: /Users/chuckeles/Repositories/SuperJohny
-Target profile directory: /Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api
-Unity 'Data' or 'Frameworks' directory: /Applications/Unity/Unity.app/Contents
-Compiler: Microsoft C# 6.0
-
-- Compilation -----------------------------------------------
-
-Process: /Library/Frameworks/Mono.framework/Commands/mono
-Arguments: "/Users/chuckeles/Repositories/SuperJohny/CSharp60Support/Roslyn/csc.exe" -nostdlib+ -noconfig -nologo -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/mscorlib.dll" -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.dll" -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.Core.dll" -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.Xml.dll" @Temp/UnityTempFile-d5739a44ddfa448e8b1b3b33149c1d51 -debug-
-Exit code: 0
-Elapsed time: 1.72 sec
-
-- Compiler output (0 lines):
-
-- Compiler errors (0 lines):
-
-PDB to MDB conversion skipped
-********************************************************************************
-*                         Monday, 08 May 2017 10:53:48                         *
-********************************************************************************
-CSharpCompilerWrapper.exe version: 2.0.3.30
-Platform: Mac
-Target assembly: Assembly-CSharp.dll
-Project directory: /Users/chuckeles/Repositories/SuperJohny
-Target profile directory: /Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity
-Unity 'Data' or 'Frameworks' directory: /Applications/Unity/Unity.app/Contents
-Compiler: Microsoft C# 6.0
-
-- Compilation -----------------------------------------------
-
-Process: /Library/Frameworks/Mono.framework/Commands/mono
-Arguments: "/Users/chuckeles/Repositories/SuperJohny/CSharp60Support/Roslyn/csc.exe" -nostdlib+ -noconfig -nologo -r:"/Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity/mscorlib.dll" -r:"/Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity/System.dll" -r:"/Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity/System.Core.dll" -r:"/Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity/System.Xml.dll" @Temp/UnityTempFile-52087a793b0354a7dba22515e74413ce -debug-
-Exit code: 0
-Elapsed time: 2.71 sec
-
-- Compiler output (0 lines):
-
-- Compiler errors (0 lines):
-
-PDB to MDB conversion skipped
-********************************************************************************
-*                         Monday, 08 May 2017 10:53:48                         *
+*                         Monday, 08 May 2017 20:12:02                         *
 ********************************************************************************
 CSharpCompilerWrapper.exe version: 2.0.3.30
 Platform: Mac
@@ -81,9 +12,9 @@ Compiler: Microsoft C# 6.0
 - Compilation -----------------------------------------------
 
 Process: /Library/Frameworks/Mono.framework/Commands/mono
-Arguments: "/Users/chuckeles/Repositories/SuperJohny/CSharp60Support/Roslyn/csc.exe" -nostdlib+ -noconfig -nologo -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/mscorlib.dll" -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.dll" -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.Core.dll" -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.Xml.dll" @Temp/UnityTempFile-6e40096856b544dcc8187978c087b1ea -debug-
+Arguments: "/Users/chuckeles/Repositories/SuperJohny/CSharp60Support/Roslyn/csc.exe" -nostdlib+ -noconfig -nologo -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/mscorlib.dll" -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.dll" -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.Core.dll" -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.Xml.dll" @Temp/UnityTempFile-21c4eff8f6dc44294ac83eb2f75d6c91 -debug-
 Exit code: 0
-Elapsed time: 1.70 sec
+Elapsed time: 2.36 sec
 
 - Compiler output (0 lines):
 
@@ -91,7 +22,30 @@ Elapsed time: 1.70 sec
 
 PDB to MDB conversion skipped
 ********************************************************************************
-*                         Monday, 08 May 2017 10:53:51                         *
+*                         Monday, 08 May 2017 20:12:02                         *
+********************************************************************************
+CSharpCompilerWrapper.exe version: 2.0.3.30
+Platform: Mac
+Target assembly: Assembly-CSharp.dll
+Project directory: /Users/chuckeles/Repositories/SuperJohny
+Target profile directory: /Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity
+Unity 'Data' or 'Frameworks' directory: /Applications/Unity/Unity.app/Contents
+Compiler: Microsoft C# 6.0
+
+- Compilation -----------------------------------------------
+
+Process: /Library/Frameworks/Mono.framework/Commands/mono
+Arguments: "/Users/chuckeles/Repositories/SuperJohny/CSharp60Support/Roslyn/csc.exe" -nostdlib+ -noconfig -nologo -r:"/Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity/mscorlib.dll" -r:"/Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity/System.dll" -r:"/Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity/System.Core.dll" -r:"/Applications/Unity/Unity.app/Contents/Mono/lib/mono/unity/System.Xml.dll" @Temp/UnityTempFile-bb38d8ae698f748e2b2df705ab588aed -debug-
+Exit code: 0
+Elapsed time: 3.36 sec
+
+- Compiler output (0 lines):
+
+- Compiler errors (0 lines):
+
+PDB to MDB conversion skipped
+********************************************************************************
+*                         Monday, 08 May 2017 20:12:06                         *
 ********************************************************************************
 CSharpCompilerWrapper.exe version: 2.0.3.30
 Platform: Mac
@@ -104,9 +58,9 @@ Compiler: Microsoft C# 6.0
 - Compilation -----------------------------------------------
 
 Process: /Library/Frameworks/Mono.framework/Commands/mono
-Arguments: "/Users/chuckeles/Repositories/SuperJohny/CSharp60Support/Roslyn/csc.exe" -nostdlib+ -noconfig -nologo -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/mscorlib.dll" -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.dll" -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.Core.dll" -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.Xml.dll" @Temp/UnityTempFile-34f3468d6b699484fa7e7579873c53bd -debug-
+Arguments: "/Users/chuckeles/Repositories/SuperJohny/CSharp60Support/Roslyn/csc.exe" -nostdlib+ -noconfig -nologo -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/mscorlib.dll" -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.dll" -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.Core.dll" -r:"/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/2.0-api/System.Xml.dll" @Temp/UnityTempFile-cc6d02481977d4b6fb4c238ee723ee24 -debug-
 Exit code: 0
-Elapsed time: 1.21 sec
+Elapsed time: 1.72 sec
 
 - Compiler output (0 lines):
 
