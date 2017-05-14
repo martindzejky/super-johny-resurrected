@@ -23,6 +23,7 @@ documentation. The point is to help me remember when I get back to the game.
 
 ## Screenshots
 
-![screen1](Screenshots/Red Player.png)
-![screen2](Screenshots/Small Stomping.png)
-![screen3](Screenshots/Too Many Reds.png)
+![screen1](Screenshots/RedPlayer.png)
+![screen2](Screenshots/SmallStomping.png)
+![screen3](Screenshots/TooManyReds.png)
+
