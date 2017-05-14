@@ -2,42 +2,44 @@
 
 
 /// <summary>
-/// Allows an object to move while avoiding collisions.
+/// Allows an object to move while avoiding collisions. The basis of the physics system.
 /// If enabled, controls the physics of the object and applies gravity.
 /// </summary>
 public class PhysicsObject : MonoBehaviour {
 
+    /// <summary>If true, applies gravity to the object.</summary>
     public bool isDynamic = true;
+
     public bool applyGroundFriction = true;
     public bool applyAirFriction = true;
+
     public Vector2 size = new Vector2(1f, 1f);
-    public Vector2 velocity = new Vector2();
+    public Vector2 velocity;
+
+    /// <summary>Flips the sprite renderer based on horizontal velocity.</summary>
     public bool flipBasedOnVelocity = true;
 
-    public float timeInAir { get; private set; }
+    public float TimeInAir { get; private set; }
+    public bool IsGrounded => collisions.bottom;
 
-    public bool isGrounded {
-        get { return collisions.bottom; }
-    }
-
-    private CollisionInfo collisions = new CollisionInfo();
+    private CollisionInfo collisions;
     private SpriteRenderer spriteRenderer;
 
     public void Awake() {
-        timeInAir = 0f;
+        TimeInAir = 0f;
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void Update() {
         if (isDynamic) {
             velocity.y -= Globals.gravity * Time.deltaTime;
-            timeInAir += Time.deltaTime;
+            TimeInAir += Time.deltaTime;
         }
 
         Move();
 
         // apply ground friction
-        if (isGrounded) {
+        if (IsGrounded) {
             if (applyGroundFriction) {
                 velocity.x /= Globals.groundFriction;
             }
@@ -77,7 +79,8 @@ public class PhysicsObject : MonoBehaviour {
         var movingUp = velocity.y >= 0f;
 
         // cast a box to see if there are any collisions
-        var collision = Physics2D.BoxCast(transform.position, GetBoxcastSize(), 0, movingRight ? Vector2.right : Vector2.left,
+        var collision = Physics2D.BoxCast(transform.position, GetBoxcastSize(), 0,
+            movingRight ? Vector2.right : Vector2.left,
             Mathf.Abs(motion) + Globals.skinThickness, LayerMask.GetMask(Globals.solidLayerName));
 
         if (collision) {
@@ -123,7 +126,7 @@ public class PhysicsObject : MonoBehaviour {
                 }
                 else {
                     collisions.bottom = true;
-                    timeInAir = 0f;
+                    TimeInAir = 0f;
                 }
             }
         }
@@ -132,7 +135,9 @@ public class PhysicsObject : MonoBehaviour {
     }
 
     private void FlipSprite() {
-        spriteRenderer.flipX = velocity.x > 0f;
+        if (Mathf.Abs(velocity.x) > .1f) {
+            spriteRenderer.flipX = velocity.x > 0f;
+        }
     }
 
 }

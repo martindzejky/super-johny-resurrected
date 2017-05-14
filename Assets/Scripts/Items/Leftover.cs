@@ -48,7 +48,7 @@ public class Leftover : MonoBehaviour {
     }
 
     private void RotateAndDetectCollision() {
-        if (physicsObject && physicsObject.isGrounded) {
+        if (physicsObject && physicsObject.IsGrounded) {
             if (bury) {
                 state = State.Burrying;
                 Destroy(physicsObject);
