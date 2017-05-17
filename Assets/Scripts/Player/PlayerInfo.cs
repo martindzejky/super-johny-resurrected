@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Linq;
+﻿using System.Linq;
+using UnityEngine;
 
 
 /// <summary>
@@ -7,8 +7,12 @@ using System.Linq;
 /// </summary>
 public class PlayerInfo {
 
-    public Mob mob = null;
-    public uint team = 0;
+    /// <summary>
+    /// The mob of the player. If null, the player is currently dead.
+    /// </summary>
+    public Mob mob;
+
+    public uint team;
 
     private float respawnTimer = Globals.playerRespawnTime;
 
@@ -25,6 +29,7 @@ public class PlayerInfo {
     }
 
     public void Update() {
+        // respawn the player if he is not alive, the player must press the respawn key
         if (!IsAlive()) {
             respawnTimer -= Time.deltaTime;
 
@@ -35,8 +40,10 @@ public class PlayerInfo {
                 if (playerTeam.respawns > 0) {
                     playerTeam.respawns--;
 
-                    var prefabRegistry = GameObject.FindObjectOfType<PrefabRegistry>();
-                    var playerFlags = GameObject.FindObjectsOfType<Flag>().Where(flag => flag.IsCapturedByTeam(team)).ToArray();
+                    var prefabRegistry = Object.FindObjectOfType<PrefabRegistry>();
+                    var playerFlags = Object.FindObjectsOfType<Flag>()
+                        .Where(flag => flag.IsCapturedByTeam(team))
+                        .ToArray();
 
                     if (playerFlags.Length > 0) {
                         var spawn = playerFlags[Random.Range(0, playerFlags.Length)];

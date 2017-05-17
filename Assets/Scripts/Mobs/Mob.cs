@@ -58,7 +58,7 @@ public class Mob : MonoBehaviour {
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         var mobTeam = MobTeams.GetTeam(team);
-        mobTeam.mobs.Add(this);
+        mobTeam.Mobs.Add(this);
         if (setTeamColor) {
             mobTeam.teamColor = spriteRenderer.color;
         }
@@ -95,7 +95,7 @@ public class Mob : MonoBehaviour {
     }
 
     public void OnDestroy() {
-        MobTeams.GetTeam(team).mobs.Remove(this);
+        MobTeams.GetTeam(team).Mobs.Remove(this);
     }
 
     public void MakeHappy() {

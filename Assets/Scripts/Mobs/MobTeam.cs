@@ -12,20 +12,20 @@ public class MobTeam {
     public uint respawns = Globals.respawnsPerTeam;
     public uint score = 0;
 
-    public List<Mob> mobs { get; private set; }
-    public List<PlayerInfo> players { get; private set; }
+    public List<Mob> Mobs { get; }
+    public List<PlayerInfo> Players { get; }
 
-    public MobTeam(uint teamNumber) {
-        this.mobs = new List<Mob>();
-        this.players = new List<PlayerInfo>();
+    public MobTeam() {
+        Mobs = new List<Mob>();
+        Players = new List<PlayerInfo>();
     }
 
     public bool HasPlayers() {
-        return players.Count > 0;
+        return Players.Count > 0;
     }
 
     public bool HasAlivePlayers() {
-        return players.Any(player => player.IsAlive());
+        return Players.Any(player => player.IsAlive());
     }
 
 }

@@ -108,8 +108,8 @@ public class AIController : MonoBehaviour {
             }
 
             var team = MobTeams.GetTeam(i);
-            if (team.mobs.Count > 0) {
-                foreach (var enemy in team.mobs) {
+            if (team.Mobs.Count > 0) {
+                foreach (var enemy in team.Mobs) {
                     var distance = (transform.position - enemy.transform.position).sqrMagnitude;
 
                     if (player) {
