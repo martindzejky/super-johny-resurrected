@@ -54,8 +54,13 @@ public class AIBehaviour {
             var enemyDistance = Vector3.Distance(mob.transform.position, closestEnemy.transform.position);
             var goalDistance = Vector3.Distance(mob.transform.position, closestGoal.transform.position);
 
-            var player = Object.FindObjectOfType<PlayerController>();
-            if (player && player.GetComponent<Mob>().team == mob.team) {
+            foreach (var playerInfo in MobTeams.GetTeam(mob.team).Players) {
+                if (!playerInfo.IsAlive()) {
+                    continue;
+                }
+
+                var player = playerInfo.mob;
+
                 var enemyPlayerDistance = Vector3.Distance(player.transform.position, closestEnemy.transform.position);
                 var goalPlayerDistance = Vector3.Distance(player.transform.position, closestGoal.transform.position);
 

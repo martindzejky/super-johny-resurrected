@@ -8,10 +8,11 @@ using System.IO;
 /// </summary>
 public class LevelPostprocessor : AssetPostprocessor {
 
-    private static string oldExtension = ".tmx";
-    private static string newExtension = ".xml";
+    private const string oldExtension = ".tmx";
+    private const string newExtension = ".xml";
 
-    public static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths) {
+    public static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,
+        string[] movedFromAssetPaths) {
         foreach (var asset in importedAssets) {
             // check extension
             if (!asset.EndsWith(oldExtension, System.StringComparison.OrdinalIgnoreCase)) {

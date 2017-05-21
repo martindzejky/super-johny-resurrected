@@ -100,7 +100,6 @@ public class AIController : MonoBehaviour {
 
         var numberOfTeams = MobTeams.GetNumberOfTeams();
         var closestDistance = float.PositiveInfinity;
-        var player = FindObjectOfType<PlayerController>();
 
         for (uint i = 0; i < numberOfTeams; i++) {
             if (myMob.team == i && i != 0) {
@@ -112,7 +111,12 @@ public class AIController : MonoBehaviour {
                 foreach (var enemy in team.Mobs) {
                     var distance = (transform.position - enemy.transform.position).sqrMagnitude;
 
-                    if (player) {
+                    foreach (var playerInfo in MobTeams.GetTeam(myMob.team).Players) {
+                        if (!playerInfo.IsAlive()) {
+                            continue;
+                        }
+
+                        var player = playerInfo.mob;
                         var playerDistance = Vector3.Distance(player.transform.position, enemy.transform.position);
                         distance *= EnemyPlayerProximityMultiplier(playerDistance, persona);
                     }
@@ -135,7 +139,6 @@ public class AIController : MonoBehaviour {
 
         var closestDistance = float.PositiveInfinity;
         var flags = FindObjectsOfType<Flag>();
-        var player = FindObjectOfType<PlayerController>();
 
         foreach (var flag in flags) {
             if (flag.locked || (flag.capturedTeam == myMob.team && flag.capturedAmount >= 1f - float.Epsilon)) {
@@ -144,7 +147,12 @@ public class AIController : MonoBehaviour {
 
             var distance = (flag.transform.position - transform.position).sqrMagnitude;
 
-            if (player && player.GetComponent<Mob>().team == myMob.team) {
+            foreach (var playerInfo in MobTeams.GetTeam(myMob.team).Players) {
+                if (!playerInfo.IsAlive()) {
+                    continue;
+                }
+
+                var player = playerInfo.mob;
                 var playerDistance = Vector3.Distance(player.transform.position, flag.transform.position);
                 distance *= GoalPlayerProximityMultiplier(playerDistance, persona);
             }
