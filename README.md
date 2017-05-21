@@ -11,7 +11,7 @@ Battlefield 2142.
 
 ## Unity
 
-The game is made in Unity. It is currently using version `5.6.0f3`.
+The game is made in Unity. It is currently using version `5.6.1f1`.
 
 
 ## Wiki

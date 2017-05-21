@@ -2,18 +2,19 @@
 
 
 /// <summary>
-/// Flag is a goal that can be captured by mobs.
+/// Flag is a goal that can be captured by mobs. Handles the logic of capturing
+/// and updating the waving flag.
 /// </summary>
 public class Flag : MonoBehaviour {
 
     public Transform movingFlag;
-    public uint capturedTeam = 0;
-    public float capturedAmount = 0f;
-    public bool locked = false;
+    public uint capturedTeam;
+    public float capturedAmount;
+    public bool locked;
 
     private Collider2D myCollider;
     private float respawnTimer = Globals.respawnTime;
-    private bool scoredForCapturing = false;
+    private bool scoredForCapturing;
 
     public void Awake() {
         myCollider = GetComponent<Collider2D>();
@@ -46,7 +47,8 @@ public class Flag : MonoBehaviour {
             return;
         }
 
-        var mobs = Physics2D.OverlapBoxAll(myCollider.bounds.center, myCollider.bounds.size, 0f, LayerMask.GetMask(Globals.mobLayerName));
+        var mobs = Physics2D.OverlapBoxAll(myCollider.bounds.center, myCollider.bounds.size, 0f,
+            LayerMask.GetMask(Globals.mobLayerName));
 
         foreach (var mobObject in mobs) {
             var mob = mobObject.GetComponent<Mob>();

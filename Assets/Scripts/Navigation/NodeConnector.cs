@@ -2,7 +2,7 @@
 
 
 /// <summary>
-/// Connects nodes in one direction.
+/// Connects nodes in one direction. Must be close to the node which should be the origin.
 /// </summary>
 public class NodeConnector : MonoBehaviour {
 
@@ -38,7 +38,7 @@ public class NodeConnector : MonoBehaviour {
             }
 
             // connect the node
-            node.connectedNodes.Add(closestNode);
+            node.ConnectedNodes.Add(closestNode);
         }
     }
 

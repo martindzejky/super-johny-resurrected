@@ -1,14 +1,20 @@
 ﻿using UnityEngine;
 
 
+/// <summary>
+/// The particle is a special physics object. It can behave according to the physics if
+/// a PhysicsObject component is attached, otherwise it just moves in a certain direction.
+/// After the specified time, it is destroyed.
+/// </summary>
 public class Particle : MonoBehaviour {
 
+    /// <summary>Time to stay alive.</summary>
     public float timeAlive = .5f;
 
     private PhysicsObject physicsObject;
     private SpriteRenderer spriteRenderer;
     private Vector2 velocity;
-    private float timeLiving = 0f;
+    private float timeLiving;
 
     public void Awake() {
         physicsObject = GetComponent<PhysicsObject>();

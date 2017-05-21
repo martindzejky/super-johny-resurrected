@@ -7,18 +7,19 @@ using UnityEngine;
 /// </summary>
 public class Node : MonoBehaviour {
 
-    public List<Node> connectedNodes { get; private set; }
+    public List<Node> ConnectedNodes { get; private set; }
 
     private SpriteRenderer spriteRenderer;
 
     public void Awake() {
-        connectedNodes = new List<Node>();
+        ConnectedNodes = new List<Node>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = Globals.debugging;
     }
 
     public void Start() {
         // connect to all nodes that are close enough and visible by this one
+        // stopped by solids and other navigation nodes
         var nodes = FindObjectsOfType<Node>();
         foreach (var otherNode in nodes) {
             if (otherNode == this) {
@@ -33,17 +34,17 @@ public class Node : MonoBehaviour {
 
             var direction = vector.normalized;
             var obstacle = Physics2D.Raycast(transform.position + direction, direction, distance - 1f,
-                LayerMask.GetMask(new string[]{ Globals.navigationLayerName, Globals.solidLayerName }));
+                LayerMask.GetMask(Globals.navigationLayerName, Globals.solidLayerName));
 
             if (!obstacle || obstacle.collider.GetComponent<Node>() == otherNode) {
-                connectedNodes.Add(otherNode);
+                ConnectedNodes.Add(otherNode);
             }
         }
     }
 
     public void Update() {
         if (spriteRenderer.enabled) {
-            foreach (var node in connectedNodes) {
+            foreach (var node in ConnectedNodes) {
                 Debug.DrawRay(transform.position, (node.transform.position - transform.position) / 2f, Color.red);
             }
         }

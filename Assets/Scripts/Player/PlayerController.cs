@@ -6,10 +6,13 @@
 /// </summary>
 public class PlayerController : MonoBehaviour {
 
+    /// <summary>The mob of the player.</summary>
     private Mob mob;
+
+    /// <summary>The closest flag. Used for animating the eyes.</summary>
     private Flag closestGoal;
-    private float idleEyesTimer = 0f;
-    private float retargetGoalTimer = 0f;
+    private float idleEyesTimer;
+    private float retargetGoalTimer;
 
     public void Awake() {
         mob = GetComponent<Mob>();
@@ -27,6 +30,9 @@ public class PlayerController : MonoBehaviour {
         MoveEyes(input);
     }
 
+    /// <summary>
+    /// Update the closest goal periodically.
+    /// </summary>
     private void UpdateClosestGoal() {
         retargetGoalTimer -= Time.deltaTime;
         if (retargetGoalTimer < 0f) {
@@ -46,6 +52,11 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// If the player is not moving for a certain time, move the eyes to look at the closest flag.
+    /// Else just look forward.
+    /// </summary>
+    /// <param name="input">Player input</param>
     private void MoveEyes(float input) {
         if (!Mathf.Approximately(input, 0f)) {
             mob.eyeTarget = transform.position + new Vector3(input * 5f, 0f, 0f);

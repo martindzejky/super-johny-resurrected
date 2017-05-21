@@ -14,20 +14,22 @@ public class PixelCameraSize : MonoBehaviour {
         UpdateCameraSize();
     }
 
-    #if UNITY_EDITOR
-        public void Update() {
-            if (lastSize != Screen.height) {
-                UpdateCameraSize();
-            }
+#if UNITY_EDITOR
+
+    public void Update() {
+        if (lastSize != Screen.height) {
+            UpdateCameraSize();
         }
-    #endif
+    }
+
+#endif
 
     private void UpdateCameraSize() {
         lastSize = Screen.height;
 
-        float refOrthoSize = (float) referenceHeight / Globals.pixelsPerUnit / 2f;
-        float orthoSize = (float) lastSize / Globals.pixelsPerUnit / 2f;
-        float multiplier = Mathf.Max(1, Mathf.Round(orthoSize / refOrthoSize));
+        var refOrthoSize = (float) referenceHeight / Globals.pixelsPerUnit / 2f;
+        var orthoSize = (float) lastSize / Globals.pixelsPerUnit / 2f;
+        var multiplier = Mathf.Max(1, Mathf.Round(orthoSize / refOrthoSize));
 
         orthoSize /= multiplier;
         GetComponent<Camera>().orthographicSize = orthoSize * Globals.cameraAdjust;

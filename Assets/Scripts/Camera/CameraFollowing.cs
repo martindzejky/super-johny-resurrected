@@ -2,7 +2,7 @@
 
 
 /// <summary>
-/// Makes the camera follow the player and the mouse.
+/// Makes the camera follow the player if they are alive.
 /// </summary>
 public class CameraFollowing : MonoBehaviour {
 

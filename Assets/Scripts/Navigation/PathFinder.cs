@@ -11,22 +11,31 @@ public class PathFinder {
     /// Node pair - current node and the node we got here from.
     /// </summary>
     private struct NodeInfo {
-        public Node node;
-        public Node parentNode;
+
+        public readonly Node node;
+        public readonly Node parentNode;
 
         public NodeInfo(Node node, Node parentNode) {
             this.node = node;
             this.parentNode = parentNode;
         }
+
     }
 
+
+    /// <summary>
+    /// Find a path between 2 points in space. Uses the closest nodes to these points.
+    /// </summary>
+    /// <param name="start">Starting point</param>
+    /// <param name="end">Ending point</param>
+    /// <returns>The path or an empty array</returns>
     public static Node[] GetPath(Vector3 start, Vector3 end) {
         Node closestStart = null;
         Node closestEnd = null;
-        float closestStartDistance = float.PositiveInfinity;
-        float closestEndDistance = float.PositiveInfinity;
+        var closestStartDistance = float.PositiveInfinity;
+        var closestEndDistance = float.PositiveInfinity;
 
-        foreach (var node in GameObject.FindObjectsOfType<Node>()) {
+        foreach (var node in Object.FindObjectsOfType<Node>()) {
             var distanceStart = (node.transform.position - start).sqrMagnitude;
             var distanceEnd = (node.transform.position - end).sqrMagnitude;
 
@@ -43,13 +52,19 @@ public class PathFinder {
         return GetPath(closestStart, closestEnd);
     }
 
+    /// <summary>
+    /// Find a path between 2 nodes.
+    /// </summary>
+    /// <param name="start">Starting node</param>
+    /// <param name="end">Ending node</param>
+    /// <returns>The path or an empty array</returns>
     public static Node[] GetPath(Node start, Node end) {
         if (!start || !end) {
-            return new Node[] {};
+            return new Node[] { };
         }
 
         if (start == end) {
-            return new Node[] { start };
+            return new[] {start};
         }
 
         var queue = new Queue<NodeInfo>();
@@ -66,7 +81,9 @@ public class PathFinder {
             if (nodeInfo.node == end) {
                 var result = new List<Node>();
 
-                for (var pathNodeInfo = nodeInfo; pathNodeInfo.parentNode; pathNodeInfo = visitedNodes[pathNodeInfo.parentNode]) {
+                for (var pathNodeInfo = nodeInfo;
+                    pathNodeInfo.parentNode;
+                    pathNodeInfo = visitedNodes[pathNodeInfo.parentNode]) {
                     result.Add(pathNodeInfo.node);
                 }
                 result.Add(start);
@@ -75,7 +92,7 @@ public class PathFinder {
             }
 
             // process connected nodes
-            foreach (var connectedNode in nodeInfo.node.connectedNodes) {
+            foreach (var connectedNode in nodeInfo.node.ConnectedNodes) {
                 if (visitedNodes.ContainsKey(connectedNode)) {
                     continue;
                 }
@@ -84,7 +101,7 @@ public class PathFinder {
             }
         }
 
-        return new Node[] {};
+        return new Node[] { };
     }
 
 }

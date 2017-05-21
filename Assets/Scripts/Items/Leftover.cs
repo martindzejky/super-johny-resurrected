@@ -1,21 +1,31 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 /// <summary>
 /// Handles the logic of a leftover. This can be for example a dead body or a lost heart.
 /// Waits a little and then desaturates and burries the leftover. Or just destroys it on contact.
-/// /// </summary>
+/// </summary>
 public class Leftover : MonoBehaviour {
 
     public enum State {
+
         Falling,
         Burrying,
         Burried
+
     }
 
+
+    /// <summary>If true, initialize the object to a random starting velocity.</summary>
     public bool initVelocity = true;
+
+    /// <summary>If true, rotate the leftover while it is in the air.</summary>
     public bool rotate = true;
-    public bool bury = false;
+
+    /// <summary>If true, bury the leftover.</summary>
+    public bool bury;
 
     private float rotation;
     private State state = State.Falling;
@@ -26,6 +36,7 @@ public class Leftover : MonoBehaviour {
         physicsObject = GetComponent<PhysicsObject>();
         sprite = GetComponent<SpriteRenderer>();
 
+        // initialize rotation and velocity
         rotation = rotate ? Random.Range(2f, 10f) * (Random.value < .5f ? 1 : -1) : 0f;
         if (initVelocity) {
             physicsObject.velocity = new Vector2(Random.Range(-6f, 6f), Random.Range(10f, 18f));

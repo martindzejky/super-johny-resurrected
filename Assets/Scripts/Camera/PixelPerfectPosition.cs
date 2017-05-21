@@ -2,7 +2,7 @@
 
 
 /// <summary>
-/// Rounds the position of the object to a pixel boundary,
+/// Rounds the position of the object to a pixel boundary.
 /// </summary>
 public class PixelPerfectPosition : MonoBehaviour {
 

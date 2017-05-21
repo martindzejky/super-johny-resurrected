@@ -18,6 +18,10 @@ public class LevelLoader : MonoBehaviour {
         CreatePlayer();
     }
 
+    /// <summary>
+    /// Load a level by the given name. Create all the tiles and put them in the container game object.
+    /// </summary>
+    /// <param name="levelName">Name of the level to load</param>
     private void LoadLevel(string levelName) {
         tiles = new Dictionary<int, GameObject>();
         var prefabRegistry = FindObjectOfType<PrefabRegistry>();
@@ -84,7 +88,7 @@ public class LevelLoader : MonoBehaviour {
         }
     }
 
-    private void CreatePlayer() {
+    private static void CreatePlayer() {
         var playersManager = FindObjectOfType<PlayersManager>();
         playersManager.CreatePlayerForRandomTeam();
     }

@@ -7,9 +7,7 @@ using UnityEngine;
 /// </summary>
 public class PlayerInfo {
 
-    /// <summary>
-    /// The mob of the player. If null, the player is currently dead.
-    /// </summary>
+    /// <summary>The mob of the player. If null, the player is currently dead.</summary>
     public Mob mob;
 
     public uint team;

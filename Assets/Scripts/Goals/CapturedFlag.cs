@@ -6,10 +6,10 @@
 /// </summary>
 public class CapturedFlag : MonoBehaviour {
 
-    public uint capturedTeam = 0;
-    public bool locked = false;
+    public uint capturedTeam;
+    public bool locked;
 
-    void Start () {
+    public void Start () {
         var registry = FindObjectOfType<PrefabRegistry>();
         var flag = Instantiate(registry.goal, transform.position, transform.rotation).GetComponent<Flag>();
         flag.capturedAmount = 1f;

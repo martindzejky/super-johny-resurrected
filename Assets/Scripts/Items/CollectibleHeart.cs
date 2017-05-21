@@ -13,9 +13,10 @@ public class CollectibleHeart : MonoBehaviour {
     }
 
     public void Update() {
-        var collider = Physics2D.OverlapBox(transform.position, myCollider.bounds.size, 0, LayerMask.GetMask(Globals.mobLayerName));
-        if (collider) {
-            var mob = collider.GetComponent<Mob>();
+        var col = Physics2D.OverlapBox(transform.position, myCollider.bounds.size, 0,
+            LayerMask.GetMask(Globals.mobLayerName));
+        if (col) {
+            var mob = col.GetComponent<Mob>();
             if (mob) {
                 mob.lives++;
                 mob.MakeHappy();
