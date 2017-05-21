@@ -9,17 +9,17 @@
 public class AIController : MonoBehaviour {
 
     private Mob myMob;
-    private Mob closestEnemy = null;
-    private Flag closestGoal = null;
+    private Mob closestEnemy;
+    private Flag closestGoal;
     private float retargetTimer = -1f;
-    private bool hadAliveEnemy = false;
-    private AIBehaviour activeBehaviour = null;
-    private AIPersona persona = null;
+    private bool hadAliveEnemy;
+    private AIBehaviour activeBehaviour;
+    private AIPersona persona;
 
     public void Awake() {
         myMob = GetComponent<Mob>();
         var defaultPersona = new AIPersona();
-        var personas = new AIPersona[] {
+        var personas = new[] {
             defaultPersona,
             defaultPersona,
             new AIAttackerPersona(),
@@ -69,12 +69,12 @@ public class AIController : MonoBehaviour {
         UpdateTargets();
     }
 
-    public float EnemyPlayerProximityMultiplier(float enemyPlayerDistance, AIPersona persona) {
-        return Mathf.Lerp(1f, Mathf.Clamp(enemyPlayerDistance, 1f, 10f) / 4f, persona.PlayerProximityImportance());
+    public float EnemyPlayerProximityMultiplier(float enemyPlayerDistance, AIPersona forPersona) {
+        return Mathf.Lerp(1f, Mathf.Clamp(enemyPlayerDistance, 1f, 10f) / 4f, forPersona.PlayerProximityImportance());
     }
 
-    public float GoalPlayerProximityMultiplier(float goalPlayerDistance, AIPersona persona) {
-        return Mathf.Lerp(1f, Mathf.Clamp(goalPlayerDistance, 3f, 20f) / 6f, persona.PlayerProximityImportance());
+    public float GoalPlayerProximityMultiplier(float goalPlayerDistance, AIPersona forPersona) {
+        return Mathf.Lerp(1f, Mathf.Clamp(goalPlayerDistance, 3f, 20f) / 6f, forPersona.PlayerProximityImportance());
     }
 
     private void UpdateTimers() {

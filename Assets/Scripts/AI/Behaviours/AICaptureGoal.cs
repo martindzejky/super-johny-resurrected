@@ -4,12 +4,11 @@
 /// <summary>
 /// Makes the mob stand still and capture the goal. Chooses a random capture point.
 /// </summary>
-public class AICaptureGoal : AIBehaviour
-{
+public class AICaptureGoal : AIBehaviour {
 
     private float capturePoint;
 
-    public AICaptureGoal(AIController controller, Mob mob) : base(controller, mob) {}
+    public AICaptureGoal(AIController controller, Mob mob) : base(controller, mob) { }
 
     public override void Start() {
         base.Start();
@@ -44,10 +43,9 @@ public class AICaptureGoal : AIBehaviour
         if (newBehaviour == this) {
             return true;
         }
-        else {
-            controller.SwitchBehaviour(newBehaviour);
-            return false;
-        }
+
+        controller.SwitchBehaviour(newBehaviour);
+        return false;
     }
 
     private void CaptureGoal() {
@@ -60,4 +58,3 @@ public class AICaptureGoal : AIBehaviour
     }
 
 }
-

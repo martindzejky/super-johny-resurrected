@@ -6,8 +6,8 @@
 /// </summary>
 public class AICapturerPersona : AIPersona {
 
-    private float importanceRatio;
-    private float goalOffset;
+    private readonly float importanceRatio;
+    private readonly float goalOffset;
 
     public AICapturerPersona() {
         importanceRatio = Random.Range(.1f, .8f);

@@ -7,9 +7,9 @@
 /// </summary>
 public class AIPersona {
 
-    private float jumpPoint;
-    private float stunnedPenalty;
-    private float reactionTime;
+    private readonly float jumpPoint;
+    private readonly float stunnedPenalty;
+    private readonly float reactionTime;
 
     public AIPersona() {
         jumpPoint = Random.Range(-.5f, .5f);

@@ -5,12 +5,11 @@
 /// Makes the mob use pathing and move towards the closest goal. The path is not
 /// updated because the goal is not moving.
 /// </summary>
-public class AIMoveTowardsGoal : AIPathingBehaviour
-{
+public class AIMoveTowardsGoal : AIPathingBehaviour {
 
     private float updateTimer = Globals.aiPathingTimer;
 
-    public AIMoveTowardsGoal(AIController controller, Mob mob) : base(controller, mob) {}
+    public AIMoveTowardsGoal(AIController controller, Mob mob) : base(controller, mob) { }
 
     public override void Update() {
         base.Update();
@@ -39,10 +38,9 @@ public class AIMoveTowardsGoal : AIPathingBehaviour
         if (newBehaviour == this) {
             return true;
         }
-        else {
-            controller.SwitchBehaviour(newBehaviour);
-            return false;
-        }
+
+        controller.SwitchBehaviour(newBehaviour);
+        return false;
     }
 
     private void MoveTowardsGoal() {
@@ -55,4 +53,3 @@ public class AIMoveTowardsGoal : AIPathingBehaviour
     }
 
 }
-

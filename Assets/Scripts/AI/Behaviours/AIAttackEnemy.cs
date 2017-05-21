@@ -4,10 +4,9 @@
 /// <summary>
 /// Makes the mob attack the enemy. Tries to stomp the enemy and avoid getting stomped.
 /// </summary>
-public class AIAttackEnemy : AIBehaviour
-{
+public class AIAttackEnemy : AIBehaviour {
 
-    public AIAttackEnemy(AIController controller, Mob mob) : base(controller, mob) {}
+    public AIAttackEnemy(AIController controller, Mob mob) : base(controller, mob) { }
 
     public override void Update() {
         base.Update();
@@ -35,10 +34,9 @@ public class AIAttackEnemy : AIBehaviour
         if (newBehaviour == this) {
             return true;
         }
-        else {
-            controller.SwitchBehaviour(newBehaviour);
-            return false;
-        }
+
+        controller.SwitchBehaviour(newBehaviour);
+        return false;
     }
 
     private void AttackEnemy() {

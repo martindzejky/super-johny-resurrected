@@ -9,7 +9,7 @@ public class AIThink : AIBehaviour {
 
     private float thinkTimer;
 
-    public AIThink(AIController controller, Mob mob) : base(controller, mob) {}
+    public AIThink(AIController controller, Mob mob) : base(controller, mob) { }
 
     public override void Start() {
         base.Start();
@@ -50,12 +50,14 @@ public class AIThink : AIBehaviour {
 
     private void UpdateStateBasedOnEnemy() {
         controller.SwitchBehaviour(ShouldAttackOrMove(controller.GetClosestEnemy().transform.position,
-            controller.GetPersona().AttackRadius(), new AIAttackEnemy(controller, mob), new AIMoveTowardsEnemy(controller, mob)));
+            controller.GetPersona().AttackRadius(), new AIAttackEnemy(controller, mob),
+            new AIMoveTowardsEnemy(controller, mob)));
     }
 
     private void UpdateStateBasedOnGoal() {
         controller.SwitchBehaviour(ShouldAttackOrMove(controller.GetClosestGoal().transform.position,
-            controller.GetPersona().CaptureRadius(), new AICaptureGoal(controller, mob), new AIMoveTowardsGoal(controller, mob)));
+            controller.GetPersona().CaptureRadius(), new AICaptureGoal(controller, mob),
+            new AIMoveTowardsGoal(controller, mob)));
     }
 
 }

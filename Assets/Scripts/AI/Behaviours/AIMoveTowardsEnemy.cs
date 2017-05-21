@@ -4,12 +4,11 @@
 /// <summary>
 /// Makes the mob use pathing and move towards the closest enemy. The path is periodically updated.
 /// </summary>
-public class AIMoveTowardsEnemy : AIPathingBehaviour
-{
+public class AIMoveTowardsEnemy : AIPathingBehaviour {
 
     private float updateTimer = Globals.aiPathingTimer;
 
-    public AIMoveTowardsEnemy(AIController controller, Mob mob) : base(controller, mob) {}
+    public AIMoveTowardsEnemy(AIController controller, Mob mob) : base(controller, mob) { }
 
     public override void Update() {
         base.Update();
@@ -38,10 +37,9 @@ public class AIMoveTowardsEnemy : AIPathingBehaviour
         if (newBehaviour == this) {
             return true;
         }
-        else {
-            controller.SwitchBehaviour(newBehaviour);
-            return false;
-        }
+
+        controller.SwitchBehaviour(newBehaviour);
+        return false;
     }
 
     private void MoveTowardsEnemy() {

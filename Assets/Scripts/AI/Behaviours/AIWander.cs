@@ -4,17 +4,16 @@
 /// <summary>
 /// Makes the mob wander around.
 /// </summary>
-public class AIWander : AIPathingBehaviour
-{
+public class AIWander : AIPathingBehaviour {
 
     private float wanderTimer = Globals.aiWanderTimer;
     private float lookTimer = Globals.aiWanderLookTimer;
-    private Flag targetGoal = null;
+    private Flag targetGoal;
     private float radius;
     private float capturePoint;
     private Vector3 lookTarget;
 
-    public AIWander(AIController controller, Mob mob) : base(controller, mob) {}
+    public AIWander(AIController controller, Mob mob) : base(controller, mob) { }
 
     public override void Start() {
         base.Start();
@@ -53,7 +52,7 @@ public class AIWander : AIPathingBehaviour
     }
 
     private void FindNewGoal() {
-        var goals = GameObject.FindObjectsOfType<Flag>();
+        var goals = Object.FindObjectsOfType<Flag>();
         targetGoal = goals[Random.Range(0, goals.Length)];
     }
 

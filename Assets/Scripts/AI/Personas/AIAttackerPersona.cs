@@ -6,9 +6,9 @@
 /// </summary>
 public class AIAttackerPersona : AIPersona {
 
-    private float jumpChance;
-    private float importanceRatio;
-    private float goalOffset;
+    private readonly float jumpChance;
+    private readonly float importanceRatio;
+    private readonly float goalOffset;
 
     public AIAttackerPersona() {
         jumpChance = Random.Range(.1f, .3f);

@@ -16,7 +16,8 @@ public class AIBehaviour {
         this.mob = mob;
     }
 
-    public virtual void Start() {}
+    public virtual void Start() { }
+
     public virtual void Update() {
         targetTimer -= Time.deltaTime;
         if (targetTimer < 0f) {
@@ -24,9 +25,10 @@ public class AIBehaviour {
             UpdateBasedOnTarget(GetClosestTarget());
         }
     }
-    public virtual void End() {}
 
-    protected virtual void UpdateBasedOnTarget(AITarget closestTarget) {}
+    public virtual void End() { }
+
+    protected virtual void UpdateBasedOnTarget(AITarget closestTarget) { }
 
     protected AIBehaviour ShouldAttackOrMove(Vector3 target, float attackRadius,
         AIBehaviour attackBehaviour, AIBehaviour moveBehaviour) {
@@ -37,16 +39,10 @@ public class AIBehaviour {
             var wall = Physics2D.Raycast(mob.transform.position, vector.normalized, distanceToTarget,
                 LayerMask.GetMask(Globals.solidLayerName));
 
-            if (wall) {
-                return moveBehaviour;
-            }
-            else {
-                return attackBehaviour;
-            }
+            return wall ? moveBehaviour : attackBehaviour;
         }
-        else {
-            return moveBehaviour;
-        }
+
+        return moveBehaviour;
     }
 
     protected AITarget GetClosestTarget() {
@@ -58,7 +54,7 @@ public class AIBehaviour {
             var enemyDistance = Vector3.Distance(mob.transform.position, closestEnemy.transform.position);
             var goalDistance = Vector3.Distance(mob.transform.position, closestGoal.transform.position);
 
-            var player = GameObject.FindObjectOfType<PlayerController>();
+            var player = Object.FindObjectOfType<PlayerController>();
             if (player && player.GetComponent<Mob>().team == mob.team) {
                 var enemyPlayerDistance = Vector3.Distance(player.transform.position, closestEnemy.transform.position);
                 var goalPlayerDistance = Vector3.Distance(player.transform.position, closestGoal.transform.position);
@@ -73,22 +69,14 @@ public class AIBehaviour {
 
             goalDistance = goalDistance * persona.EnemyGoalImportanceRatio() + persona.GoalDistanceOffset();
 
-            if (enemyDistance < goalDistance) {
-                return AITarget.Enemy;
-            }
-            else {
-                return AITarget.Goal;
-            }
+            return enemyDistance < goalDistance ? AITarget.Enemy : AITarget.Goal;
         }
-        else if (closestEnemy) {
+
+        if (closestEnemy) {
             return AITarget.Enemy;
         }
-        else if (closestGoal) {
-            return AITarget.Goal;
-        }
-        else {
-            return AITarget.None;
-        }
+
+        return closestGoal ? AITarget.Goal : AITarget.None;
     }
 
 }

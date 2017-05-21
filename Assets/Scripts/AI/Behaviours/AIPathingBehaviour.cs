@@ -6,10 +6,10 @@
 /// </summary>
 public class AIPathingBehaviour : AIBehaviour {
 
-    protected Node[] currentPath = null;
-    protected uint currentPathIndex = 0;
+    protected Node[] currentPath;
+    protected uint currentPathIndex;
 
-    public AIPathingBehaviour(AIController controller, Mob mob) : base(controller, mob) {}
+    public AIPathingBehaviour(AIController controller, Mob mob) : base(controller, mob) { }
 
     protected void NavigateTowards(Vector3 destination) {
         currentPath = PathFinder.GetPath(controller.transform.position, destination);

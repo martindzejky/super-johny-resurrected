@@ -6,7 +6,7 @@
 /// </summary>
 public class AIFollowerPersona : AIPersona {
 
-    private float goalOffset;
+    private readonly float goalOffset;
 
     public AIFollowerPersona() {
         goalOffset = Random.Range(3f, 6f);
