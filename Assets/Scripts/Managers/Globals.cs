@@ -55,6 +55,16 @@ public class Globals {
 
     #endregion
 
+    #region Team
+
+    public static float respawnTimePerAliveMob = 1.2f;
+    public static float respawnTimePerCapturedFlag = -.3f;
+    public static float minimumRespawnTime = 1.5f;
+    public static float startingRespawnTime = 4f;
+    public static uint respawnsPerTeam = 100;
+
+    #endregion
+
     #region Player
 
     public static uint playerTeam = 1;
@@ -84,8 +94,6 @@ public class Globals {
     #region Goals
 
     public static float goalCaptureAmountPerMob = .05f;
-    public static float respawnTime = 5f;
-    public static uint respawnsPerTeam = 100;
 
     #endregion
 

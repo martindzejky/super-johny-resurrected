@@ -13,7 +13,6 @@ public class Flag : MonoBehaviour {
     public bool locked;
 
     private Collider2D myCollider;
-    private float respawnTimer = Globals.respawnTime;
     private bool scoredForCapturing;
 
     public void Awake() {
@@ -27,7 +26,6 @@ public class Flag : MonoBehaviour {
     public void Update() {
         CheckCapturing();
         UpdateFlagPosition();
-        RespawnMobs();
     }
 
     public bool IsCapturedByTeam(uint team) {
@@ -87,25 +85,6 @@ public class Flag : MonoBehaviour {
         var newPosition = movingFlag.localPosition;
         newPosition.y = capturedAmount * 3.8f;
         movingFlag.localPosition = newPosition;
-    }
-
-    private void RespawnMobs() {
-        if (capturedAmount < .9f) {
-            respawnTimer = Globals.respawnTime;
-        }
-        else {
-            respawnTimer -= Time.deltaTime;
-
-            if (respawnTimer < 0f) {
-                respawnTimer = Globals.respawnTime;
-
-                var prefabRegistry = FindObjectOfType<PrefabRegistry>();
-                if (prefabRegistry.teamMobs[capturedTeam] && MobTeams.GetTeam(capturedTeam).respawns > 0) {
-                    MobTeams.GetTeam(capturedTeam).respawns--;
-                    SpawnMob(prefabRegistry.teamMobs[capturedTeam]);
-                }
-            }
-        }
     }
 
 }

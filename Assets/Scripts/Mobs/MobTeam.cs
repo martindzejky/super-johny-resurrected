@@ -10,6 +10,7 @@ public class MobTeam {
 
     public Color teamColor = Color.white;
     public uint respawns = Globals.respawnsPerTeam;
+    public float respawnTimer = Globals.startingRespawnTime;
     public uint score = 0;
 
     public List<Mob> Mobs { get; }
