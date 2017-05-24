@@ -3,8 +3,21 @@
 
 /// <summary>
 /// Updates players, respawns them, etc.
+/// Also takes care of the local player.
 /// </summary>
 public class PlayersManager : MonoBehaviour {
+
+    private Mob localPlayer;
+
+    public Mob LocalPlayer {
+        get { return localPlayer; }
+        set {
+            localPlayer = value;
+            LocalTeam = value.team;
+        }
+    }
+
+    public uint LocalTeam { get; set; }
 
     /// <summary>
     /// Add a player for a random team. Initializes a new playerInfo.
@@ -28,6 +41,10 @@ public class PlayersManager : MonoBehaviour {
             var players = MobTeams.GetTeam(i).Players;
             players.ForEach(player => player.Update());
         }
+    }
+
+    public bool IsLocalPlayerAlive() {
+        return LocalPlayer;
     }
 
 }

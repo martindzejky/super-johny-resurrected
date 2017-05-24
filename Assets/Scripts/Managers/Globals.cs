@@ -9,6 +9,12 @@ public class Globals {
 
     #endregion
 
+    #region Camera
+
+    public static float cameraAfterDeathTimeout = 3f;
+
+    #endregion
+
     #region Units
 
     public static uint pixelsPerUnit = 16;
