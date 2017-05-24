@@ -9,32 +9,45 @@ public class CameraFollowing : MonoBehaviour {
 
     private PlayersManager playersManager;
     private Mob followedMob;
+    private Flag fallbackFlag;
     private float deadTimer = Globals.cameraAfterDeathTimeout;
+    private bool initialPosition;
 
     private void Awake() {
         playersManager = FindObjectOfType<PlayersManager>();
+
+        var flags = FindObjectsOfType<Flag>();
+        if (flags.Length > 0) {
+            fallbackFlag = flags[Random.Range(0, flags.Length)];
+        }
     }
 
     public void LateUpdate() {
-        if (playersManager.IsLocalPlayerAlive()) {
+        if (playersManager.LocalPlayer.IsAlive()) {
             deadTimer = Globals.cameraAfterDeathTimeout;
-            FollowMob(playersManager.LocalPlayer);
+            FollowObject(playersManager.LocalPlayer.mob);
         }
         else {
             HandleDeadPlayer();
         }
     }
 
-    private void FollowMob(Mob mob) {
-        transform.position = new Vector3(mob.transform.position.x, mob.transform.position.y, -10f);
+    private void FollowObject(Component @object) {
+        transform.position = new Vector3(@object.transform.position.x, @object.transform.position.y, -10f);
     }
 
     private void HandleDeadPlayer() {
         deadTimer -= Time.deltaTime;
 
+        // set initial position
+        if (!initialPosition && fallbackFlag) {
+            initialPosition = true;
+            FollowObject(fallbackFlag);
+        }
+
         if (deadTimer <= 0) {
             if (followedMob) {
-                FollowMob(followedMob);
+                FollowObject(followedMob);
             }
             else {
                 // reset death timer
@@ -43,9 +56,14 @@ public class CameraFollowing : MonoBehaviour {
         }
         else if (!followedMob) {
             // quickly find another mob
-            var mobs = MobTeams.GetTeam(playersManager.LocalTeam).Mobs;
+            var mobs = MobTeams.GetTeam(playersManager.LocalPlayer.team).Mobs;
             if (mobs.Count > 0) {
                 followedMob = mobs[Random.Range(0, mobs.Count)];
+            }
+
+            // fallback
+            else if (fallbackFlag) {
+                FollowObject(fallbackFlag);
             }
         }
     }

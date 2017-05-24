@@ -90,7 +90,7 @@ public class LevelLoader : MonoBehaviour {
 
     private static void CreatePlayer() {
         var playersManager = FindObjectOfType<PlayersManager>();
-        playersManager.CreatePlayerForRandomTeam();
+        playersManager.CreatePlayerForRandomTeam(true);
     }
 
 }

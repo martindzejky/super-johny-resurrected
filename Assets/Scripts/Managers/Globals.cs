@@ -75,7 +75,7 @@ public class Globals {
 
     public static uint playerTeam = 1;
     public static float playerIdleEyesTime = 2f;
-    public static float playerRespawnTime = 5f;
+    public static float playerRespawnTime = 6f;
 
     #endregion
 

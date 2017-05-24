@@ -7,23 +7,22 @@ public class LivesUI : MonoBehaviour {
     public Image heartImage;
     public Text livesText;
 
-    private PlayerController player;
+    private PlayersManager playersManager;
+
+    private void Awake() {
+        playersManager = FindObjectOfType<PlayersManager>();
+    }
 
     private void LateUpdate() {
-        if (!player) {
-            player = FindObjectOfType<PlayerController>();
-
-            if (!player) {
-                heartImage.enabled = false;
-                livesText.enabled = false;
-                return;
-            }
-
+        if (playersManager.LocalPlayer.IsAlive()) {
             heartImage.enabled = true;
             livesText.enabled = true;
+            livesText.text = playersManager.LocalPlayer.mob.lives.ToString();
         }
-
-        livesText.text = player.GetComponent<Mob>().lives.ToString();
+        else {
+            heartImage.enabled = false;
+            livesText.enabled = false;
+        }
     }
 
 }

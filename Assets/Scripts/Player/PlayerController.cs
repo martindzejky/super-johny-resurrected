@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour {
 
     public void Awake() {
         mob = GetComponent<Mob>();
-        FindObjectOfType<PlayersManager>().LocalPlayer = mob;
     }
 
     public void Update() {
