@@ -44,7 +44,15 @@ public class LevelLoader : MonoBehaviour {
 
                 // get the matching game object from the registry
                 var name = tile.FirstChild.Attributes["source"].Value;
-                tiles[id] = prefabRegistry.tiles[name];
+                var lastSlash = name.LastIndexOf('/') + 1;
+                var tileName = name.Substring(lastSlash, name.LastIndexOf('.') - lastSlash);
+
+                if (prefabRegistry.tiles.ContainsKey(tileName)) {
+                    tiles[id] = prefabRegistry.tiles[tileName];
+                }
+                else {
+                    Debug.LogWarning($"Tile named {tileName} was not found in the prefab registry");
+                }
             }
         }
 
