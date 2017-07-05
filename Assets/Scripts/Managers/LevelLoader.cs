@@ -42,15 +42,9 @@ public class LevelLoader : MonoBehaviour {
                 var idString = tile.Attributes["id"].Value;
                 var id = int.Parse(idString) + idOffset;
 
-                // find the matching game object
+                // get the matching game object from the registry
                 var name = tile.FirstChild.Attributes["source"].Value;
-                for (var i = 0; i < prefabRegistry.tileIds.Length; i++) {
-                    if (name.Contains(prefabRegistry.tileIds[i])) {
-                        // store in the dictionary
-                        tiles[id] = prefabRegistry.tiles[i];
-                        break;
-                    }
-                }
+                tiles[id] = prefabRegistry.tiles[name];
             }
         }
 
