@@ -67,7 +67,7 @@ public class Globals {
     public static float respawnTimePerCapturedFlag = -.3f;
     public static float minimumRespawnTime = 1.5f;
     public static float startingRespawnTime = 4f;
-    public static uint respawnsPerTeam = 100;
+    public static uint respawnsPerTeam = 40;
 
     #endregion
 
