@@ -28,27 +28,28 @@ public class PlayerInfo {
 
     public void Update() {
         // respawn the player if he is not alive, the player must press the respawn key
-        if (!IsAlive()) {
-            respawnTimer -= Time.deltaTime;
+        if (IsAlive()) {
+            return;
+        }
 
-            if (respawnTimer < 0f && Input.GetButtonDown("Respawn")) {
-                respawnTimer = Globals.playerRespawnTime;
+        respawnTimer -= Time.deltaTime;
 
-                var playerTeam = MobTeams.GetTeam(team);
-                if (playerTeam.respawns > 0) {
-                    playerTeam.respawns--;
+        var playerTeam = MobTeams.GetTeam(team);
+        if (playerTeam.respawns <= 0) {
+            return;
+        }
 
-                    var prefabRegistry = Object.FindObjectOfType<PrefabRegistry>();
-                    var playerFlags = Object.FindObjectsOfType<Flag>()
-                        .Where(flag => flag.IsCapturedByTeam(team))
-                        .ToArray();
+        var prefabRegistry = Object.FindObjectOfType<PrefabRegistry>();
+        var playerFlags = Object.FindObjectsOfType<Flag>()
+            .Where(flag => flag.IsCapturedByTeam(team))
+            .ToArray();
 
-                    if (playerFlags.Length > 0) {
-                        var spawn = playerFlags[Random.Range(0, playerFlags.Length)];
-                        mob = spawn.SpawnMob(prefabRegistry.playerMobs[team]).GetComponent<Mob>();
-                    }
-                }
-            }
+        if (respawnTimer < 0f && Input.GetButtonDown("Respawn") && playerFlags.Length > 0) {
+            playerTeam.respawns--;
+            respawnTimer = Globals.playerRespawnTime;
+
+            var spawn = playerFlags[Random.Range(0, playerFlags.Length)];
+            mob = spawn.SpawnMob(prefabRegistry.playerMobs[team]).GetComponent<Mob>();
         }
     }
 

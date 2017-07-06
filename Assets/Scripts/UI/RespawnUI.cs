@@ -23,8 +23,12 @@ public class RespawnUI : MonoBehaviour {
             respawnText.enabled = true;
 
             var respawnTime = playersManager.LocalPlayer.GetRespawnTimer();
+            var team = MobTeams.GetTeam(playersManager.LocalPlayer.team);
 
-            if (respawnTime < Globals.playerRespawnTime - 2f && respawnTime > 0f) {
+            if (team.respawns <= 0) {
+                respawnText.text = "Your team is out of respawn points";
+            }
+            else if (respawnTime < Globals.playerRespawnTime - 2f && respawnTime > 0f) {
                 respawnText.text = $"You can spawn in {Mathf.Ceil(respawnTime)} seconds";
             }
             else if (respawnTime <= 0f) {
