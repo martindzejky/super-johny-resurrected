@@ -177,6 +177,12 @@ MonoBehaviour:
     - WoodenPillarBase
     - WoodenPlatform
     - WoodenWall
+    - YellowMob
+    - YellowGoal
+    - YellowGoalLocked
+    - PurpleMob
+    - PurpleGoalLocked
+    - PurpleGoal
     values:
     - {fileID: 1838411016884770, guid: 01a1cc5aad01d4270a94ded61207b5c2, type: 2}
     - {fileID: 1161881352778708, guid: 92cf11f6223d64177a5bdd6364543632, type: 2}
@@ -204,6 +210,12 @@ MonoBehaviour:
     - {fileID: 1541733499531832, guid: 2dda34f63c9ed41a281a3d445ebc1a83, type: 2}
     - {fileID: 1541733499531832, guid: d1617c34c213848018abfb46bb52a4c0, type: 2}
     - {fileID: 1541733499531832, guid: dc624587ae2184e10a74bcdb1c8afc42, type: 2}
+    - {fileID: 1838411016884770, guid: 1185e526e02934a68acb8eec3ff59fa7, type: 2}
+    - {fileID: 1161881352778708, guid: 8e3d427f7b7d446a8905f80a924003e3, type: 2}
+    - {fileID: 1161881352778708, guid: 11f278f331eb84d0fa6735cb7d3f0495, type: 2}
+    - {fileID: 1838411016884770, guid: b467be2d8f2514ae6881dbe089621a03, type: 2}
+    - {fileID: 1161881352778708, guid: 6f2b8d6f3a6b24df0ae8f4be0e2d6baa, type: 2}
+    - {fileID: 1161881352778708, guid: 2d2c228d09f524886bdc1b7da416d47f, type: 2}
   teamMobs:
   - {fileID: 0}
   - {fileID: 1838411016884770, guid: 01a1cc5aad01d4270a94ded61207b5c2, type: 2}
