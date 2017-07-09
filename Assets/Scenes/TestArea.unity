@@ -208,10 +208,14 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 1838411016884770, guid: 01a1cc5aad01d4270a94ded61207b5c2, type: 2}
   - {fileID: 1838411016884770, guid: 15287243a4b1047008cd1764fbbdd55c, type: 2}
+  - {fileID: 1838411016884770, guid: 1185e526e02934a68acb8eec3ff59fa7, type: 2}
+  - {fileID: 1838411016884770, guid: b467be2d8f2514ae6881dbe089621a03, type: 2}
   playerMobs:
   - {fileID: 0}
   - {fileID: 1032169637787598, guid: cf59eaad2b0044b18b2512cafa2318b1, type: 2}
   - {fileID: 1032169637787598, guid: cb6eba1e178194b35ae6b4e2674bb746, type: 2}
+  - {fileID: 1032169637787598, guid: ffad12087306f4f39acb5ff9af9ace40, type: 2}
+  - {fileID: 1032169637787598, guid: 098cc7dccb5144fbe9b0aff1dd2873ea, type: 2}
   deadBody: {fileID: 1662960779257996, guid: c6d20424323714328b2a07459373d697, type: 2}
   lostHeart: {fileID: 1707128229553598, guid: cc30821980a844dc7b80579c44c0a4ea, type: 2}
   starParticle: {fileID: 1742279159565778, guid: 1bd19ff532bea4c4dbb6b167263bf4e7,
@@ -232,9 +236,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mobBodies:
   - {fileID: 21300000, guid: a557a3cb255aa4a1ea74e6ba9619d133, type: 3}
-  - {fileID: 21300000, guid: a557a3cb255aa4a1ea74e6ba9619d133, type: 3}
-  - {fileID: 21300000, guid: 000c624daeb444f8db3ba48d4c307d12, type: 3}
-  - {fileID: 21300000, guid: 7732eb74ccb504a99925b407e86d4f3c, type: 3}
 --- !u!1 &204366936
 GameObject:
   m_ObjectHideFlags: 0
