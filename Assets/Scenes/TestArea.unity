@@ -162,21 +162,8 @@ MonoBehaviour:
     - NavigationBlocker
     - Node
     - NodeConnector
-    - GrassBlock
-    - GrassLeft
-    - GrassRight
     - StoneBlock
-    - StoneLeft
-    - StoneRight
     - StoneTop
-    - StoneBottom
-    - StoneWall
-    - TopGrass
-    - WoodenBlock
-    - WoodenPillar
-    - WoodenPillarBase
-    - WoodenPlatform
-    - WoodenWall
     - YellowMob
     - YellowGoal
     - YellowGoalLocked
@@ -195,21 +182,8 @@ MonoBehaviour:
     - {fileID: 1987912243540142, guid: cc9092a929d9d4bac88115c1e989bc68, type: 2}
     - {fileID: 1145022892062938, guid: 1024df6a80d5b40ee8f811652f7e334d, type: 2}
     - {fileID: 1987912243540142, guid: 75ddd47aa3ed6486cbfadc3ab68e6c70, type: 2}
-    - {fileID: 1541733499531832, guid: 1c6d71da0c8a645649a753fedc6b5cbe, type: 2}
-    - {fileID: 1541733499531832, guid: 08d17514a731f4943a3eef9084086fc8, type: 2}
-    - {fileID: 1541733499531832, guid: b3fd739e009114d0daffab6e9d58ee7a, type: 2}
     - {fileID: 1541733499531832, guid: 79106a2d4b1c5478f803c1122ec016b8, type: 2}
-    - {fileID: 1541733499531832, guid: e6d86ec62fae241bfbf910cc2a9e5b96, type: 2}
-    - {fileID: 1541733499531832, guid: 54bc52fdcbaba48b285253b398d5b57f, type: 2}
     - {fileID: 1541733499531832, guid: 6168986c497e2491fa625729990a2b23, type: 2}
-    - {fileID: 1541733499531832, guid: f77ddde40027d40e2b0d06a61afd05b7, type: 2}
-    - {fileID: 1541733499531832, guid: 85adc0ef0160544e795ee0cf731440e4, type: 2}
-    - {fileID: 1541733499531832, guid: aaa85f928219142dc8d3a1f90f8ce701, type: 2}
-    - {fileID: 1541733499531832, guid: 53baca733c54745d2b6f07f6aa4494bd, type: 2}
-    - {fileID: 1541733499531832, guid: 6553f7266930343a9997fae11b7f5415, type: 2}
-    - {fileID: 1541733499531832, guid: 2dda34f63c9ed41a281a3d445ebc1a83, type: 2}
-    - {fileID: 1541733499531832, guid: d1617c34c213848018abfb46bb52a4c0, type: 2}
-    - {fileID: 1541733499531832, guid: dc624587ae2184e10a74bcdb1c8afc42, type: 2}
     - {fileID: 1838411016884770, guid: 1185e526e02934a68acb8eec3ff59fa7, type: 2}
     - {fileID: 1161881352778708, guid: 8e3d427f7b7d446a8905f80a924003e3, type: 2}
     - {fileID: 1161881352778708, guid: 11f278f331eb84d0fa6735cb7d3f0495, type: 2}
@@ -1123,7 +1097,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.6156863, g: 0.7372549, b: 0.7764706, a: 0}
+  m_BackGroundColor: {r: 0.81960785, g: 0.8745098, b: 0.8901961, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
