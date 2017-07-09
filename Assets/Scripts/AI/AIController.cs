@@ -141,7 +141,7 @@ public class AIController : MonoBehaviour {
         var flags = FindObjectsOfType<Flag>();
 
         foreach (var flag in flags) {
-            if (flag.locked || (flag.capturedTeam == myMob.team && flag.capturedAmount >= 1f - float.Epsilon)) {
+            if (flag.locked || (flag.CapturedTeam == myMob.team && flag.CapturedAmount >= 1f - float.Epsilon)) {
                 continue;
             }
 

@@ -100,6 +100,7 @@ public class Globals {
     #region Goals
 
     public static float goalCaptureAmountPerMob = .05f;
+    public static float goalCaptureAmountAlone = .02f;
 
     #endregion
 

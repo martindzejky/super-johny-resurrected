@@ -8,12 +8,17 @@
 public class Flag : MonoBehaviour {
 
     public Transform movingFlag;
-    public uint capturedTeam;
-    public float capturedAmount;
     public bool locked;
+
+    public float CapturedAmount => capturedAmount;
+    public uint CapturedTeam  => capturedTeam;
 
     private Collider2D myCollider;
     private bool scoredForCapturing;
+
+    private float capturedAmount;
+    private uint capturedTeam;
+    private int previousCapturedTeam = -1;
 
     public void Awake() {
         myCollider = GetComponent<Collider2D>();
@@ -28,8 +33,10 @@ public class Flag : MonoBehaviour {
         UpdateFlagPosition();
     }
 
-    public bool IsCapturedByTeam(uint team) {
-        return capturedTeam == team && capturedAmount >= 1f - float.Epsilon;
+    public void Capture(uint team) {
+        capturedAmount = 1f;
+        capturedTeam = team;
+        previousCapturedTeam = (int) team;
     }
 
     public GameObject SpawnMob(GameObject prefab) {
@@ -40,6 +47,11 @@ public class Flag : MonoBehaviour {
         return Instantiate(prefab, spawn, Quaternion.identity);
     }
 
+
+    public bool IsCapturedByTeam(uint team) {
+        return previousCapturedTeam == capturedTeam && capturedTeam == team;
+    }
+
     private void CheckCapturing() {
         if (locked) {
             return;
@@ -48,6 +60,7 @@ public class Flag : MonoBehaviour {
         var mobs = Physics2D.OverlapBoxAll(myCollider.bounds.center, myCollider.bounds.size, 0f,
             LayerMask.GetMask(Globals.mobLayerName));
 
+        var someoneCapturing = false;
         foreach (var mobObject in mobs) {
             var mob = mobObject.GetComponent<Mob>();
 
@@ -56,11 +69,14 @@ public class Flag : MonoBehaviour {
                 continue;
             }
 
+            someoneCapturing = true;
+
             if (capturedTeam == mob.team) {
                 capturedAmount = Mathf.Min(1f, capturedAmount + Globals.goalCaptureAmountPerMob * Time.deltaTime);
 
                 if (capturedAmount >= 1f - float.Epsilon && !scoredForCapturing) {
                     scoredForCapturing = true;
+                    previousCapturedTeam = (int) capturedTeam;
                     MobTeams.GetTeam(mob.team).score += 5;
 
                     var prefabRegistry = FindObjectOfType<PrefabRegistry>();
@@ -77,6 +93,16 @@ public class Flag : MonoBehaviour {
                     movingFlag.GetComponent<SpriteRenderer>().color = MobTeams.GetTeam(mob.team).teamColor;
                     scoredForCapturing = false;
                 }
+            }
+        }
+
+        // if noone is capturing, slowly decrease the amount if not fully captured
+        if (!someoneCapturing) {
+            if (capturedTeam == previousCapturedTeam) {
+                capturedAmount = Mathf.Min(1f, capturedAmount + Globals.goalCaptureAmountAlone * Time.deltaTime);
+            }
+            else {
+                capturedAmount = Mathf.Max(0f, capturedAmount - Globals.goalCaptureAmountAlone * Time.deltaTime);
             }
         }
     }

@@ -12,8 +12,7 @@ public class CapturedFlag : MonoBehaviour {
     public void Start () {
         var registry = FindObjectOfType<PrefabRegistry>();
         var flag = Instantiate(registry.goal, transform.position, transform.rotation).GetComponent<Flag>();
-        flag.capturedAmount = 1f;
-        flag.capturedTeam = capturedTeam;
+        flag.Capture(capturedTeam);
         flag.locked = locked;
         Destroy(gameObject);
     }
