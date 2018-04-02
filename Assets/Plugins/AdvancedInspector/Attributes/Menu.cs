@@ -11,11 +11,30 @@ namespace AdvancedInspector
         public delegate void MenuDelegate();
         public delegate void MenuStaticDelegate(MenuAttribute fieldMenuItem, object instance, object value);
 
+        public delegate bool MenuEnabledDelegate();
+        public delegate bool MenuIsOnDelegate();
+
         private string menuItemName;
 
         public string MenuItemName
         {
             get { return menuItemName; }
+        }
+
+        private bool enabled = true;
+        private MenuEnabledDelegate enabledDelegate = null;
+
+        public bool Enabled
+        {
+            get { return enabledDelegate != null ? enabledDelegate() : enabled; }
+        }
+
+        private bool isOn = true;
+        private MenuIsOnDelegate isOnDelegate = null;
+
+        public bool IsOn
+        {
+            get { return isOnDelegate != null ? isOnDelegate() : isOn; }
         }
 
         #region IRuntimeAttribute Implementation
@@ -74,6 +93,20 @@ namespace AdvancedInspector
         {
             this.menuItemName = menuItemName;
             this.methodName = methodName;
+        }
+
+        public MenuAttribute(string menuItemName, Delegate method)
+            : this(menuItemName, method, null, null) { }
+
+        public MenuAttribute(string menuItemName, Delegate method, MenuEnabledDelegate enabledDelegate)
+            : this(menuItemName, method, enabledDelegate, null) { }
+
+        public MenuAttribute(string menuItemName, Delegate method, MenuEnabledDelegate enabledDelegate, MenuIsOnDelegate isOnDelegate)
+        {
+            this.menuItemName = menuItemName;
+            this.enabledDelegate = enabledDelegate;
+            this.isOnDelegate = isOnDelegate;
+            this.delegates.Add(method);
         }
     }
 }

@@ -37,22 +37,17 @@ namespace AdvancedInspector
             return list;
         }
 
-        private Vector3 CapsuleExtends(CapsuleCollider target)
-        {
-            return new Vector3(target.radius, target.height, target.radius) + target.center;
-        }
-
         private Matrix4x4 CapsuleOrientation(CapsuleCollider target)
         {
             if (target.direction == (int)AxisOrientation.YAxis)
                 return Matrix4x4.TRS(target.transform.TransformPoint(target.center),
-                    target.gameObject.transform.rotation, Vector3.one);
+                    target.gameObject.transform.rotation, target.transform.localScale);
             else if (target.direction == (int)AxisOrientation.XAxis)
                 return Matrix4x4.TRS(target.transform.TransformPoint(target.center),
-                    target.transform.rotation * Quaternion.LookRotation(Vector3.up, Vector3.right), Vector3.one);
+                    target.transform.rotation * Quaternion.LookRotation(Vector3.up, Vector3.right), target.transform.localScale);
             else
                 return Matrix4x4.TRS(target.transform.TransformPoint(target.center),
-                    target.transform.rotation * Quaternion.LookRotation(Vector3.right, Vector3.forward), Vector3.one); 
+                    target.transform.rotation * Quaternion.LookRotation(Vector3.right, Vector3.forward), target.transform.localScale); 
         }
 
         protected override void OnSceneGUI()
@@ -71,19 +66,14 @@ namespace AdvancedInspector
                 Handles.color = ColliderHandleColorDisabled;
 
             bool enabled = GUI.enabled;
-            if (!Event.current.shift && GUIUtility.hotControl != ControlID)
-            {
-                GUI.enabled = false;
-                Handles.color = new Color(0f, 0f, 0f, 0.001f);
-            }
 
-            Vector3 capsuleExtents = CapsuleExtends(collider);
             Matrix4x4 matrix = CapsuleOrientation(collider);
 
-            float y = capsuleExtents.y - collider.center.y - 1;
-            float x = capsuleExtents.x - collider.center.x;
+            float radius = collider.radius;
+            float height = collider.height;
+            float y = Mathf.Max(height * 0.5f, radius);
+            float x = radius;
 
-            int hotControl = GUIUtility.hotControl;
             Vector3 localPos = Vector3.up * y;
 
             float value = SizeHandle(localPos, Vector3.up, matrix);
@@ -91,70 +81,35 @@ namespace AdvancedInspector
                 value = SizeHandle(-localPos, Vector3.down, matrix);
 
             if (GUI.changed)
-                collider.height += value / y / collider.height;
-
-            value = SizeHandle(Vector3.left * x, Vector3.left, matrix);
-            if (!GUI.changed)
-                value = SizeHandle(-Vector3.left * x, -Vector3.left, matrix);
-
-            if (!GUI.changed)
-                value = SizeHandle(Vector3.forward * x, Vector3.forward, matrix);
-
-            if (!GUI.changed)
-                value = SizeHandle(-Vector3.forward * x, -Vector3.forward, matrix);
-
-            if (GUI.changed)
-                collider.radius += value / Mathf.Max(capsuleExtents.z / collider.radius, capsuleExtents.x / collider.radius);
-
-            if (hotControl != GUIUtility.hotControl && GUIUtility.hotControl != 0)
-                ControlID = GUIUtility.hotControl;
-
-            if (GUI.changed)
             {
                 Undo.RecordObject(collider, "Edited Capsule Collider");
-                collider.radius = Mathf.Max(collider.radius, 0.001f);
+                collider.height += value / y / collider.height;
                 collider.height = Mathf.Max(collider.height, 0.001f);
+            }
+            else
+            {
+                if (!GUI.changed)
+                    value = SizeHandle(Vector3.left * x, Vector3.left, matrix);
+
+                if (!GUI.changed)
+                    value = SizeHandle(-Vector3.left * x, -Vector3.left, matrix);
+
+                if (!GUI.changed)
+                    value = SizeHandle(Vector3.forward * x, Vector3.forward, matrix);
+
+                if (!GUI.changed)
+                    value = SizeHandle(-Vector3.forward * x, -Vector3.forward, matrix);
+
+                if (GUI.changed)
+                {
+                    Undo.RecordObject(collider, "Edited Capsule Collider");
+                    collider.radius += value;
+                    collider.radius = Mathf.Max(collider.radius, 0.001f);
+                }
             }
 
             Handles.color = color;
             GUI.enabled = enabled;
-        }
-
-        private float SizeHandle(Vector3 localPos, Vector3 localPullDir, Matrix4x4 matrix)
-        {
-            bool changed = GUI.changed;
-            GUI.changed = false;
-
-            Vector3 rhs = matrix.MultiplyVector(localPullDir);
-            Vector3 position = matrix.MultiplyPoint(localPos);
-            float handleSize = HandleUtility.GetHandleSize(position);
-
-            Color color = Handles.color;
-            float angle = Mathf.Cos(0.7853982f);
-
-            float dot;
-            if (Camera.current.orthographic)
-                dot = Vector3.Dot(-Camera.current.transform.forward, rhs);
-            else
-                dot = Vector3.Dot((Camera.current.transform.position - position).normalized, rhs);
-
-            if (dot < -angle)
-                Handles.color = new Color(Handles.color.r, Handles.color.g, Handles.color.b, Handles.color.a * 0.2f);
-
-#if UNITY_5_6
-            Vector3 point = Handles.Slider(position, rhs, handleSize * 0.03f, new Handles.CapFunction(Handles.DotHandleCap), 0f);
-#else
-            Vector3 point = Handles.Slider(position, rhs, handleSize * 0.03f, new Handles.DrawCapFunction(Handles.DotCap), 0f);
-#endif
-
-            float result = 0f;
-            if (GUI.changed)
-                result = HandleUtility.PointOnLineParameter(point, position, rhs);
-
-            GUI.changed |= changed;
-            Handles.color = color;
-
-            return result;
         }
     }
 

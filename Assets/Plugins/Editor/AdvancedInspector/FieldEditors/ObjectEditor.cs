@@ -19,14 +19,14 @@ namespace AdvancedInspector
                 if (EditorGUIUtility.isProSkin)
                 {
                     if (pickerPro == null)
-                        pickerPro = Helper.Load(EditorResources.PickerPro);
+                        pickerPro = AssetDatabase.LoadAssetAtPath<Texture>(AdvancedInspectorControl.DataPath + "PickerPro.png");
 
                     return pickerPro;
                 }
                 else
                 {
                     if (picker == null)
-                        picker = Helper.Load(EditorResources.Picker);
+                        picker = AssetDatabase.LoadAssetAtPath<Texture>(AdvancedInspectorControl.DataPath + "Picker.png");
 
                     return picker;
                 }
@@ -134,11 +134,8 @@ namespace AdvancedInspector
             {
                 Rect position = EditorGUILayout.GetControlRect(false, 16f);
 
-#if UNITY_5_6
                 int id = GUIUtility.GetControlID(s_ObjectFieldHash, FocusType.Passive, position);
-#else
-                int id = GUIUtility.GetControlID(s_ObjectFieldHash, EditorGUIUtility.native, position);
-#endif
+
                 Delegate validation = Delegate.CreateDelegate(validator, typeof(ObjectEditor).GetMethod("ValidateObjectFieldAssignment", BindingFlags.NonPublic | BindingFlags.Static));
 
                 result = doObjectField.Invoke(null, new object[] { position, position, id, value, type, null, validation, dontAllow == null, EditorStyles.objectField } ) as UnityEngine.Object;

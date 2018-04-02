@@ -19,6 +19,14 @@ namespace AdvancedInspector
         [Collection(false)]
         public bool[] unsortableArray;
 
+        [Collection("CollectionSize")]
+        public Color[] dynamicFixedArray;
+
+        private string[] CollectionSize()
+        {
+            return new string[] { "A", "B", "C" };
+        }
+
         // Collection can also be displayed 1 item at a time. You can use a drop down or buttons to navigate in it.
         [Collection(Display = CollectionDisplay.Button)]
         public List<bool> buttonList;

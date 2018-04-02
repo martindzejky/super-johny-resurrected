@@ -6,7 +6,7 @@ using UnityEngine;
 namespace AdvancedInspector
 {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(SkinnedMeshRenderer), true)]
+    //[CustomEditor(typeof(SkinnedMeshRenderer), true)]
     public class SkinnedMeshRendererEditor : RendererEditor
     {
         protected override void RefreshFields()
@@ -18,11 +18,9 @@ namespace AdvancedInspector
                 new DescriptorAttribute("Quality", "The maximum number of bones affecting a single vertex.", "http://docs.unity3d.com/ScriptReference/SkinnedMeshRenderer-quality.html")));
             Fields.Add(new InspectorField(type, Instances, type.GetProperty("updateWhenOffscreen"),
                 new DescriptorAttribute("Update Off Screen", "If enabled, the Skinned Mesh will be updated when offscreen. If disabled, this also disables updating animations.", "http://docs.unity3d.com/ScriptReference/SkinnedMeshRenderer-updateWhenOffscreen.html")));
-            
-#if UNITY_5_6
+
             Fields.Add(new InspectorField(type, Instances, type.GetProperty("skinnedMotionVectors"),
                 new DescriptorAttribute("Skinned Motion Vectors", "Specifies whether skinned motion vectors should be used for this renderer.", "https://docs.unity3d.com/ScriptReference/SkinnedMeshRenderer-skinnedMotionVectors.html")));
-#endif
 
             Fields.Add(new InspectorField(type, Instances, type.GetProperty("sharedMesh"),
                 new DescriptorAttribute("Mesh", "The mesh used for skinning.", "http://docs.unity3d.com/ScriptReference/SkinnedMeshRenderer-sharedMesh.html")));

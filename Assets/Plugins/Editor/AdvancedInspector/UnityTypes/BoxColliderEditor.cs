@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Reflection;
 
 using UnityEditor;
@@ -12,22 +10,6 @@ namespace AdvancedInspector
     [CustomEditor(typeof(BoxCollider), true)]
     public class BoxColliderEditor : ColliderEditor
     {
-        private static readonly int hash = "BoxColliderEditor".GetHashCode();
-        private object boxEditor;
-        private MethodInfo edit;
-
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-
-            Type box = TypeUtility.GetTypeByName("BoxEditor");
-            if (box == null)
-                return;
-
-            boxEditor = Activator.CreateInstance(box, true, hash);
-            edit = box.GetMethod("OnSceneGUI", new Type[] { typeof(Transform), typeof(Color), typeof(Vector3).MakeByRefType(), typeof(Vector3).MakeByRefType() });
-        }
-
         protected override void RefreshFields()
         {
             Type type = typeof(BoxCollider);
@@ -47,30 +29,77 @@ namespace AdvancedInspector
             if (Event.current.type == EventType.Used)
                 return;
 
-            BoxCollider boxCollider = (BoxCollider)target;
-            Vector3 center = boxCollider.center;
-            Vector3 size = boxCollider.size;
-            Color color = ColliderHandleColor;
+            BoxCollider collider = (BoxCollider)target;
 
-            if (!boxCollider.enabled)
+            Color color = Handles.color;
+            if (collider.enabled)
+                Handles.color = ColliderHandleColor;
+            else
+                Handles.color = ColliderHandleColorDisabled;
+
+            Vector3 center = collider.center;
+            Vector3 size = collider.size;
+            Vector3 result;
+
+            Matrix4x4 matrix = Matrix4x4.TRS(collider.transform.position, collider.transform.rotation, collider.transform.localScale);
+            float value = SizeHandle(center + new Vector3(size.x * 0.5f, 0, 0), Vector3.right, matrix);
+            if (GUI.changed)
             {
-                color = ColliderHandleColorDisabled;
+                result = new Vector3(value, 0, 0);
+                EditBox(collider, center + (result * 0.5f), size + result);
             }
-
-            if (boxEditor == null)
-                return;
-
-            object[] arguments = new object[] { boxCollider.transform, color, center, size };
-
-            if ((bool)edit.Invoke(boxEditor, arguments))
+            else
             {
-                center = (Vector3)arguments[2];
-                size = (Vector3)arguments[3];
-
-                Undo.RecordObject(boxCollider, "Modified Box Collider");
-                boxCollider.center = center;
-                boxCollider.size = size;
+                value = SizeHandle(center - new Vector3(size.x * 0.5f, 0, 0), Vector3.right, matrix);
+                if (GUI.changed)
+                {
+                    result = new Vector3(value, 0, 0);
+                    EditBox(collider, center - (result * 0.5f), size - result);
+                }
+                else
+                {
+                    value = SizeHandle(center + new Vector3(0, size.y * 0.5f, 0), Vector3.up, matrix);
+                    if (GUI.changed)
+                    {
+                        result = new Vector3(0, value, 0);
+                        EditBox(collider, center + (result * 0.5f), size + result);
+                    }
+                    else
+                    {
+                        value = SizeHandle(center - new Vector3(0, size.y * 0.5f, 0), Vector3.up, matrix);
+                        if (GUI.changed)
+                        {
+                            result = new Vector3(0, value, 0);
+                            EditBox(collider, center - (result * 0.5f), size - result);
+                        }
+                        else
+                        {
+                            value = SizeHandle(center + new Vector3(0, 0, size.z * 0.5f), Vector3.forward, matrix);
+                            if (GUI.changed)
+                            {
+                                result = new Vector3(0, 0, value);
+                                EditBox(collider, center + (result * 0.5f), size + result);
+                            }
+                            else
+                            {
+                                value = SizeHandle(center - new Vector3(0, 0, size.z * 0.5f), Vector3.forward, matrix);
+                                if (GUI.changed)
+                                {
+                                    result = new Vector3(0, 0, value);
+                                    EditBox(collider, center - (result * 0.5f), size - result);
+                                }
+                            }
+                        }
+                    }
+                }
             }
+        }
+
+        private static void EditBox(BoxCollider collider, Vector3 center, Vector3 size)
+        {
+            Undo.RecordObject(collider, "Edited Box Collider");
+            collider.center = center;
+            collider.size = new Vector3(Mathf.Max(size.x, 0.001f), Mathf.Max(size.y, 0.001f), Mathf.Max(size.z, 0.001f));
         }
     }
 }

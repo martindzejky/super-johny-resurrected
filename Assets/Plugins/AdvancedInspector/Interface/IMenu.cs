@@ -14,5 +14,15 @@
         /// The name it would show up.
         /// </summary>
         string MenuItemName { get; }
+
+        /// <summary>
+        /// Is this menu grayed out?
+        /// </summary>
+        bool Enabled { get; }
+
+        /// <summary>
+        /// Is this menu on?
+        /// </summary>
+        bool IsOn { get; }
     }
 }

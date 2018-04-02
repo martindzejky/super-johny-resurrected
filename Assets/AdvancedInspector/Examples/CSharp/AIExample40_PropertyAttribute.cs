@@ -11,5 +11,8 @@ namespace AdvancedInspector
         //However, some other plugin rely on them, so support from AI is sometime needed.
         [PropertyAttributeExample]
         public float example;
+
+        [PropertyAttributeExample]
+        public float[] examples;
     }
 }

@@ -13,17 +13,8 @@ namespace AdvancedInspector
         {
             Type type = typeof(Rigidbody2D);
 
-#if UNITY_5_3 || UNITY_5_4 || UNITY_5_5
-            Fields.Add(new InspectorField(type, Instances, type.GetProperty("useAutoMass"),
-                new DescriptorAttribute("Use Auto Mass", "Should the total rigid-body mass be automatically calculated from the [[Collider2D.density]] of attached colliders?", "http://docs.unity3d.com/ScriptReference/Rigidbody2D-useAutoMass.html")));
-
-            Fields.Add(new InspectorField(type, Instances, type.GetProperty("mass"),
-                new DescriptorAttribute("Mass", "The mass of the rigidbody", "https://docs.unity3d.com/Documentation/ScriptReference/Rigidbody-mass.html"),
-                new ReadOnlyAttribute(new ReadOnlyAttribute.ReadOnlyDelegate(IsAutoMass))));
-#else
             Fields.Add(new InspectorField(type, Instances, type.GetProperty("mass"),
                 new DescriptorAttribute("Mass", "The mass of the rigidbody", "https://docs.unity3d.com/Documentation/ScriptReference/Rigidbody-mass.html")));
-#endif
             Fields.Add(new InspectorField(type, Instances, type.GetProperty("drag"),
                 new DescriptorAttribute("Linear Drag", "Coefficient of drag.", "http://docs.unity3d.com/ScriptReference/Rigidbody2D-drag.html")));
             Fields.Add(new InspectorField(type, Instances, type.GetProperty("angularDrag"),
@@ -46,16 +37,5 @@ namespace AdvancedInspector
             Fields.Add(new InspectorField(type, Instances, type.GetProperty("velocity"), new InspectAttribute(InspectorLevel.Advanced),
                 new DescriptorAttribute("Velocity", "Linear velocity of the rigidbody.", "http://docs.unity3d.com/ScriptReference/Rigidbody2D-velocity.html")));
         }
-
-#if UNITY_5_3 || UNITY_5_4 || UNITY_5_5
-        private bool IsAutoMass()
-        {
-            foreach (Rigidbody2D rigid in Instances)
-                if (!rigid.useAutoMass)
-                    return false;
-
-            return true;
-        }
-#endif
     }
 }

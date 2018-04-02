@@ -62,11 +62,17 @@ namespace AdvancedInspector
             {
                 if (delegates[index].Target == null)
                 {
-                    return (bool)delegates[index].DynamicInvoke(this, instance, value);
+                    if (condition)
+                        return (bool)delegates[index].DynamicInvoke(this, instance, value);
+                    else
+                        return !(bool)delegates[index].DynamicInvoke(this, instance, value);
                 }
                 else
                 {
-                    return (bool)delegates[index].DynamicInvoke();
+                    if (condition)
+                        return (bool)delegates[index].DynamicInvoke();
+                    else
+                        return !(bool)delegates[index].DynamicInvoke();
                 }
             }
             catch (Exception e)

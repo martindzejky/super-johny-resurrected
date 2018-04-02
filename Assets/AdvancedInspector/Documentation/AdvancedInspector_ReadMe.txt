@@ -520,7 +520,22 @@ Take a look at the video for more information. It's an example of what the AI ca
 - Added properties for motion vectors in the mesh renderer.
 - For now, it is advised to turn off the MeshRenderer editor if you want to use the new Lightmap settings. Proper support is coming soon.
 
-1.60 and above is only supported on Unity 5.2+
-You may require to disable custom Advanced Inspector if you wish to use 1.60 on 5.1x.
+1.73:
+[CHANGES]
+- ScriptableComponent is now flagged as a supporting working feature.
+[FIXES]
+- Added missing properites on CharacterJoint and Joint objects.
+- Fixed an issue when using Runtime Resolved with collections.
+- RuntimeResolved is no longer a IListAttribute, it never worked. If you need a collection, just give the collection type.
+- Fixed an issue where IListAttribute would not be properly applied on PropertyDrawers. 
 
-Tested on 5.2, 5.3, 5.4, 5.5 and 5.6
+2.00:
+[CHANGES]
+- Dumped the DLL structure. This is a rather drastic change, please report any issue you might encounter.
+- No longer supporting Unity 5.x, as the last version (1.72a) is fully stable. AI 2.00 is not for 2017 and above.
+- Updated the Light and Camera editor to reflect new Unity features. The rendered is next.
+- Added support for Vector2Int and Vector3Int struct for Unity 2017.2 and above.
+- Rev A: Couple of quick fixes for Unity 2017.2 specific features
+
+1.60 and above is only supported on Unity 5.2+
+2.00 and above is only supported on Unity 2017+

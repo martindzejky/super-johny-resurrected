@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace AdvancedInspector
 {
@@ -7,6 +8,7 @@ namespace AdvancedInspector
         public bool myBoolean;
         public float myFloat;
         public string myString;
+        public List<bool> myCollection = new List<bool>();
 
         private int index = 0;
 
@@ -24,8 +26,10 @@ namespace AdvancedInspector
                     return myBoolean;
                 else if (index == 1)
                     return myFloat;
-                else
+                else if (index == 2)
                     return myString;
+                else
+                    return myCollection;
             }
             set
             {
@@ -33,8 +37,10 @@ namespace AdvancedInspector
                     myBoolean = (bool)value;
                 else if (index == 1)
                     myFloat = (float)value;
-                else
+                else if (index == 2)
                     myString = (string)value;
+                else
+                    myCollection = (List<bool>)value;
             }
         }
 
@@ -42,7 +48,7 @@ namespace AdvancedInspector
         public void PressMe()
         {
             index++;
-            if (index > 2)
+            if (index > 3)
                 index = 0;
         }
     }

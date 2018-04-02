@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor;
 using UnityEngine;
 
 namespace AdvancedInspector
@@ -29,6 +30,39 @@ namespace AdvancedInspector
             }
 
             return false;
+        }
+
+        public static float SizeHandle(Vector3 localPos, Vector3 localPullDir, Matrix4x4 matrix)
+        {
+            bool changed = GUI.changed;
+            GUI.changed = false;
+
+            Vector3 rhs = matrix.MultiplyVector(localPullDir);
+            Vector3 position = matrix.MultiplyPoint(localPos);
+            float handleSize = HandleUtility.GetHandleSize(position);
+
+            Color color = Handles.color;
+            float angle = Mathf.Cos(0.7853982f);
+
+            float dot;
+            if (Camera.current.orthographic)
+                dot = Vector3.Dot(-Camera.current.transform.forward, rhs);
+            else
+                dot = Vector3.Dot((Camera.current.transform.position - position).normalized, rhs);
+
+            if (dot < -angle)
+                Handles.color = new Color(Handles.color.r, Handles.color.g, Handles.color.b, Handles.color.a * 0.2f);
+
+            Vector3 point = Handles.Slider(position, rhs, handleSize * 0.03f, new Handles.CapFunction(Handles.DotHandleCap), 0f);
+
+            float result = 0f;
+            if (GUI.changed)
+                result = HandleUtility.PointOnLineParameter(point, position, rhs);
+
+            GUI.changed |= changed;
+            Handles.color = color;
+
+            return result;
         }
     }
 }

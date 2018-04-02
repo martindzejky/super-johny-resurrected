@@ -33,11 +33,7 @@ namespace AdvancedInspector
                 connectedAnchorActive = "U2D.dragDotActive";
             }
 
-#if UNITY_5_6
             Handles.CapFunction drawFunc = (!isConnectedAnchor) ? new Handles.CapFunction(AnchorCap) : new Handles.CapFunction(ConnectedAnchorCap);
-#else
-            Handles.DrawCapFunction drawFunc = (!isConnectedAnchor) ? new Handles.DrawCapFunction(AnchorCap) : new Handles.DrawCapFunction(ConnectedAnchorCap);
-#endif
 
             int id = this.target.GetInstanceID() + ((!isConnectedAnchor) ? 0 : 1);
             EditorGUI.BeginChangeCheck();
@@ -45,11 +41,7 @@ namespace AdvancedInspector
             return EditorGUI.EndChangeCheck();
         }
 
-#if UNITY_5_6
         public static void AnchorCap(int controlID, Vector3 position, Quaternion rotation, float size, EventType eventType)
-#else
-        public static void AnchorCap(int controlID, Vector3 position, Quaternion rotation, float size)
-#endif
         {
             if (controlID == GUIUtility.keyboardControl)
                 DrawCap(controlID, position, anchorActive);
@@ -57,11 +49,7 @@ namespace AdvancedInspector
                 DrawCap(controlID, position, anchor);
         }
 
-#if UNITY_5_6
         public static void ConnectedAnchorCap(int controlID, Vector3 position, Quaternion rotation, float size, EventType eventType)
-#else
-        public static void ConnectedAnchorCap(int controlID, Vector3 position, Quaternion rotation, float size)
-#endif
         {
             if (controlID == GUIUtility.keyboardControl)
                 DrawCap(controlID, position, connectedAnchorActive);

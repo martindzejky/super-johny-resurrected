@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using UnityEditor;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -8,36 +11,65 @@ namespace AdvancedInspector
 {
     public abstract class RendererEditor : InspectorEditor
     {
+        private InspectorField lightProbeUsage;
+        private InspectorField reflectionProbeUsage;
+
+        private InspectorField materials;
+
+        private SerializedObject gameObjects;
+        private SerializedProperty staticFlags;
+
+        private MethodInfo hasInstancing;
+        private MethodInfo tierSettings;
+
         protected override void RefreshFields()
         {
+            gameObjects = new SerializedObject((from t in targets select ((MeshRenderer)t).gameObject).ToArray());
+            staticFlags = gameObjects.FindProperty("m_StaticEditorFlags");
+
+            hasInstancing = typeof(ShaderUtil).GetMethod("HasInstancing", BindingFlags.Static | BindingFlags.NonPublic);
+            tierSettings = typeof(EditorGraphicsSettings).GetMethod("GetCurrentTierSettings", BindingFlags.Static | BindingFlags.NonPublic);
+
             Type type = typeof(Renderer);
 
-            Fields.Add(new InspectorField(type, Instances, type.GetProperty("shadowCastingMode"),
-                new DescriptorAttribute("Cast Shadows", "Does this object cast shadows?", "http://docs.unity3d.com/ScriptReference/Renderer-shadowCastingMode.html")));
-            Fields.Add(new InspectorField(type, Instances, type.GetProperty("receiveShadows"),
-                new DescriptorAttribute("Receive Shadows", "Does this object receive shadows?", "http://docs.unity3d.com/ScriptReference/Renderer-receiveShadows.html")));
+            lightProbeUsage = new InspectorField(type, Instances, type.GetProperty("lightProbeUsage"),
+                new DescriptorAttribute("Light Probes", "The light probe interpolation type.", "http://docs.unity3d.com/540/Documentation/ScriptReference/Renderer-lightProbeUsage.html"));
 
-#if UNITY_5_6
-            Fields.Add(new InspectorField(type, Instances, type.GetProperty("motionVectorGenerationMode"),
-                new DescriptorAttribute("Motion Vectors", "Specifies the mode for motion vector rendering.", "https://docs.unity3d.com/ScriptReference/Renderer-motionVectorGenerationMode.html")));
-#endif
+            Fields.Add(lightProbeUsage);
 
-            Fields.Add(new InspectorField(type, Instances, type.GetProperty("sharedMaterials"),
-                new DescriptorAttribute("Materials", "All the shared materials of this object.", "http://docs.unity3d.com/ScriptReference/Renderer-sharedMaterials.html")));
-#if UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3
-            Fields.Add(new InspectorField(type, Instances, type.GetProperty("useLightProbes"),
-                new DescriptorAttribute("Use Light Probes", "Use light probes for this Renderer.", "http://docs.unity3d.com/ScriptReference/Renderer-useLightProbes.html")));
-#else
-            Fields.Add(new InspectorField(type, Instances, type.GetProperty("lightProbeUsage"),
-                new DescriptorAttribute("Light Probes", "The light probe interpolation type.", "http://docs.unity3d.com/540/Documentation/ScriptReference/Renderer-lightProbeUsage.html")));
             Fields.Add(new InspectorField(type, Instances, type.GetProperty("lightProbeProxyVolumeOverride"),
                 new DescriptorAttribute("Proxy Volume Override", "If set, the Renderer will use the Light Probe Proxy Volume component attached to the source game object.", "http://docs.unity3d.com/540/Documentation/ScriptReference/Renderer-lightProbeProxyVolumeOverride.html"),
                 new InspectAttribute(new InspectAttribute.InspectDelegate(IsUsingLightProbeOverride))));
-#endif
+
+            reflectionProbeUsage = new InspectorField(type, Instances, type.GetProperty("reflectionProbeUsage"),
+                new ReadOnlyAttribute(new ReadOnlyAttribute.ReadOnlyDelegate(IsDeferredRenderingPath)),
+                new InspectAttribute(new InspectAttribute.InspectDelegate(IsDeferredRenderingPath)),
+                new DescriptorAttribute("Reflection Probes", "Should reflection probes be used for this Renderer?", "http://docs.unity3d.com/ScriptReference/Renderer-reflectionProbeUsage.html"));
+
+            Fields.Add(reflectionProbeUsage);
+
             Fields.Add(new InspectorField(type, Instances, type.GetProperty("probeAnchor"), new InspectAttribute(new InspectAttribute.InspectDelegate(IsUsingLightProbes)),
                 new DescriptorAttribute("Anchor Override", "If set, Renderer will use this Transform's position to find the interpolated light probe.", "http://docs.unity3d.com/ScriptReference/Renderer-lightProbeAnchor.html")));
-            Fields.Add(new InspectorField(type, Instances, type.GetProperty("reflectionProbeUsage"),
-                new DescriptorAttribute("Reflection Probes", "Should reflection probes be used for this Renderer?", "http://docs.unity3d.com/ScriptReference/Renderer-reflectionProbeUsage.html")));
+
+            Fields.Add(new InspectorField(type, Instances, type.GetProperty("shadowCastingMode"),
+                new DescriptorAttribute("Cast Shadows", "Does this object cast shadows?", "http://docs.unity3d.com/ScriptReference/Renderer-shadowCastingMode.html")));
+
+            Fields.Add(new InspectorField(type, Instances, type.GetProperty("receiveShadows"),
+                new ReadOnlyAttribute(new ReadOnlyAttribute.ReadOnlyDelegate(IsDeferredRenderingPath)),
+                new DescriptorAttribute("Receive Shadows", "Does this object receive shadows?", "http://docs.unity3d.com/ScriptReference/Renderer-receiveShadows.html")));
+
+            Fields.Add(new InspectorField(type, Instances, type.GetProperty("motionVectorGenerationMode"),
+                new DescriptorAttribute("Motion Vectors", "Specifies the mode for motion vector rendering.", "https://docs.unity3d.com/ScriptReference/Renderer-motionVectorGenerationMode.html")));
+
+            Fields.Add(new InspectorField(type, Instances, type.GetProperty("allowOcclusionWhenDynamic"),
+                new DescriptorAttribute("Dynamic Occluded", "Controls if dynamic occlusion culling should be performed for this renderer.", "https://docs.unity3d.com/ScriptReference/Renderer-allowOcclusionWhenDynamic.html")));
+
+            materials = new InspectorField(type, Instances, type.GetProperty("sharedMaterials"),
+                new HelpAttribute(new HelpAttribute.HelpDelegate(MaterialWarning)),
+                new HelpAttribute(new HelpAttribute.HelpDelegate(MaterialInstancingWarning)),
+                new DescriptorAttribute("Materials", "All the shared materials of this object.", "http://docs.unity3d.com/ScriptReference/Renderer-sharedMaterials.html"));
+
+            Fields.Add(materials);
 
             Type editor = typeof(RendererEditor);
             Fields.Add(new InspectorField(editor, new UnityEngine.Object[] { this }, editor.GetProperty("ReflectionProbes", BindingFlags.NonPublic | BindingFlags.Instance),
@@ -60,45 +92,61 @@ namespace AdvancedInspector
 
         private bool IsUsingLightProbes()
         {
-#if UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3
-            for (int i = 0; i < Instances.Length; i++)
-                if (!((Renderer)Instances[i]).useLightProbes)
-                    return false;
-#else
-            for (int i = 0; i < Instances.Length; i++)
-                if (((Renderer)Instances[i]).lightProbeUsage == LightProbeUsage.Off)
-                    return false;
-#endif
-
-            return true;
+            return !lightProbeUsage.Mixed && lightProbeUsage.GetValue<LightProbeUsage>() != LightProbeUsage.Off;
         }
 
         private bool IsUsingLightProbeOverride()
         {
-#if UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3
-            return false;
-#else
-            for (int i = 0; i < Instances.Length; i++)
-                if (((Renderer)Instances[i]).lightProbeUsage != LightProbeUsage.UseProxyVolume)
-                    return false;
-
-            return true;
-#endif
+            return !lightProbeUsage.Mixed && lightProbeUsage.GetValue<LightProbeUsage>() == LightProbeUsage.UseProxyVolume;
         }
 
         private bool IsUsingReflectionProbes()
         {
-            for (int i = 0; i < Instances.Length; i++)
-                if (((Renderer)Instances[i]).reflectionProbeUsage == ReflectionProbeUsage.Off)
-                    return false;
-
-            return true;
+            return !reflectionProbeUsage.Mixed && reflectionProbeUsage.GetValue<ReflectionProbeUsage>() != ReflectionProbeUsage.Off;
         }
 
-        /*private bool IsDeferredShading()
+        private HelpItem MaterialWarning()
         {
+            if (materials.Mixed)
+                return null;
 
-        }*/
+            Material[] array = materials.GetValue<Material[]>();
+            MeshFilter component = ((MeshRenderer)serializedObject.targetObject).GetComponent<MeshFilter>();
+            if (component != null && component.sharedMesh != null && array.Length > component.sharedMesh.subMeshCount)
+                return new HelpItem(HelpType.Warning, "This renderer has more materials than the Mesh has submeshes. Multiple materials will be applied to the same submesh, which costs performance. Consider using multiple shader passes.");
+
+            return null;
+        }
+
+        private HelpItem MaterialInstancingWarning()
+        {
+            if (materials.Mixed)
+                return null;
+
+            if (staticFlags.hasMultipleDifferentValues || (staticFlags.intValue & 4) == 0)
+                return null;
+
+            Material[] array = materials.GetValue<Material[]>();
+            for (int i = 0; i < array.Length; i++)
+            {
+                Material material = array[i];
+                if (material != null && material.enableInstancing && material.shader != null && (bool)hasInstancing.Invoke(null, new object[] { material.shader }))
+                {
+                    return new HelpItem(HelpType.Warning, "This renderer is statically batched and uses an instanced shader at the same time. Instancing will be disabled in such a case. Consider disabling static batching if you want it to be instanced.");
+                }
+            }
+
+            return null;
+        }
+
+        private bool IsDeferredRenderingPath()
+        {
+            Camera[] cameras = SceneView.GetAllSceneCameras();
+            if (cameras.Length == 0 || cameras[0].renderingPath == RenderingPath.UsePlayerSettings)
+                return ((TierSettings)tierSettings.Invoke(null, null)).renderingPath == RenderingPath.DeferredShading;
+            else
+                return cameras[0].renderingPath == RenderingPath.DeferredShading;
+        }
 
         private ReflectionProbeBlendInfo[] ReflectionProbes
         {

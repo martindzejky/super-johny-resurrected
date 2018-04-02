@@ -32,7 +32,7 @@ namespace AdvancedInspector
         /// </summary>
         protected virtual void Reset()
         {
-            hideFlags = HideFlags.HideInInspector;
+            hideFlags = HideFlags.HideInHierarchy | HideFlags.HideInInspector;
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace AdvancedInspector
         }
 
         /// <summary>
-        /// Instanciate an existing Component on the same owner GameObject
+        /// Instanciate an existing Component on the same owner Asset
         /// </summary>
         public ScriptableComponent Instantiate()
         {
@@ -66,7 +66,7 @@ namespace AdvancedInspector
         }
 
         /// <summary>
-        /// Instanciate an existing Component on the target GameObject.
+        /// Instanciate an existing Component on the target Asset
         /// </summary>
         public ScriptableComponent Instantiate(ScriptableObject owner)
         {

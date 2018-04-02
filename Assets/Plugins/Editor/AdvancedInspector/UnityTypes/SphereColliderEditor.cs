@@ -9,8 +9,6 @@ namespace AdvancedInspector
     [CustomEditor(typeof(SphereCollider), true)]
     public class SphereColliderEditor : ColliderEditor
     {
-        private int ControlID = -1;
-
         protected override void RefreshFields()
         {
             Type type = typeof(SphereCollider);
@@ -39,11 +37,6 @@ namespace AdvancedInspector
                 Handles.color = ColliderHandleColorDisabled;
 
             bool enabled = GUI.enabled;
-            if (!Event.current.shift && GUIUtility.hotControl != ControlID)
-            {
-                GUI.enabled = false;
-                Handles.color = new Color(0f, 0f, 0f, 0.001f);
-            }
 
             Vector3 lossyScale = collider.transform.lossyScale;
             float x = Mathf.Abs(lossyScale.x);
@@ -62,9 +55,6 @@ namespace AdvancedInspector
                 Undo.RecordObject(collider, "Edited Sphere Collider");
                 collider.radius = value / scale;
             }
-
-            if (hotControl != GUIUtility.hotControl && GUIUtility.hotControl != 0)
-                ControlID = GUIUtility.hotControl;
 
             Handles.color = color;
             GUI.enabled = enabled;

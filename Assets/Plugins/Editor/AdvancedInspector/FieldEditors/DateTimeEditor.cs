@@ -21,7 +21,7 @@ namespace AdvancedInspector
             get
             {
                 if (calendar == null)
-                    calendar = Helper.Load(EditorResources.Calendar);
+                    calendar = AssetDatabase.LoadAssetAtPath<Texture>(AdvancedInspectorControl.DataPath + "Calendar.png");
 
                 return calendar;
             }

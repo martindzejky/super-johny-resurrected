@@ -4,7 +4,7 @@ using UnityEngine;
 namespace AdvancedInspector
 {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(MeshRenderer), true)]
+    //[CustomEditor(typeof(MeshRenderer), true)]
     public class MeshRendererEditor : RendererEditor
     {
         protected override void RefreshFields()

@@ -17,6 +17,12 @@ namespace AdvancedInspector
     {
         // Usually Advanced Inspector would not show this item because it lacks the "Inspect" attribute.
         public float myFloat;
+
+#if !UNITY_2017_1
+        public Vector2Int vector2Int;
+
+        public Vector3Int vector3Int;
+#endif
     }
 }
 

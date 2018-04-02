@@ -10,8 +10,6 @@ namespace AdvancedInspector
     [CustomEditor(typeof(CharacterController), true)]
     public class CharacterControllerEditor : InspectorEditor
     {
-        private int controlID = -1;
-
         private Color colliderHandleColor = new Color(145f, 244f, 139f, 210f) / 255f;
         private Color colliderHandleColorDisabled = new Color(84f, 200f, 77f, 140f) / 255f;
 
@@ -50,8 +48,6 @@ namespace AdvancedInspector
 
         protected override void OnSceneGUI()
         {
-            bool flag = GUIUtility.hotControl == controlID;
-
             CharacterController controller = (CharacterController)target;
             Color color = Handles.color;
 
@@ -61,11 +57,6 @@ namespace AdvancedInspector
                 Handles.color = colliderHandleColorDisabled;
 
             bool enabled = GUI.enabled;
-            if (!Event.current.shift && !flag)
-            {
-                GUI.enabled = false;
-                Handles.color = new Color(1f, 0f, 0f, 0.001f);
-            }
 
             float height = controller.height * controller.transform.lossyScale.y;
             float radius = controller.radius * Mathf.Max(controller.transform.lossyScale.x, controller.transform.lossyScale.z);
@@ -79,15 +70,15 @@ namespace AdvancedInspector
             if (!GUI.changed)
                 size = SizeHandle(-localPos, Vector3.down, matrix, true);
 
-            size = SizeHandle((Vector3)(Vector3.left * radius), Vector3.left, matrix, true);
+            size = SizeHandle(Vector3.left * radius, Vector3.left, matrix, true);
             if (!GUI.changed)
-                size = SizeHandle((Vector3)(-Vector3.left * radius), -Vector3.left, matrix, true);
+                size = SizeHandle(-Vector3.left * radius, -Vector3.left, matrix, true);
 
             if (!GUI.changed)
-                size = SizeHandle((Vector3)(Vector3.forward * radius), Vector3.forward, matrix, true);
+                size = SizeHandle(Vector3.forward * radius, Vector3.forward, matrix, true);
 
             if (!GUI.changed)
-                size = SizeHandle((Vector3)(-Vector3.forward * radius), -Vector3.forward, matrix, true);
+                size = SizeHandle(-Vector3.forward * radius, -Vector3.forward, matrix, true);
 
             if (GUI.changed)
             {
@@ -99,10 +90,6 @@ namespace AdvancedInspector
                 controller.radius = Mathf.Max(controller.radius, 1E-05f);
                 controller.height = Mathf.Max(controller.height, 1E-05f);
             }
-
-            int hotControl = GUIUtility.hotControl;
-            if ((hotControl != GUIUtility.hotControl) && (GUIUtility.hotControl != 0))
-                controlID = GUIUtility.hotControl;
 
             Handles.color = color;
             GUI.enabled = enabled;
@@ -134,11 +121,7 @@ namespace AdvancedInspector
             if (dot < -edge)
                 Handles.color = new Color(Handles.color.r, Handles.color.g, Handles.color.b, Handles.color.a * 0.2f);
 
-#if UNITY_5_6
             Vector3 point = Handles.Slider(position, rhs, handleSize * 0.03f, new Handles.CapFunction(Handles.DotHandleCap), 0f);
-#else
-            Vector3 point = Handles.Slider(position, rhs, handleSize * 0.03f, new Handles.DrawCapFunction(Handles.DotCap), 0f);
-#endif
 
             float distance = 0f;
             if (GUI.changed)

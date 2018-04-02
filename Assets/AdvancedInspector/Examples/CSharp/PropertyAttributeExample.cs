@@ -2,5 +2,5 @@
 
 namespace AdvancedInspector
 {
-    public class PropertyAttributeExample : PropertyAttribute { }
+    public class PropertyAttributeExample : PropertyAttribute, IListAttribute { }
 }

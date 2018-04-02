@@ -18,7 +18,7 @@ namespace AdvancedInspector
             {
                 if (knob == null)
                 {
-                    knob = Helper.Load(EditorResources.Knob);
+                    knob = AssetDatabase.LoadAssetAtPath<Texture>(AdvancedInspectorControl.DataPath + "Knob.png");
                     knob.filterMode = FilterMode.Trilinear;
                 }
 
@@ -33,7 +33,7 @@ namespace AdvancedInspector
             get
             {
                 if (knobBack == null)
-                    knobBack = Helper.Load(EditorResources.KnobBack);
+                    knobBack = AssetDatabase.LoadAssetAtPath<Texture>(AdvancedInspectorControl.DataPath + "KnobBack.png");
 
                 return knobBack;
             }
